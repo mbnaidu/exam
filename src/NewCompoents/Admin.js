@@ -10,10 +10,10 @@ function Admin() {
         {username:"madhu",password:"babu",email:"madhucharliehash@gmail.com",contactNumber:"2452345",address:"14-10-1/1,bhimavaram,gunipudi"},
     ]
     const students = [
-        {sno:"1",name:"student1",password:"1",email:"student1@gmail.com",contactnumber:"232654563"},
-        {sno:"2",name:"student2",password:"2",email:"student2@gmail.com",contactnumber:"562654563"},
-        {sno:"3",name:"student3",password:"3",email:"student3@gmail.com",contactnumber:"722654563"},
-        {sno:"4",name:"sudent4",password:"4",email:"student4@gmail.com",contactnumber:"452654563"}
+        {sno:"1",id:"1201",name:"student1",password:"1",email:"student1@gmail.com",contactnumber:"232654563"},
+        {sno:"2",id:"1202",name:"student2",password:"2",email:"student2@gmail.com",contactnumber:"562654563"},
+        {sno:"3",id:"1203",name:"student3",password:"3",email:"student3@gmail.com",contactnumber:"722654563"},
+        {sno:"4",id:"1204",name:"sudent4",password:"4",email:"student4@gmail.com",contactnumber:"452654563"}
     ]
     return (
         <div>
@@ -58,6 +58,7 @@ function Admin() {
                             <thead>
                                 <tr>
                                     <th>S.NO </th>
+                                    <th>ID</th>
                                     <th>NAME</th>
                                     <th>PASSWORD</th>
                                     <th>E-MAIL</th>
@@ -69,6 +70,7 @@ function Admin() {
                                 <tbody>
                                     <tr>
                                         <td>{s.sno}</td>
+                                        <td>{s.id}</td>
                                         <td>{s.name}</td>
                                         <td>{s.password}</td>
                                         <td>{s.email}</td>
