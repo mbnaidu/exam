@@ -27,7 +27,7 @@ function SignUp() {
                             </FormGroup>
                         </Form>
                 </Jumbotron>
-                <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} ><NavLink to="/"  ><strong>Sign Up</strong></NavLink></Button>
+                <Button className="signupbutton" style={{backgroundColor:"rgb(110,94,254) "}} ><NavLink to="/"  ><strong>Sign Up</strong></NavLink></Button>
             </div>
         </div>
     )
