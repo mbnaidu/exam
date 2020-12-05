@@ -16,11 +16,11 @@ class MainPage extends Component {
         <div>
             <Switch>
                 <Route exact path='/' component={ Login } />
+                <Route exact path='/admin' component={ Admin }/> 
                 <Route exact path='/register' component={ SignUP } />
                 <Route exact path='/profile' component={ Profile } />
                 <Route exact path='/exam' component={ Exam }/>
                 <Route exact path='/online' component={ Online }/>                
-                <Route exact path='/admin' component={ Admin }/> 
                 <Route exact path='/adminexam' component={ AdminExam }/>   
                 <Route exact path='/test' component={ Test }/>   
             </Switch>

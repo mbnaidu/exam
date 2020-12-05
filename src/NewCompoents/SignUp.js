@@ -25,6 +25,7 @@ function SignUp() {
                 if(res.data) {
                     //console.log("signup success")
                     //history.push('/login');
+                    history.push("/");
                 }
             }
         )
