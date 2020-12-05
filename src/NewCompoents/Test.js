@@ -10,6 +10,12 @@ function Test(props) {
     const{
         className
     } = props;
+    const studentslist = [
+        {sno:"1",id:"1201",name:"student1",password:"1",email:"student1@gmail.com",contactnumber:"232654563",isChecked:false},
+        {sno:"2",id:"1202",name:"student2",password:"2",email:"student2@gmail.com",contactnumber:"562654563",isChecked:false},
+        {sno:"3",id:"1203",name:"student3",password:"3",email:"student3@gmail.com",contactnumber:"722654563",isChecked:false},
+        {sno:"4",id:"1204",name:"sudent4",password:"4",email:"student4@gmail.com",contactnumber:"452654563",isChecked:false},
+    ]
     const [modal, setModal] = useState(false);
     const [nestedModal, setNestedModal] = useState(false);
     const [closeAll, setCloseAll] = useState(false);
@@ -22,6 +28,13 @@ function Test(props) {
         setNestedModal(!nestedModal);
         setCloseAll(true);
     }
+    const called = (c) => {
+        console.log(c);
+    }
+    const [STUDENTS, SETSTUDENTS] = useState([]);
+    const [QUESTIONS, SETQUESIONS] = useState([]);
+    const [smodal, setSModal] = useState(false);
+  const stoggle = () => setSModal(!smodal);
     const [ques,setQues] = useState();
     const [subject,setSubject] = useState("");
     const [topic,setTopic] = useState("");
@@ -67,7 +80,14 @@ function Test(props) {
         }
     }
     const [isOpen, setIsOpen] = useState(false);
-    const MENU = () => {
+    var kp;
+    const MENU = (p) => {
+        let total= ["1","5","10","15","20","25","30","35","40","45","50","55","60","65","70","75","80","85","90","95","100",]
+        for(var i=0;i<total.length;i++){
+            if(total[i] === p){
+                kp=10;
+            }
+        }
         let col ;
         let input0;
         let input1 ;
@@ -100,7 +120,7 @@ function Test(props) {
         const calling6 = (d)=>{array(full);}
         return(
             <div>
-                <ul>{Array.from(Array(20), (e, i) =>{
+                <ul>{Array.from(Array(kp), (e, i) =>{
                         return(
                             <li key={i}>
                               <FormGroup row>
@@ -114,7 +134,7 @@ function Test(props) {
                                         <Input placeholder="text" type="text" value={input3}   onChange={event=> calling3(event.target.value)}/>
                                         <Input placeholder="text" type="text" value={input4}   onChange={event=> calling4(event.target.value)}/>
                                         <Input placeholder="SELECT CORRECT OPTION" min={0} max={4} type="number" step="1" value={answer} onChange={event=> calling5(event.target.value)}/>
-                                        <Button onClick={()=>{adding()}} color={col}>CHECK</Button>
+                                        <Button onClick={()=>{adding();handleQuestions(full);FINAL(full)}} color={col}>CHECK</Button>
                                     </div>
                                 </Col>
                             </FormGroup>
@@ -125,6 +145,48 @@ function Test(props) {
                 </ul>
             </div>
         )
+    }
+    const [studentArray,setStudentArray] = useState([""]);
+    const [finalStudents,setfinalStudents] = useState([]);
+    const checked = (id) => {
+        var c=0;
+        for(var i=0;i<studentArray.length;i++){
+            if(studentArray[i]===id){
+                c=c+1;
+            }
+        }
+        if(c===0){
+            studentArray.push(id);
+        }
+        else{
+            var index = studentArray.indexOf(id)
+            if (index !== -1) {
+                studentArray.splice(index, 1);
+            }
+        }
+    }
+    const selectAll = (s) => {
+        s.forEach(i => {
+            finalStudents.push(i.id);
+            STUDENTS.push(i.id);
+        });
+    }
+    const handleStudents = () => {
+        for(var i=0;i<studentArray.length;i++){
+            if(studentArray[i]!=""){
+                finalStudents.push(studentArray[i]);
+                STUDENTS.push(studentArray[i]);
+            }
+        }
+        setStudents(20);
+        console.log(finalStudents);
+    }
+    const handleQuestions= (full) => {
+        console.log(full)
+    }
+    const FINAL = (full) => {
+        console.log(STUDENTS);
+        console.log(full);
     }
     return (
         <div>
@@ -159,38 +221,69 @@ function Test(props) {
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
-                        <InputGroup>
-                            <Input value={students} onChange={event=> setStudents(event.target.value)}/>
-                            <InputGroupAddon addonType="append">
-                                <Button className="btn5" color={e} outline onClick={()=>change()} >SELECT STUDENTS</Button>
-                            </InputGroupAddon>
-                        </InputGroup>
+                        <div>
+                            <InputGroup>
+                                <Input />
+                                <InputGroupAddon addonType="append">
+                                    <Button className="btn5" color={e} outline onClick={()=>{change();stoggle();}}>SELECT STUDENTS</Button>
+                                    <Modal isOpen={smodal}  className={className}>
+                                        <ModalHeader toggle={stoggle}>Modal title</ModalHeader>
+                                        <ModalBody>
+                                            {studentslist.map((s)=>{                                             
+                                                return(
+                                                    <div>
+                                                        <FormGroup check>
+                                                        <label>
+                                                        <input type="checkbox"
+                                                            onClick={()=>{checked(s.id);}}
+                                                            value={s.id}
+                                                        />
+                                                        {s.id}{' '}{s.name}
+                                                        </label>
+                                                        </FormGroup>
+                                                    </div>
+                                                )
+                                            })}
+                                        </ModalBody>
+                                        <ModalFooter>
+                                            <label>
+                                                <input type="checkbox"
+                                                    onClick={()=>{selectAll(studentslist)}}
+                                                />
+                                                SELECT ALL STUDENTS
+                                            </label>
+                                        <Button color="success" onClick={()=>{stoggle();change();handleStudents();}}>SUBMIT</Button>{' '}
+                                        <Button color="danger" onClick={stoggle}>Cancel</Button>
+                                        </ModalFooter>
+                                    </Modal>                            
+                                </InputGroupAddon>
+                            </InputGroup>
+                        </div>
                         <br />
                         <InputGroup>
-                            <Input value={questions} onChange={event=> setQuestions(event.target.value)}/>
+                            <Input />
                             <InputGroupAddon addonType="append">
                                 <div>
                                     <Button className="btn6" color={f} outline onClick={()=>{toggle();change();}}>SET QUESTIONS</Button>
-                                    <Modal isOpen={modal} toggle={toggle} className={className} >
+                                    <Modal isOpen={modal}  className={className} >
                                         <ModalHeader toggle={toggle}>Modal title</ModalHeader>
                                         <ModalBody>
                                         <InputGroup>
-                                            <Input placeholder="NUMBER OF QUESTIONS" min={0} max={100} type="number" step="5" value={ques} onChange={event=> setQues(event.target.value)}/>
+                                            <Input placeholder="NUMBER OF QUESTIONS" min={0} max={100} type="number" step="5" value={ques} onChange={event=>{setQues(event.target.value);}}/>
                                         </InputGroup>
                                         <br />
                                         <Button color="success" outline onClick={()=>{toggleNested();}}>SET QUESTIONS</Button>
-                                        <Modal isOpen={nestedModal} toggle={toggleNested} onClosed={closeAll ? toggle : undefined} size="lg">
-                                            <ModalHeader size="lg">Nested Modal title</ModalHeader>
-                                            <ModalBody size="lg">{MENU()}</ModalBody>
+                                        <Modal isOpen={nestedModal}  onClosed={closeAll ? toggle : undefined} size="lg">
+                                            <ModalHeader size="lg">Question Paper</ModalHeader>
+                                            <ModalBody size="lg">{MENU(ques)}</ModalBody>
                                             <ModalFooter>
-                                            <Button color="primary" onClick={toggleNested}>SUBMIT</Button>{' '}
-                                            <Button color="secondary" onClick={toggleAll}>All Done</Button>
+                                            <Button color="success" onClick={()=>{toggleAll();change();setQuestions(20);handleQuestions();}}>SUBMIT</Button>
+                                            <Button color="danger" onClick={toggleAll}>CANCEL</Button>
                                             </ModalFooter>
                                         </Modal>
                                         </ModalBody>
                                         <ModalFooter>
-                                        <Button color="primary" onClick={toggle}>Do Something</Button>{' '}
-                                        <Button color="secondary" onClick={toggle}>Cancel</Button>
+                                        <Button color="danger" onClick={toggle}>Cancel</Button>
                                         </ModalFooter>
                                     </Modal>
                                 </div>
@@ -204,7 +297,7 @@ function Test(props) {
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
-                        <Button color={h} onClick={()=>{submit()}}><strong>{assign}</strong></Button>
+                        <Button color={h} onClick={()=>{submit();FINAL()}}><strong>{assign}</strong></Button>
                     </FormControl>
                 </Container>
             </Jumbotron>
