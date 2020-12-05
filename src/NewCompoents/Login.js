@@ -4,6 +4,7 @@ import LockIcon from '@material-ui/icons/Lock';
 import PersonIcon from '@material-ui/icons/Person';
 import { NavLink, Redirect } from 'react-router-dom';
 import '../styles/Login.css'
+import axios from 'axios';
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -20,6 +21,20 @@ function Login() {
         else{
           setPassword('');
         }
+        const data = {
+            "username":username,
+            "password":password
+        }
+        axios.post('http://localhost:3001/login', {data}).then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    console.log("login success")
+                    //props.dispatch(UserActions.addUser(username, res.data.isStudent));
+                }
+            }
+        )
     }
     return (
         <div>

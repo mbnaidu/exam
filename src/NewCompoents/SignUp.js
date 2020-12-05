@@ -2,12 +2,34 @@ import React,{useState} from 'react'
 import { NavLink } from 'react-router-dom';
 import { Button, Form, Jumbotron,FormGroup, Input } from 'reactstrap'
 import '../styles/SignUp.css'
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function SignUp() {
+    const history = useHistory();
     const [username, setUsername] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
     const [email, setEmail] = useState("");
+    function onSignupclickHandler() {
+        const data = {
+            "username":username,
+            "password":password1,
+            "email":email,
+            "isStudent": true,
+            "contact":"9999999999",
+            "address": "dhsfjshd,jhfds,jhdgsa/kadskh"
+        }
+        axios.post('http://localhost:3001/signup', {data}).then(
+            function(res) {
+                if(res.data) {
+                    //console.log("signup success")
+                    //history.push('/login');
+                }
+            }
+        )
+        
+    };
     return (
         <div>
             <div>
@@ -27,7 +49,8 @@ function SignUp() {
                             </FormGroup>
                         </Form>
                 </Jumbotron>
-                <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} ><NavLink to="/"  ><strong>Sign Up</strong></NavLink></Button>
+                <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} onClick={onSignupclickHandler}><NavLink to="/"  ><strong>Sign Up</strong></NavLink></Button>
+                {/* <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} onClick={onSignupclickHandler}><strong>Sign Up</strong></Button> */}
             </div>
         </div>
     )
