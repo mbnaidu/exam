@@ -23,8 +23,6 @@ function SignUp() {
         axios.post('http://localhost:3001/signup', {data}).then(
             function(res) {
                 if(res.data) {
-                    //console.log("signup success")
-                    //history.push('/login');
                     history.push("/");
                 }
             }

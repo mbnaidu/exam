@@ -7,6 +7,24 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Test(props) {
+    const [SUBJECT, SETSUBJECT] = useState("");
+    const [TOPIC, SETTOPIC] = useState("");
+    const [FROM, SETFROM] = useState("");
+    const [TO, SETTO] = useState("");
+    const [STUDENTS, SETSTUDENTS] = useState([]);
+    const [QUESTIONS, SETQUESIONS] = useState([]);
+    const [TOTALMARKS, SETTOTALMARKS] = useState(0);
+    const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
+    const FINALSUBMIT = () => {
+        console.log(SUBJECT);
+        console.log(TOPIC);
+        console.log(FROM);
+        console.log(TO);
+        console.log(STUDENTS);
+        console.log(QUESTIONS);
+        console.log(TOTALMARKS);
+        
+    }
     const{
         className
     } = props;
@@ -31,16 +49,12 @@ function Test(props) {
     const called = (c) => {
         console.log(c);
     }
-    const [STUDENTS, SETSTUDENTS] = useState([]);
-    const [QUESTIONS, SETQUESIONS] = useState([]);
     const [smodal, setSModal] = useState(false);
   const stoggle = () => setSModal(!smodal);
     const [ques,setQues] = useState();
     const [subject,setSubject] = useState("");
     const [topic,setTopic] = useState("");
     const [date,setDate] = useState("");
-    const [from,setFrom] = useState("");
-    const [to,setTo] = useState("");
     const [timings,setTimings] = useState("");
     const [students,setStudents] = useState([]);
     const [questions,setQuestions] = useState([]);
@@ -84,13 +98,6 @@ function Test(props) {
     const [isOpen, setIsOpen] = useState(false);
     var kp;
     const MENU = (p) => {
-        let total= ["1","5","10","15","20","25","30","35","40","45","50","55","60","65","70","75","80","85","90","95","100",]
-        for(var i=0;i<total.length;i++){
-            if(total[i] === p){
-                kp=10;
-            }
-        }
-        let col ;
         let input0;
         let input1 ;
         let input2 ;
@@ -113,40 +120,35 @@ function Test(props) {
                 full.push(answer);
             }
         }
-        const setDates = (d1,d2) => {
-            console.log("hi");
-        }
         const calling0 = (z)=>{if(z!="" && z!="undefined"){store0.push(z);}}
         const calling1 = (y)=>{if(y!="" && y!="undefined"){store1.push(y)}}
         const calling2 = (x)=>{if(x!="" && x!="undefined"){store2.push(x);}}
         const calling3 = (u)=>{if(u!="" && u!="undefined"){store3.push(u);}}
         const calling4 = (v)=>{if(v!="" && v!="undefined"){store4.push(v);}}
         const calling5 = (w)=>{if(w!="" && w!="undefined"){answer=w;}}
-        const calling6 = (d)=>{array(full);}
         return(
             <div>
-                <ul>{Array.from(Array(10), (e, i) =>{
+                <ul>{Array.from(Array(5), (e, i) =>{
                         return(
                             <li key={i}>
                               <FormGroup row>
                                 <Col sm={12}>
-                                    <Input placeholder={i+1} value={input0} onChange={event=> calling0(event.target.value)}/>
+                                    {i+1}<Input placeholder="QUESTION" value={input0} onChange={event=> calling0(event.target.value)}/>
                                 </Col>
                                 <Col sm={6}>
                                     <div>
-                                        <Input placeholder="text" type="text" value={input1}   onChange={event=> calling1(event.target.value)}/>
-                                        <Input placeholder="text" type="text" value={input2}   onChange={event=> calling2(event.target.value)}/>
-                                        <Input placeholder="text" type="text" value={input3}   onChange={event=> calling3(event.target.value)}/>
-                                        <Input placeholder="text" type="text" value={input4}   onChange={event=> calling4(event.target.value)}/>
+                                        <Input placeholder="OPTION 1" type="text" value={input1}   onChange={event=> calling1(event.target.value)}/>
+                                        <Input placeholder="OPTION 2" type="text" value={input2}   onChange={event=> calling2(event.target.value)}/>
+                                        <Input placeholder="OPTION 3" type="text" value={input3}   onChange={event=> calling3(event.target.value)}/>
+                                        <Input placeholder="OPTION 4" type="text" value={input4}   onChange={event=> calling4(event.target.value)}/>
                                         <Input placeholder="SELECT CORRECT OPTION" min={0} max={4} type="number" step="1" value={answer} onChange={event=> calling5(event.target.value)}/>
-                                        <Button onClick={()=>{adding();handleQuestions(full);FINAL(full)}} color={col}>CHECK</Button>
+                                        <Button onClick={()=>{adding();handleQuestions(full,i)}} color="success">CHECK</Button>
                                     </div>
                                 </Col>
                             </FormGroup>
                             </li>
                         )
                     })}
-                    <Button onClick={()=>{calling6()}}>CHECK</Button>
                 </ul>
             </div>
         )
@@ -184,64 +186,31 @@ function Test(props) {
             }
         }
         setStudents(20);
-        console.log(finalStudents);
     }
-    const handleQuestions= (full) => {
-        console.log(full)
-    }
-    const FINAL = (full) => {
-        console.log(STUDENTS);
-        console.log(full);
-    }
-    const setDates = (d1,d2) => {
-        console.log(d1,d2)
+    const handleQuestions= (full,k) => {
+        console.log(k+1)
+        for(var i=0;i<full.length;i++){
+            if(full[i]!=""){
+                    QUESTIONS.push(full[i]);
+            }
+        }
     }
     const [startDate, setStartDate] = useState(new Date());
     const [lastDate, setLastDate] = useState(new Date());
-    const DATE = () => {
-        return (
-            <div>
-                <InputGroup>
-                    <Input  value={startDate} />
-                        <InputGroupAddon addonType="append">
-                            <DatePicker
-                                selected={startDate}
-                                onChange={date1 => {setStartDate(date1);}}
-                                showTimeSelect
-                                timeFormat="HH:mm"
-                                dateFormat="MMMM d, yyyy h:mm aa"
-                            />
-                        </InputGroupAddon>
-                </InputGroup>
-                <InputGroup>
-                    <Input  value={lastDate} />
-                        <InputGroupAddon addonType="append">
-                            <DatePicker
-                                selected={lastDate}
-                                onChange={date1 => {setLastDate(date1);}}
-                                showTimeSelect
-                                timeFormat="HH:mm"
-                                dateFormat="MMMM d, yyyy h:mm aa"
-                            />
-                        </InputGroupAddon>
-                </InputGroup>
-            </div>
-        );
-      };
     return (
         <div>
            <Jumbotron fluid className="set">
                 <Container >
                     <FormControl >
                         <InputGroup className="box1">
-                            <Input  value={subject} onChange={event=> setSubject(event.target.value)}/>
+                            <Input  value={SUBJECT} onChange={event=> SETSUBJECT(event.target.value)}/>
                             <InputGroupAddon addonType="append">
                                     <Button className="btn1 "  color={a} outline onClick={()=>change()}>SET SUBJECT</Button>
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
                         <InputGroup className="box2">
-                            <Input value={topic} onChange={event=> setTopic(event.target.value)}/>
+                            <Input value={TOPIC} onChange={event=> SETTOPIC(event.target.value)}/>
                             <InputGroupAddon addonType="append">
                                 <Button className="btn2" color={b} outline onClick={()=>change()} >SET TOPIC </Button>
                             </InputGroupAddon>
@@ -249,16 +218,41 @@ function Test(props) {
                         <br />
                         <div>
                             <InputGroup className="box3">
-                                <Input />
+                                <Input placeholder={startDate}/>
                                 <InputGroupAddon addonType="append">
                                     <Button className="btn3" color={c} outline onClick={()=>{change();ftoggle();}} >SET DATE</Button>
                                     <Modal isOpen={fmodal}  className={className} size="lg">
                                         <ModalHeader toggle={ftoggle}><strong>T I M E</strong></ModalHeader>
                                         <ModalBody  size="lg">
-                                            {DATE()}
+                                        <div>
+                                            <InputGroup>
+                                                <Input  value={startDate} />
+                                                    <InputGroupAddon addonType="append">
+                                                        <DatePicker
+                                                            selected={startDate}
+                                                            onChange={date1 => {setStartDate(date1);}}
+                                                            showTimeSelect
+                                                            timeFormat="HH:mm"
+                                                            dateFormat="MMMM d, yyyy h:mm aa"
+                                                        />
+                                                    </InputGroupAddon>
+                                            </InputGroup>
+                                            <InputGroup>
+                                                <Input  value={lastDate} />
+                                                    <InputGroupAddon addonType="append">
+                                                        <DatePicker
+                                                            selected={lastDate}
+                                                            onChange={date1 => {setLastDate(date1);}}
+                                                            showTimeSelect
+                                                            timeFormat="HH:mm"
+                                                            dateFormat="MMMM d, yyyy h:mm aa"
+                                                        />
+                                                    </InputGroupAddon>
+                                            </InputGroup>
+                                        </div>
                                         </ModalBody>
                                         <ModalFooter>
-                                        <Button color="primary" onClick={()=>{setDates(startDate,lastDate);ftoggle();}}>SET DATE</Button>{' '}
+                                        <Button color="primary" onClick={()=>{SETFROM(startDate);SETTO(lastDate);ftoggle();}}>SET DATE</Button>{' '}
                                         <Button color="secondary" onClick={ftoggle}>CANCEL</Button>
                                         </ModalFooter>
                                     </Modal>
@@ -317,12 +311,12 @@ function Test(props) {
                                             <Input placeholder="NUMBER OF QUESTIONS" min={0} max={100} type="number" step="5" value={ques} onChange={event=>{setQues(event.target.value);}}/>
                                         </InputGroup>
                                         <br />
-                                        <Button color="success" outline onClick={()=>{toggleNested();}}>SET QUESTIONS</Button>
+                                        <Button color="success" outline onClick={()=>{toggleNested();SETTOTALQUESTIONS(ques);}}>SET QUESTIONS</Button>
                                         <Modal isOpen={nestedModal}  onClosed={closeAll ? toggle : undefined} size="lg">
                                             <ModalHeader size="lg">Question Paper</ModalHeader>
                                             <ModalBody size="lg">{MENU(ques)}</ModalBody>
                                             <ModalFooter>
-                                            <Button color="success" onClick={()=>{toggleAll();change();setQuestions(20);handleQuestions();}}>SUBMIT</Button>
+                                            <Button color="success" onClick={()=>{toggleAll();change();setQuestions(20);}}>SUBMIT</Button>
                                             <Button color="danger" onClick={toggleAll}>CANCEL</Button>
                                             </ModalFooter>
                                         </Modal>
@@ -336,13 +330,13 @@ function Test(props) {
                         </InputGroup>
                         <br />
                         <InputGroup className="box6">
-                            <Input value={totalMarks} onChange={event=> setTotalMarks(event.target.value)}/>
+                            <Input value={TOTALMARKS} onChange={event=> SETTOTALMARKS(event.target.value)}/>
                             <InputGroupAddon addonType="append">
                                 <Button className="btn6" color={g} outline onClick={()=>change()} >SET TOTAL MARKS</Button>
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
-                        <Button className="btn7" color={h} onClick={()=>{submit();FINAL()}}><strong>{assign}</strong></Button>
+                        <Button className="btn7" color={h} onClick={()=>{submit();FINALSUBMIT()}}><strong>{assign}</strong></Button>
                     </FormControl>
                 </Container>
             </Jumbotron>
