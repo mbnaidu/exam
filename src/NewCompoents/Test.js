@@ -4,7 +4,8 @@ import { NavLink, Redirect } from 'react-router-dom';
 import '../styles/Login.css'
 import { Card, FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Test(props) {
     const{
@@ -74,6 +75,8 @@ function Test(props) {
         if(totalMarks!=""){setG("success");}
         if(totalMarks==""){setG("danger");}
     }
+    const [fmodal, setFModal] = useState(false);
+    const ftoggle = () => setFModal(!fmodal);
     const submit = (event)=>{
         if(subject!="" && topic!="" && date!="" && timings!="" && students!="" && questions!="" && totalMarks!=""){
             setAssign("ASSIGNED");setA("success");setB("success");setC("success");setD("success");setE("success");setF("success");setG("success");setH("success");
@@ -110,6 +113,9 @@ function Test(props) {
                 full.push(store4[store4.length-1]);
                 full.push(answer);
             }
+        }
+        const setDates = (d1,d2) => {
+            console.log("hi");
         }
         const calling0 = (z)=>{if(z!="" && z!="undefined"){store0.push(z);}}
         const calling1 = (y)=>{if(y!="" && y!="undefined"){store1.push(y)}}
@@ -188,6 +194,41 @@ function Test(props) {
         console.log(STUDENTS);
         console.log(full);
     }
+    const setDates = (d1,d2) => {
+        console.log(d1,d2)
+    }
+    const [startDate, setStartDate] = useState(new Date());
+    const [lastDate, setLastDate] = useState(new Date());
+    const DATE = () => {
+        return (
+            <div>
+                <InputGroup>
+                    <Input  value={startDate} />
+                        <InputGroupAddon addonType="append">
+                            <DatePicker
+                                selected={startDate}
+                                onChange={date1 => {setStartDate(date1);}}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                dateFormat="MMMM d, yyyy h:mm aa"
+                            />
+                        </InputGroupAddon>
+                </InputGroup>
+                <InputGroup>
+                    <Input  value={lastDate} />
+                        <InputGroupAddon addonType="append">
+                            <DatePicker
+                                selected={lastDate}
+                                onChange={date1 => {setLastDate(date1);}}
+                                showTimeSelect
+                                timeFormat="HH:mm"
+                                dateFormat="MMMM d, yyyy h:mm aa"
+                            />
+                        </InputGroupAddon>
+                </InputGroup>
+            </div>
+        );
+      };
     return (
         <div>
            <Jumbotron fluid className="box">
@@ -207,12 +248,24 @@ function Test(props) {
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
-                        <InputGroup>
-                            <Input value={date} onChange={event=> setDate(event.target.value)}/>
-                            <InputGroupAddon addonType="append">
-                                <Button className="btn3" color={c} outline onClick={()=>change()} >SET DATE</Button>
-                            </InputGroupAddon>
-                        </InputGroup>
+                        <div>
+                            <InputGroup>
+                                <Input />
+                                <InputGroupAddon addonType="append">
+                                    <Button className="btn3" color={c} outline onClick={()=>{change();ftoggle();}} >SET DATE</Button>
+                                    <Modal isOpen={fmodal}  className={className} size="lg">
+                                        <ModalHeader toggle={ftoggle}><strong>T I M E</strong></ModalHeader>
+                                        <ModalBody  size="lg">
+                                            {DATE()}
+                                        </ModalBody>
+                                        <ModalFooter>
+                                        <Button color="primary" onClick={()=>{setDates(startDate,lastDate);ftoggle();}}>SET DATE</Button>{' '}
+                                        <Button color="secondary" onClick={ftoggle}>CANCEL</Button>
+                                        </ModalFooter>
+                                    </Modal>
+                                </InputGroupAddon>
+                            </InputGroup>
+                        </div>
                         <br />
                         <InputGroup>
                             <Input value={timings} onChange={event=> setTimings(event.target.value)}/>
@@ -227,7 +280,7 @@ function Test(props) {
                                 <InputGroupAddon addonType="append">
                                     <Button className="btn5" color={e} outline onClick={()=>{change();stoggle();}}>SELECT STUDENTS</Button>
                                     <Modal isOpen={smodal}  className={className}>
-                                        <ModalHeader toggle={stoggle}>Modal title</ModalHeader>
+                                        <ModalHeader toggle={stoggle}><strong>S T U D E N T S</strong></ModalHeader>
                                         <ModalBody>
                                             {studentslist.map((s)=>{                                             
                                                 return(
@@ -266,7 +319,7 @@ function Test(props) {
                                 <div>
                                     <Button className="btn6" color={f} outline onClick={()=>{toggle();change();}}>SET QUESTIONS</Button>
                                     <Modal isOpen={modal}  className={className} >
-                                        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+                                        <ModalHeader toggle={toggle}><strong>Q U E S T I O N S</strong></ModalHeader>
                                         <ModalBody>
                                         <InputGroup>
                                             <Input placeholder="NUMBER OF QUESTIONS" min={0} max={100} type="number" step="5" value={ques} onChange={event=>{setQues(event.target.value);}}/>
