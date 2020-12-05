@@ -126,7 +126,7 @@ function Test(props) {
         const calling6 = (d)=>{array(full);}
         return(
             <div>
-                <ul>{Array.from(Array(kp), (e, i) =>{
+                <ul>{Array.from(Array(10), (e, i) =>{
                         return(
                             <li key={i}>
                               <FormGroup row>
