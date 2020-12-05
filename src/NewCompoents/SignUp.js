@@ -1,10 +1,9 @@
-import { FormGroup, Input } from '@material-ui/core'
 import React,{useState} from 'react'
 import { NavLink } from 'react-router-dom';
-import { Button, Form, Jumbotron } from 'reactstrap'
-import '../styles/Register.css'
+import { Button, Form, Jumbotron,FormGroup, Input } from 'reactstrap'
+import '../styles/SignUp.css'
 
-function Registration() {
+function SignUp() {
     const [username, setUsername] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
@@ -12,7 +11,7 @@ function Registration() {
     return (
         <div>
             <div>
-                <Jumbotron className="jumb">
+                <Jumbotron className="signup">
                     <Form>
                         <FormGroup row >
                             <Input className="input__change__email pl-5" placeholder="E - Mail " type="text" value={email}   onChange={event=> setEmail(event.target.value)}/>
@@ -34,4 +33,4 @@ function Registration() {
     )
 }
 
-export default Registration
+export default SignUp

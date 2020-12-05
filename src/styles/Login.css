@@ -1,126 +1,34 @@
-.backgroundlogin{
+body{
   background: linear-gradient(90deg,rgb(110,94,254) 0%,rgba(73,63,252,1)100%);
-  height: 200%;
-  width: 100%;
 }
-.buttonl{
-  background-color: rgb(17, 218, 201);
-  border-radius: 30px;
-  margin-top: 10px;
-  width: 130px;
-  color:white;
-  font-family: 'Courier New', Courier, monospace;
-  margin-left: 550px;
-  border-color: rgb(17, 218, 201);
+.login{
+  margin: 90px 100px 0px 500px;
 }
-.buttonl:hover{
-  background-color: rgb(17, 218, 201);
-  animation: but 1s infinite;
+.logincard{
+  width: 400px;
 }
-@keyframes but {
-    0%   { border-color: rgb(17, 218, 201);}
-    25%  { border-color:white;color:black;}
-    50%  { border-color: rgb(17, 218, 201);}
-    75%  { border-color:white;color:black;}
-    100% { border-color: rgb(17, 218, 201);}
+.loginlogo{
+  margin-top: -40px;
+  padding-left:100px;
 }
-.input__change:hover{
-  border-radius: 30px;
-  animation: mymov 10s infinite;
-}
-.input__change{
-  border-radius: 30px;
-  margin-left: 10px;
-  margin-top: 6px;
-  width: 350px;
-  border-color: rgb(17, 218, 201);
-  
-}
-@keyframes mymov {
-  0% {border-color:  rgb(17, 218, 201);}
-  50% {border-radius: 150px;}
-  50% {box-shadow: 10px 5px 30px rgb(17, 218, 201);}
-
-}
-  .login{
-    margin: 10px;
-    padding: 100px ;
-    border-radius: 50px;
-    margin-left: 100px;
-    margin-right: 100px;
-  }
-  .text{
-    color: white;
-    font-size: 30px;
-    font-family: 'Courier New', Courier, monospace;
-    margin-left: 160px;
-    -webkit-text-stroke: 1px rgb(17, 218, 201) ;
-    text-shadow: 0px 3px 3px rgb(17, 218, 201) ;
-    animation: text_ 15s infinite;
-    }
-    @keyframes text_ {
-      0%{color:white;border-color:rgb(17, 218, 201) ;}
-    }
 .login_username{
   margin: 10px;
 }
-.box{
-  margin: 5%;
-}
-.inbox{
-  margin: 50%;
-}
 .login_password{
-  margin: 10px;
-  padding-top:20px;
-  margin-bottom: 60px;
+  margin-left: 10px;
+  padding-top:10px;
   margin-top: 20px;
 }
-.logincard{
-  margin: -190px 0px -100px 160px;
-  border-radius: 20px;
-  padding:40px;
-  width: 400px;
-  height: 550px;
-}
-.loginlogo{
-  margin-top: -10px;
-  padding-left:90px;
-  opacity: 1;
-  margin-bottom: 20px;
-}
-.cardfooter{
-  margin-top: 30px;
-  padding-left: 80px;
-  font-weight: 300;
+.login_forgotpassword{
+  margin-left: 167px;
 }
 .loginbutton{
-  padding-left: 20;
+  margin-top: 40px;
+  margin-left: 10px;
 }
-.inp1{
-  width: 100%;
-}
-.btn1{
-  width: 160px;
-}
-.btn2{
-  width: 160px;
-}
-.btn3{
-  width: 160px;
-}
-.btn4{
-  width: 160px;
-}
-.btn5{
-  width: 160px;
-}
-.btn6{
-  width: 160px;
-}
-.btn7{
-  width: 160px;
-}
-.btn8{
-  width: 160px;
+.cardfooter{
+  margin-top: 20px;
+  padding-left: 80px;
+  font-weight: 300;
+  font-weight: bold;
 }

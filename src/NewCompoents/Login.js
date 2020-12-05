@@ -4,38 +4,25 @@ import LockIcon from '@material-ui/icons/Lock';
 import PersonIcon from '@material-ui/icons/Person';
 import { NavLink, Redirect } from 'react-router-dom';
 import '../styles/Login.css'
-import { useStateValue } from '../redux/StateProvider'
 
-
-
-function LoginPageForAll() {
-    const [state,dispatch] = useStateValue();
-    const loginToApp = () => {
-        dispatch({
-            type:"SET_USER",
-            user:{username}
-        })
-    }
+function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [admin,setAdmin] = useState(false);
     const [student,setStudent] = useState(false);
     const handleInputChange=(event)=>{
-        if(username === "ADMIN" && password === "ADMIN")
-        {
+        if(username === "ADMIN" && password === "ADMIN"){
           setAdmin(true);
         }
-        else if ( password !='' && username !='' )
-        {
+        else if ( password !='' && username !='' ){
           setStudent(true);
         }
         else{
           setPassword('');
-          alert("sarigga chusi type chey bey");
         }
     }
     return (
-        <div className="backgroundlogin">
+        <div>
             <div className="login ">
                 <Form>
                     <Jumbotron className="logincard ">
@@ -53,6 +40,7 @@ function LoginPageForAll() {
                                 </InputGroupAddon>
                                 <Input placeholder="Password" style={{borderColor:"rgb(110,94,254)"}} type="password" value={password} onChange={event=> setPassword(event.target.value)}/>
                             </InputGroup>
+                            <NavLink to="/" className="login_forgotpassword">Forgot Password ?</NavLink>
                             <div>
                                 { admin ? (
                                     <div>
@@ -74,7 +62,7 @@ function LoginPageForAll() {
                                     )}
                             </div>
                             <InputGroup  >
-                                <Button className="loginbutton" size="lg" block onClick={() => {handleInputChange()}}><strong>Login</strong></Button>
+                                <Button className="loginbutton" size="md" block onClick={() => {handleInputChange()}}><strong>Login</strong></Button>
                             </InputGroup>
                         </CardBody>
                         <div className="cardfooter">
@@ -87,4 +75,4 @@ function LoginPageForAll() {
     )
 }
 
-export default LoginPageForAll
+export default Login

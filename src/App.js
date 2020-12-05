@@ -6,9 +6,7 @@ function App() {
   return (
     <div>
       <BrowserRouter >
-        <div>
           <MainPage />
-        </div>
       </BrowserRouter>
     </div>
   );
