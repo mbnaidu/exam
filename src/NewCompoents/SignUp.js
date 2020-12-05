@@ -50,7 +50,6 @@ function SignUp() {
                         </Form>
                 </Jumbotron>
                 <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} onClick={onSignupclickHandler}><NavLink to="/"  ><strong>Sign Up</strong></NavLink></Button>
-                {/* <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} onClick={onSignupclickHandler}><strong>Sign Up</strong></Button> */}
             </div>
         </div>
     )

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Form,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGroup, Label, Col, Collapse, CardBody } from 'reactstrap';
-import { NavLink, Redirect } from 'react-router-dom';
-import '../styles/Login.css'
-import { Card, FormControl } from '@material-ui/core';
+import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGroup, Col } from 'reactstrap';
+import '../styles/Test.css'
+import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -231,17 +230,17 @@ function Test(props) {
       };
     return (
         <div>
-           <Jumbotron fluid className="box">
+           <Jumbotron fluid className="set">
                 <Container >
-                    <FormControl className="inbox">
-                        <InputGroup>
-                            <Input className="inp1" value={subject} onChange={event=> setSubject(event.target.value)}/>
+                    <FormControl >
+                        <InputGroup className="box1">
+                            <Input  value={subject} onChange={event=> setSubject(event.target.value)}/>
                             <InputGroupAddon addonType="append">
                                     <Button className="btn1 "  color={a} outline onClick={()=>change()}>SET SUBJECT</Button>
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
-                        <InputGroup>
+                        <InputGroup className="box2">
                             <Input value={topic} onChange={event=> setTopic(event.target.value)}/>
                             <InputGroupAddon addonType="append">
                                 <Button className="btn2" color={b} outline onClick={()=>change()} >SET TOPIC </Button>
@@ -249,7 +248,7 @@ function Test(props) {
                         </InputGroup>
                         <br />
                         <div>
-                            <InputGroup>
+                            <InputGroup className="box3">
                                 <Input />
                                 <InputGroupAddon addonType="append">
                                     <Button className="btn3" color={c} outline onClick={()=>{change();ftoggle();}} >SET DATE</Button>
@@ -267,18 +266,11 @@ function Test(props) {
                             </InputGroup>
                         </div>
                         <br />
-                        <InputGroup>
-                            <Input value={timings} onChange={event=> setTimings(event.target.value)}/>
-                            <InputGroupAddon addonType="append">
-                                <Button className="btn4" color={d} outline onClick={()=>change()} >SET TIMINGS</Button>
-                            </InputGroupAddon>
-                        </InputGroup>
-                        <br />
                         <div>
-                            <InputGroup>
+                            <InputGroup className="box4">
                                 <Input />
                                 <InputGroupAddon addonType="append">
-                                    <Button className="btn5" color={e} outline onClick={()=>{change();stoggle();}}>SELECT STUDENTS</Button>
+                                    <Button className="btn4" color={e} outline onClick={()=>{change();stoggle();}}>SELECT STUDENTS</Button>
                                     <Modal isOpen={smodal}  className={className}>
                                         <ModalHeader toggle={stoggle}><strong>S T U D E N T S</strong></ModalHeader>
                                         <ModalBody>
@@ -313,11 +305,11 @@ function Test(props) {
                             </InputGroup>
                         </div>
                         <br />
-                        <InputGroup>
+                        <InputGroup className="box5">
                             <Input />
                             <InputGroupAddon addonType="append">
                                 <div>
-                                    <Button className="btn6" color={f} outline onClick={()=>{toggle();change();}}>SET QUESTIONS</Button>
+                                    <Button className="btn5" color={f} outline onClick={()=>{toggle();change();}}>SET QUESTIONS</Button>
                                     <Modal isOpen={modal}  className={className} >
                                         <ModalHeader toggle={toggle}><strong>Q U E S T I O N S</strong></ModalHeader>
                                         <ModalBody>
@@ -343,14 +335,14 @@ function Test(props) {
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
-                        <InputGroup>
+                        <InputGroup className="box6">
                             <Input value={totalMarks} onChange={event=> setTotalMarks(event.target.value)}/>
                             <InputGroupAddon addonType="append">
-                                <Button className="btn8" color={g} outline onClick={()=>change()} >SET TOTAL MARKS</Button>
+                                <Button className="btn6" color={g} outline onClick={()=>change()} >SET TOTAL MARKS</Button>
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
-                        <Button color={h} onClick={()=>{submit();FINAL()}}><strong>{assign}</strong></Button>
+                        <Button className="btn7" color={h} onClick={()=>{submit();FINAL()}}><strong>{assign}</strong></Button>
                     </FormControl>
                 </Container>
             </Jumbotron>
