@@ -4,9 +4,6 @@ import Header from './Header';
 
 
 function Profile() {
-    const [currentDate, setCurrentDate] = useState(new Date().getDate());
-    const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [isOpen, setOpen] = useState(false);
     const toggle = () => setOpen(!isOpen);
     const users=[
