@@ -28,6 +28,15 @@ function Exam() {
                 }
             }
         )
+        axios.post('http://localhost:3001/allTests').then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    console.log(res.data);
+                }
+            }
+        )
     });
     console.log(id);
     const ongoingexams = [
@@ -48,6 +57,18 @@ function Exam() {
         {sno:"3",startdate:"12-03-2020",subject:"chemistry",topic:"linear",marks:"72",lastdate:"12-03-2020"},
         {sno:"4",startdate:"12-03-2020",subject:"english",topic:"linear",marks:"45",lastdate:"12-03-2020"}
     ]
+    function startTest() {
+        const data = {
+            "id":"1",
+        }
+        axios.post('http://localhost:3001/getQuestions', {data}).then(
+            function(res) {
+                if(res.data) {
+                    console.log(res.data);
+                }
+            }
+        )
+    }
     return (
         <div>
             <div>
@@ -76,7 +97,7 @@ function Exam() {
                                             <td>{o.topic}</td>
                                             <td>{o.lastdate}</td>
                                             <td>{o.timings}</td>
-                                            <td><Button color="success" href="/online"><strong>START</strong></Button></td>
+                                            <td><Button color="success" href="/online" onClick={startTest}><strong>START</strong></Button></td>
                                         </tr>
                                     </tbody>
                                     )

@@ -22,7 +22,7 @@ function Test(props) {
                 }
             }
         )
-    });
+    },[]);
     const{
         className
     } = props;

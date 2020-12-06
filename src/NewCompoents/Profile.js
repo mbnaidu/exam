@@ -22,7 +22,7 @@ function Profile() {
         {sno:"4",examdate:"12-03-2020",subject:"english",topic:"linear",marks:"45",submittedDate:"12-03-2020"}
     ]
     useEffect(() => {
-        const data = {
+        let data = {
             "username": user.username,
         }
         axios.post('http://localhost:3001/studentDetails',{data}).then(
@@ -51,7 +51,19 @@ function Profile() {
                 }
             }
         )
-    });
+        data = {
+            "id":"1201"
+        }
+        axios.post('http://localhost:3001/getReportCard', {data}).then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    console.log(res.data);
+                }
+            }
+        )
+    }, []);
     return (
         <div>
             <div>

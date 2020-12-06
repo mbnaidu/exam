@@ -29,7 +29,6 @@ function SignUp() {
                 }
             }
         )
-        
     };
     return (
         <div>
