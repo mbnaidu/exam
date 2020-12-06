@@ -1,5 +1,5 @@
 .signup{
-    margin: 100px 600px 150px 600px;
+    margin: 100px 350px 150px 350px;
 }
 .input__change:hover{
     border-radius: 30px;
@@ -8,21 +8,25 @@
 .input__change__email{
     border-radius: 30px;
     margin-top: 16px;
+    width: 350px;
     
 }
 .input__change__username{
     border-radius: 30px;
     margin-top: 16px;
+    width: 350px;
     
 }
 .input__change__password{
     border-radius: 30px;
     margin-top: 16px;
+    width: 350px;
     
 }
 .input__change__confirm{
     border-radius: 30px;
     margin-top: 16px;
+    width: 350px;
     
 }
 .textForRegister{
@@ -37,6 +41,7 @@
         border-color:rgb(110,94,254) ;
         border-radius: 30px;
         width: 130px;
+        color:white;
         font-family: 'Courier New', Courier, monospace;
-        margin-left: 830px;
+        margin-left: 550px;
     }

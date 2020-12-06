@@ -7,20 +7,18 @@ import { useHistory } from 'react-router-dom';
 
 function SignUp() {
     const history = useHistory();
-    const [id, setId] = useState("");
-    const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
-    const [contactNumber, setContactNumber] = useState("");
+    const [email, setEmail] = useState("");
     function onSignupclickHandler() {
         const data = {
-            "id":id,
-            "email":email,
             "username":username,
             "password":password1,
+            "email":email,
             "isStudent": true,
-            "contact":contactNumber,
+            "contact":"9999999999",
+            "address": "dhsfjshd,jhfds,jhdgsa/kadskh"
         }
         axios.post('http://localhost:3001/signup', {data}).then(
             function(res) {
@@ -37,7 +35,7 @@ function SignUp() {
                 <Jumbotron className="signup">
                     <Form>
                         <FormGroup row >
-                            <Input className="input__change__email pl-5" placeholder="ID" type="number" value={id}   onChange={event=> setId(event.target.value)}/>
+                            <Input className="input__change__email pl-5" placeholder="E - Mail " type="text" value={email}   onChange={event=> setEmail(event.target.value)}/>
                         </FormGroup>
                         <FormGroup row >
                             <Input className="input__change__username pl-5" placeholder="Username" type="text" value={username }   onChange={event=> setUsername(event.target.value)}/>
@@ -48,15 +46,9 @@ function SignUp() {
                             <FormGroup row >
                                 <Input className="input__change__confirm pl-5" placeholder="Confirm Password" type="password" value={password2}   onChange={event=> setPassword2(event.target.value)}/>
                             </FormGroup>
-                            <FormGroup row >
-                            <Input className="input__change__email pl-5" placeholder="E - Mail " type="text" value={email}   onChange={event=> setEmail(event.target.value)}/>
-                        </FormGroup>
-                            <FormGroup row >
-                            <Input className="input__change__email pl-5" placeholder="Contact Number " type="number" value={contactNumber}   onChange={event=> setContactNumber(event.target.value)}/>
-                        </FormGroup>
                         </Form>
                 </Jumbotron>
-                <Button className="buttonl"   onClick={onSignupclickHandler}><NavLink to="/"  ><strong>Sign Up</strong></NavLink></Button>
+                <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} onClick={onSignupclickHandler}><NavLink to="/"  ><strong>Sign Up</strong></NavLink></Button>
             </div>
         </div>
     )
