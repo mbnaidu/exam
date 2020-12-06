@@ -9,24 +9,25 @@ function Exam() {
     const onToggle = () => setOnOpen(!isOpen);
     const upToggle = () => setUpOpen(!upOpen);
     const coToggle = () => setCoOpen(!coOpen);
-
+    // 
+    const id = "1201";
     const ongoingexams = [
-        {sno:"1",subject:"maths",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"2",subject:"physics",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"3",subject:"chemistry",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"4",subject:"english",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"}
+        {sno:"1",subject:"maths",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020"},
+        {sno:"2",subject:"physics",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020"},
+        {sno:"3",subject:"chemistry",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020"},
+        {sno:"4",subject:"english",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020"}
     ]
     const upcomingexams = [
-        {sno:"1",date:"12-03-2020",subject:"maths",topic:"linear",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"2",date:"12-03-2020",subject:"physics",topic:"linear",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"3",date:"12-03-2020",subject:"chemistry",topic:"linear",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"4",date:"12-03-2020",subject:"english",topic:"linear",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"}
+        {sno:"1",startdate:"12-03-2020",subject:"maths",topic:"linear",lastdate:"12-03-2020"},
+        {sno:"2",startdate:"12-03-2020",subject:"physics",topic:"linear",lastdate:"12-03-2020"},
+        {sno:"3",startdate:"12-03-2020",subject:"chemistry",topic:"linear",lastdate:"12-03-2020"},
+        {sno:"4",startdate:"12-03-2020",subject:"english",topic:"linear",lastdate:"12-03-2020"}
     ]
     const completedexams = [
-        {sno:"1",date:"12-03-2020",subject:"maths",topic:"linear",marks:"23",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"2",date:"12-03-2020",subject:"physics",topic:"linear",marks:"56",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"3",date:"12-03-2020",subject:"chemistry",topic:"linear",marks:"72",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"4",date:"12-03-2020",subject:"english",topic:"linear",marks:"45",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"}
+        {sno:"1",startdate:"12-03-2020",subject:"maths",topic:"linear",marks:"23",lastdate:"12-03-2020"},
+        {sno:"2",startdate:"12-03-2020",subject:"physics",topic:"linear",marks:"56",lastdate:"12-03-2020"},
+        {sno:"3",startdate:"12-03-2020",subject:"chemistry",topic:"linear",marks:"72",lastdate:"12-03-2020"},
+        {sno:"4",startdate:"12-03-2020",subject:"english",topic:"linear",marks:"45",lastdate:"12-03-2020"}
     ]
     return (
         <div>
@@ -85,7 +86,7 @@ function Exam() {
                                     <tbody>
                                         <tr>
                                             <td>{u.sno}</td>
-                                            <td>{u.date}</td>
+                                            <td>{u.startdate}</td>
                                             <td>{u.subject}</td>
                                             <td>{u.topic}</td>
                                             <td>{u.lastdate}</td>
@@ -118,7 +119,7 @@ function Exam() {
                                     <tbody>
                                         <tr>
                                             <td>{c.sno}</td>
-                                            <td>{c.date}</td>
+                                            <td>{c.startdate}</td>
                                             <td>{c.subject}</td>
                                             <td>{c.topic}</td>
                                             <td>{c.lastdate}</td>
