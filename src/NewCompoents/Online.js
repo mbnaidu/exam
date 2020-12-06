@@ -6,6 +6,7 @@ import '../styles/Exam.css'
 import { blue, green } from '@material-ui/core/colors';
 import Radio from '@material-ui/core/Radio';
 import { withStyles } from '@material-ui/core/styles';
+import { Save } from '@material-ui/icons';
 
 
 const BlueRadio = withStyles({
@@ -20,18 +21,30 @@ const BlueRadio = withStyles({
 
 function Online() {
     const [selectedValue, setSelectedValue] = React.useState('a');
-    const [submit,setSubmit] = useState()
+    const [score, setScore] = useState(0);
+    const [submit,setSubmit] = useState(false);
+    const [array,setArray] = useState([]);
+    const [finalArray,setFinalArray] = useState([]);
   const handleChange = (event) => {
+    array.push(event.target.value)
     setSelectedValue(event.target.value);
   };
+  const Save = () => {
+    finalArray.push(array[array.length-1]);
+    if(currentQuestion === QUESTIONS.length){
+      console.log(finalArray)
+    }
+  }
     const [currentQuestion,setCurrentQuestion]=useState(1)
-    const [counter, setCounter] = React.useState(10);
+    const [counter, setCounter] = React.useState(5);
     React.useEffect(() => {
         if(counter===0 && currentQuestion<QUESTIONS.length){
             setCurrentQuestion(currentQuestion+1);
-            setCounter(10);
+            finalArray.push(array[array.length-1]);
+            setCounter(5);
+
         }
-        else if(counter === 0 && currentQuestion === QUESTIONS.length){
+        else if(counter === 0 ){
         }
         counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
     }, [counter]);
@@ -43,6 +56,7 @@ function Online() {
               <Button className="questions" color="primary" style={{color:"white"}}><strong>QUESTIONS </strong> <Badge color="badge badge-light" pill>{counter}</Badge></Button>
                 </Fragment>
                   {QUESTIONS.map((q)=>{
+                    let option ;
                     if(que==q.id){
                       return(
                         <div>
@@ -50,11 +64,12 @@ function Online() {
                           <CardBody>
                             <FormControl>
                               <RadioGroup>
-                                <label><BlueRadio onChange={handleChange} value="a" size="small" />{q.Option1}</label>
-                                <label><BlueRadio onChange={handleChange} value="b"name="radio-button-demo" size="small"/>{q.Option2}</label>
-                                <label><BlueRadio onChange={handleChange}value="c"color="default"name="radio-button-demo"size="small"/>{q.Option3}</label>
-                                <label><BlueRadio onChange={handleChange} value="d" color="default" name="radio-button-demo" size="small"/>{q.Option4}</label>
+                                <label><BlueRadio onChange={handleChange} value={q.Option1} size="small" />{q.Option1}</label>
+                                <label><BlueRadio onChange={handleChange} value={q.Option2} size="small"/>{q.Option2}</label>
+                                <label><BlueRadio onChange={handleChange}value={q.Option3} color="default"name="radio-button-demo"size="small"/>{q.Option3}</label>
+                                <label><BlueRadio onChange={handleChange} value={q.Option4} color="default" name="radio-button-demo" size="small"/>{q.Option4}</label>
                               </RadioGroup>
+                              <Button onClick={()=>{setCurrentQuestion(currentQuestion+1);setCounter(5);Save();}}><strong>NEXT</strong></Button>
                             </FormControl>
                           </CardBody>
                         </div>
@@ -68,7 +83,6 @@ function Online() {
       <div>
         <div>
           {questionRender(currentQuestion)}
-          <Button onClick={()=>{setCurrentQuestion(currentQuestion+1);setCounter(10)}}><strong>NEXT</strong></Button>
         </div>
       </div>
     )
