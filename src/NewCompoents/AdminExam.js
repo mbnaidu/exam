@@ -12,11 +12,11 @@ function AdminExam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    // console.log(res.data);
+                    console.log(res.data);
                 }
             }
         )
-    });
+    }, []);
     const [isOpen, setOnOpen] = useState(false);
     const [upOpen, setUpOpen] = useState(false);
     const [coOpen, setCoOpen] = useState(false);

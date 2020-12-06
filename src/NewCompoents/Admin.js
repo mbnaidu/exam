@@ -44,7 +44,7 @@ function Admin() {
                 }
             }
         )
-    });
+    }, []);
     const [mmodal, setMModal] = useState(false);
     const mtoggle = () => setMModal(!mmodal);
     return (
