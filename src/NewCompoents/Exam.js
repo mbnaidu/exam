@@ -1,16 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Card,Table,Button, Collapse } from 'reactstrap';
 import Header from './Header';
+import axios from 'axios';
+import { useStateValue } from '../redux/StateProvider';
 
 function Exam() {
+    const [{user}] = useStateValue();
+    const [id, setId] = useState("");
     const [isOpen, setOnOpen] = useState(false);
     const [upOpen, setUpOpen] = useState(false);
     const [coOpen, setCoOpen] = useState(false);
     const onToggle = () => setOnOpen(!isOpen);
     const upToggle = () => setUpOpen(!upOpen);
     const coToggle = () => setCoOpen(!coOpen);
-    // 
-    const id = "1201";
+    useEffect(() => {
+        const data = {
+            "username": user.username,
+        }
+        axios.post('http://localhost:3001/studentDetails',{data}).then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    {res.data.map((i)=>{
+                        setId(i.id);
+                    })}
+                }
+            }
+        )
+    });
+    console.log(id);
     const ongoingexams = [
         {sno:"1",subject:"maths",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020"},
         {sno:"2",subject:"physics",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020"},
