@@ -1,22 +1,57 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Card,Table,Button, Collapse } from 'reactstrap';
 import { useStateValue } from '../redux/StateProvider';
 import Header from './Header';
+import axios from 'axios';
 
 
 function Profile() {
     const [{user}] = useStateValue();
+    const [adminName, setAdminName] = useState("");
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [contactNumber, setContactNumber] = useState("");
     const [isOpen, setOpen] = useState(false);
+    const [array,setArray] = useState([]);
     const toggle = () => setOpen(!isOpen);
-    const users=[
-        {id:"34234",username:"madhu",password:"babu",email:"madhucharliehash@gmail.com",contactNumber:"2452345"},
-    ]
-    const report = [
+   const report = [
         {sno:"1",examdate:"12-03-2020",subject:"maths",topic:"linear",marks:"23",submittedDate:"12-03-2020"},
         {sno:"2",examdate:"12-03-2020",subject:"physics",topic:"linear",marks:"56",submittedDate:"12-03-2020"},
         {sno:"3",examdate:"12-03-2020",subject:"chemistry",topic:"linear",marks:"72",submittedDate:"12-03-2020"},
         {sno:"4",examdate:"12-03-2020",subject:"english",topic:"linear",marks:"45",submittedDate:"12-03-2020"}
     ]
+    useEffect(() => {
+        const data = {
+            "username": user.username,
+        }
+        axios.post('http://localhost:3001/studentDetails',{data}).then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    {res.data.map((i)=>{
+                        setAdminName(i.username);
+                        setPassword(i.password);
+                        setEmail(i.email);
+                        setContactNumber(i.contact);
+                        setId(i.id);
+                    })}
+                }
+            }
+        )
+        axios.post('http://localhost:3001/allStudents').then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    {res.data.map((i)=>{
+                        array.push(i);
+                    })}
+                }
+            }
+        )
+    });
     return (
         <div>
             <div>
@@ -35,19 +70,15 @@ function Profile() {
                                     <th>CONTACT NUMBER</th>
                                 </tr>
                             </thead>
-                            {users.map((u)=>{
-                                return(
                                 <tbody>
                                     <tr>
-                                        <td>{u.id}</td>
-                                        <td>{user ? ` ${user.username}` : ""}</td>
-                                        <td>{u.password}</td>
-                                        <td>{u.email}</td>
-                                        <td>{u.contactNumber}</td>
+                                        <td>{id}</td>
+                                        <td>{adminName}</td>
+                                        <td>{password}</td>
+                                        <td>{email}</td>
+                                        <td>{contactNumber}</td>
                                     </tr>
                                 </tbody>
-                                )
-                            })}
                         </Table>
                     </Card>
                 </div>
