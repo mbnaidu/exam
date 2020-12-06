@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Card,Table,Button, Collapse } from 'reactstrap';
 import AdminHeader from './AdminHeader';
 import axios from 'axios';
+import { useStateValue } from '../redux/StateProvider';
 
 
 function Admin() {
+    const [{user}] = useStateValue();
     useEffect(() => {
         const data = {
-            "username": "madhu"
+            "username": user ? ` ${user.username}` : ""
         }
         axios.post('http://localhost:3001/studentDetails',{data}).then(
             function(res) {
