@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { Card,Table,Button, Collapse } from 'reactstrap';
+import { useStateValue } from '../redux/StateProvider';
 import Header from './Header';
 
 
 function Profile() {
+    const [{user}] = useStateValue();
     const [isOpen, setOpen] = useState(false);
     const toggle = () => setOpen(!isOpen);
     const users=[
@@ -38,7 +40,7 @@ function Profile() {
                                 <tbody>
                                     <tr>
                                         <td>{u.id}</td>
-                                        <td>{u.username}</td>
+                                        <td>{user ? ` ${user.username}` : ""}</td>
                                         <td>{u.password}</td>
                                         <td>{u.email}</td>
                                         <td>{u.contactNumber}</td>
@@ -69,7 +71,7 @@ function Profile() {
                                 return(
                                 <tbody>
                                     <tr>
-                                        <td>{r.SNO}</td>
+                                        <td>{r.sno}</td>
                                         <td>{r.examdate}</td>
                                         <td>{r.subject}</td>
                                         <td>{r.topic}</td>

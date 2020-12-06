@@ -5,8 +5,17 @@ import PersonIcon from '@material-ui/icons/Person';
 import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import '../styles/Login.css'
 import axios from 'axios';
+import { useStateValue } from '../redux/StateProvider'
+
 
 function Login() {
+    const [state,dispatch] = useStateValue();
+    const loginToApp = () => {
+        dispatch({
+            type:"SET_USER",
+            user:{username}
+        })
+    }
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
@@ -60,7 +69,7 @@ function Login() {
                             </InputGroup>
                             <NavLink to="/" className="login_forgotpassword">Forgot Password ?</NavLink>
                             <InputGroup  >
-                                <Button className="loginbutton" size="md" block onClick={() => {handleInputChange()}}><strong>Login</strong></Button>
+                                <Button className="loginbutton" size="md" block onClick={() => {handleInputChange();loginToApp(username);}}><strong>Login</strong></Button>
                             </InputGroup>
                         </CardBody>
                         <div className="cardfooter">
