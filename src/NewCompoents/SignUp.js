@@ -20,7 +20,7 @@ function SignUp() {
             "password":password1,
             "email":email,
             "isStudent": true,
-            "contact":"9999999999",
+            "contact":contactNumber,
         }
         axios.post('http://localhost:3001/signup', {data}).then(
             function(res) {
