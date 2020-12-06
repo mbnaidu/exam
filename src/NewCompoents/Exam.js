@@ -22,6 +22,7 @@ function Exam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
+                    console.log(res.data)
                     {res.data.map((i)=>{
                         setId(i.id);
                     })}

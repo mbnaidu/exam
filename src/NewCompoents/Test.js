@@ -22,7 +22,7 @@ function Test(props) {
                 }
             }
         )
-    });
+    },[]);
     const{
         className
     } = props;
@@ -38,30 +38,35 @@ function Test(props) {
     const [TOTALMARKS, SETTOTALMARKS] = useState(0);
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     const FINALSUBMIT = () => {
-        console.log(SUBJECT);
-        console.log(TOPIC);
-        console.log(FROM);
-        console.log(TO);
-        console.log(STUDENTS);
-        console.log(QUESTIONS);
-        console.log(TOTALMARKS);
-        const data = {
-            "subject":SUBJECT,
-            "topic":TOPIC,
-            "from":FROM,
-            "to":TO,
-            "students": STUDENTS,
-            "questions":QUESTIONS,
-            "total":TOTALMARKS
-        }
-        axios.post('http://localhost:3001/addTest', {data}).then(
-            function(res) {
-                if(res.data) {
-                    console.log("success");
-                    //history.push("/");
-                }
+        if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" ){
+            console.log(SUBJECT);
+            console.log(TOPIC);
+            console.log(FROM);
+            console.log(TO);
+            console.log(STUDENTS);
+            console.log(QUESTIONS);
+            console.log(TOTALMARKS);
+            setAssign("ASSIGNED");
+            setH("success");
+            const data = {
+                "subject":SUBJECT,
+                "topic":TOPIC,
+                "from":FROM,
+                "to":TO,
+                "students": STUDENTS,
+                "questions":QUESTIONS,
+                "total":TOTALMARKS
             }
-        )
+            axios.post('http://localhost:3001/addTest', {data}).then(
+                function(res) {
+                    if(res.data) {
+                        console.log("success");
+                        //history.push("/");
+                    }
+                }
+            )
+        }
+
     }
     const [modal, setModal] = useState(false);
     const [nestedModal, setNestedModal] = useState(false);
@@ -96,20 +101,18 @@ function Test(props) {
     const [g,setG] = useState("danger");
     const [h,setH] = useState("danger");
     const change = (event) =>{
-        if(subject!=""){setA("success");}
-        if(subject==""){setA("danger");}
-        if(topic!=""){setB("success");}
-        if(topic==""){setB("danger");}
-        if(date!=""){setC("success");}
-        if(date==""){setC("danger");}
-        if(timings!=""){setD("success");}
-        if(timings==""){setD("danger");}
-        if(students!=""){setE("success");}
-        if(students==""){setE("danger");}
-        if(questions!=""){setF("success");}
-        if(questions==""){setF("danger");}
-        if(totalMarks!=""){setG("success");}
-        if(totalMarks==""){setG("danger");}
+        if(SUBJECT!=""){setA("success");}
+        if(SUBJECT==""){setA("danger");}
+        if(TOPIC!=""){setB("success");}
+        if(TOPIC==""){setB("danger");}
+        if(FROM!="" && TO!=""){setC("success");}
+        if(FROM=="" && TO!=""){setC("danger");}
+        if(STUDENTS!=""){setE("success");}
+        if(STUDENTS==""){setE("danger");}
+        if(QUESTIONS!=""){setF("success");}
+        if(QUESTIONS==""){setF("danger");}
+        if(TOTALMARKS!=0){setG("success");}
+        if(TOTALMARKS==0){setG("danger");}
     }
     const [fmodal, setFModal] = useState(false);
     const ftoggle = () => setFModal(!fmodal);
@@ -295,8 +298,8 @@ function Test(props) {
                                                 />
                                                 SELECT ALL STUDENTS
                                             </label>
-                                        <Button color="success" onClick={()=>{stoggle();change();handleStudents();setArray([])}}>SUBMIT</Button>{' '}
-                                        <Button color="danger" onClick={()=>{stoggle();setArray([]);}}>Cancel</Button>
+                                        <Button color="success" onClick={()=>{stoggle();change();handleStudents()}}>SUBMIT</Button>{' '}
+                                        <Button color="danger" onClick={()=>{stoggle();}}>Cancel</Button>
                                         </ModalFooter>
                                     </Modal>                            
                                 </InputGroupAddon>
@@ -312,7 +315,7 @@ function Test(props) {
                                         <ModalHeader toggle={toggle}><strong>Q U E S T I O N S</strong></ModalHeader>
                                         <ModalBody>
                                         <InputGroup>
-                                            <Input placeholder="NUMBER OF QUESTIONS" min={0} max={100} type="number" step="5" value={ques} onChange={event=>{setQues(event.target.value);}}/>
+                                            <Input placeholder="NUMBER OF QUESTIONS" type="text" value={ques} onChange={event=>{setQues(event.target.value);}}/>
                                         </InputGroup>
                                         <br />
                                         <Button color="success" outline onClick={()=>{toggleNested();SETTOTALQUESTIONS(ques);}}>SET QUESTIONS</Button>

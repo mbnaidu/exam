@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom';
 import { Card,Table,Button, Collapse } from 'reactstrap';
 import AdminHeader from './AdminHeader';
-import Header from './Header';
 import axios from 'axios';
 
 function AdminExam() {
-    useEffect(() => {
+    const [SUBJECT, SETSUBJECT] = useState("");
+    const [TOPIC, SETTOPIC] = useState("");
+    const [FROM, SETFROM] = useState("");
+    const [TO, SETTO] = useState("");    useEffect(() => {
         axios.post('http://localhost:3001/allTests').then(
             function(res) {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data);
+                    {res.data.map((r)=>{
+                        console.log(r.id);
+                        console.log(r.subject);
+                        console.log(r.topic);
+                        console.log(r.from);
+                        console.log(r.to);
+                        console.log(r.total);
+                        
+                    })}
                 }
             }
         )
@@ -57,11 +66,12 @@ function AdminExam() {
                             <Table hover>
                                 <thead>
                                     <tr>
-                                        <th>S.NO : </th>
+                                        <th>TEST NUMBER</th>
                                         <th>SUBJECT</th>
                                         <th>TOPIC</th>
+                                        <th>START DATE</th>
                                         <th>LAST DATE</th>
-                                        <th>TIMINGS</th>
+                                        <th>TOTAL MARKS</th>
                                     </tr>
                                 </thead>
                                 {ongoingexams.map((o)=>{
