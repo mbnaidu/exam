@@ -3,20 +3,33 @@ import { Card,Table,Button, Collapse } from 'reactstrap';
 import AdminHeader from './AdminHeader';
 import axios from 'axios';
 import { useStateValue } from '../redux/StateProvider';
+import { Menu } from '@material-ui/core';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 function Admin() {
     const [{user}] = useStateValue();
+    const [adminName, setAdminName] = useState("");
+    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [contactNumber, setContactNumber] = useState("");
+    const [array,setArray] = useState([]);
+
     useEffect(() => {
         const data = {
-            "username": user ? ` ${user.username}` : ""
+            "username": user.username,
         }
         axios.post('http://localhost:3001/studentDetails',{data}).then(
             function(res) {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data);
+                    {res.data.map((i)=>{
+                        setAdminName(i.username);
+                        setPassword(i.password);
+                        setEmail(i.email);
+                        setContactNumber(i.contact);
+                    })}
                 }
             }
         )
@@ -26,23 +39,14 @@ function Admin() {
                     alert(res.data.msg);
                 } else {
                     {res.data.map((i)=>{
-                        console.log(i);
+                        array.push(i);
                     })}
                 }
             }
         )
     });
-    const [isOpen, setOpen] = useState(false);
-    const toggle = () => setOpen(!isOpen);
-    const admins=[
-        {username:"madhu",password:"babu",email:"madhucharliehash@gmail.com",contactNumber:"2452345",address:"14-10-1/1,bhimavaram,gunipudi"},
-    ]
-    const students = [
-        {sno:"1",id:"1201",name:"student1",password:"1",email:"student1@gmail.com",contactnumber:"232654563"},
-        {sno:"2",id:"1202",name:"student2",password:"2",email:"student2@gmail.com",contactnumber:"562654563"},
-        {sno:"3",id:"1203",name:"student3",password:"3",email:"student3@gmail.com",contactnumber:"722654563"},
-        {sno:"4",id:"1204",name:"sudent4",password:"4",email:"student4@gmail.com",contactnumber:"452654563"}
-    ]
+    const [mmodal, setMModal] = useState(false);
+    const mtoggle = () => setMModal(!mmodal);
     return (
         <div>
             <div>
@@ -58,58 +62,60 @@ function Admin() {
                                     <th>PASSWORD</th>
                                     <th>E-MAIL</th>
                                     <th>CONTACT NUMBER</th>
-                                    <th>ADDRESS</th>
                                 </tr>
                             </thead>
-                            {admins.map((a)=>{
-                                return(
                                 <tbody>
                                     <tr>
-                                        <td>{a.username}</td>
-                                        <td>{a.password}</td>
-                                        <td>{a.email}</td>
-                                        <td>{a.contactNumber}</td>
-                                        <td>{a.address}</td>
+                                        <td>{adminName}</td>
+                                        <td>{password}</td>
+                                        <td>{email}</td>
+                                        <td>{contactNumber}</td>
                                     </tr>
                                 </tbody>
-                                )
-                            })}
                         </Table>
                     </Card>
                 </div>
             </div>
             <div>
-            <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem'}} >STUDENT DETAILS</Button>
-                <Collapse isOpen={isOpen}>
-                    <Card>
-                        <Table hover>
-                            <thead>
-                                <tr>
-                                    <th>S.NO </th>
-                                    <th>ID</th>
-                                    <th>NAME</th>
-                                    <th>PASSWORD</th>
-                                    <th>E-MAIL</th>
-                                    <th>CONTACT NUMBER</th>
-                                </tr>
-                            </thead>
-                            {students.map((s)=>{
-                                return(
-                                <tbody>
-                                    <tr>
-                                        <td>{s.sno}</td>
-                                        <td>{s.id}</td>
-                                        <td>{s.name}</td>
-                                        <td>{s.password}</td>
-                                        <td>{s.email}</td>
-                                        <td>{s.contactnumber}</td>
-                                    </tr>
-                                </tbody>
-                                )
-                            })}
-                        </Table>
-                    </Card>
-                </Collapse>
+                <div>
+                    <Button color="success" onClick={()=>{mtoggle()}}><strong>STUDENTS DETAILS</strong></Button>
+                    <Modal isOpen={mmodal} size="lg">
+                        <ModalHeader ><strong>STUDENTS</strong></ModalHeader>
+                            <ModalBody>
+                                    <div>
+                                        <Card>
+                                            <Table hover>
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>USERNAME</th>
+                                                        <th>PASSWORD</th>
+                                                        <th>E-MAIL</th>
+                                                        <th>CONTACT NUMBER</th>
+                                                    </tr>
+                                                </thead>
+                                                {array.map((s)=>{
+                                                    return(
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{s.id}</td>
+                                                            <td>{s.username}</td>
+                                                            <td>{s.password}</td>
+                                                            <td>{s.email}</td>
+                                                            <td>{s.contact}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    )
+                                                })}
+                                            </Table>
+                                        </Card>
+                                    </div>
+                                </ModalBody>
+                        <ModalFooter>
+                        <Button color="danger" onClick={()=>{mtoggle();setArray([])}}><strong>CANCEL</strong></Button>{' '}
+                        </ModalFooter>
+                    </Modal>
+                </div>
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGroup, Col } from 'reactstrap';
+import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGroup, Col, Table, Card } from 'reactstrap';
 import '../styles/Test.css'
 import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -7,6 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 
 function Test(props) {
+    const [array,setArray] = useState([]);
+
     //let studentslist;
     useEffect(() => {
         axios.post('http://localhost:3001/allStudents').then(
@@ -14,7 +16,9 @@ function Test(props) {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data);
+                    {res.data.map((i)=>{
+                        array.push(i);
+                    })}
                 }
             }
         )
@@ -22,12 +26,6 @@ function Test(props) {
     const{
         className
     } = props;
-    const studentslist = [
-        {sno:"1",id:"1201",name:"student1",password:"1",email:"student1@gmail.com",contactnumber:"232654563",isChecked:false},
-        {sno:"2",id:"1202",name:"student2",password:"2",email:"student2@gmail.com",contactnumber:"562654563",isChecked:false},
-        {sno:"3",id:"1203",name:"student3",password:"3",email:"student3@gmail.com",contactnumber:"722654563",isChecked:false},
-        {sno:"4",id:"1204",name:"sudent4",password:"4",email:"student4@gmail.com",contactnumber:"452654563",isChecked:false},
-    ]
     const [currentDate, setCurrentDate] = useState(new Date().getDate());
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
@@ -197,11 +195,10 @@ function Test(props) {
             }
         }
     }
-    const selectAll = (s) => {
-        s.forEach(i => {
-            finalStudents.push(i.id);
-            STUDENTS.push(i.id);
-        });
+    const selectAll = () => {
+        {array.map((a)=>{
+            STUDENTS.push(a.id);
+        })}
     }
     const handleStudents = () => {
         for(var i=0;i<studentArray.length;i++){
@@ -247,7 +244,7 @@ function Test(props) {
                                 <InputGroupAddon addonType="append">
                                     <Button className="btn3" color={c} outline onClick={()=>{change();ftoggle();}} >SET DATE</Button>
                                     <Modal isOpen={fmodal}  className={className}>
-                                        <ModalHeader toggle={ftoggle}><strong>T I M E</strong></ModalHeader>
+                                        <ModalHeader ><strong>T I M E</strong></ModalHeader>
                                         <ModalBody  size="lg">
                                         <div>
                                             <InputGroup>
@@ -272,10 +269,10 @@ function Test(props) {
                                 <Input />
                                 <InputGroupAddon addonType="append">
                                     <Button className="btn4" color={e} outline onClick={()=>{change();stoggle();}}>SELECT STUDENTS</Button>
-                                    <Modal isOpen={smodal}  className={className}>
-                                        <ModalHeader toggle={stoggle}><strong>S T U D E N T S</strong></ModalHeader>
+                                    <Modal isOpen={smodal}  >
+                                        <ModalHeader ><strong>S T U D E N T S</strong></ModalHeader>
                                         <ModalBody>
-                                            {studentslist.map((s)=>{                                             
+                                            {array.map((s)=>{  
                                                 return(
                                                     <div>
                                                         <FormGroup check>
@@ -284,7 +281,7 @@ function Test(props) {
                                                             onClick={()=>{checked(s.id);}}
                                                             value={s.id}
                                                         />
-                                                        {s.id}{' '}{s.name}
+                                                        {s.id}{' '}{s.username}
                                                         </label>
                                                         </FormGroup>
                                                     </div>
@@ -294,12 +291,12 @@ function Test(props) {
                                         <ModalFooter>
                                             <label>
                                                 <input type="checkbox"
-                                                    onClick={()=>{selectAll(studentslist)}}
+                                                    onClick={()=>{selectAll(array)}}
                                                 />
                                                 SELECT ALL STUDENTS
                                             </label>
-                                        <Button color="success" onClick={()=>{stoggle();change();handleStudents();}}>SUBMIT</Button>{' '}
-                                        <Button color="danger" onClick={stoggle}>Cancel</Button>
+                                        <Button color="success" onClick={()=>{stoggle();change();handleStudents();setArray([])}}>SUBMIT</Button>{' '}
+                                        <Button color="danger" onClick={()=>{stoggle();setArray([]);}}>Cancel</Button>
                                         </ModalFooter>
                                     </Modal>                            
                                 </InputGroupAddon>

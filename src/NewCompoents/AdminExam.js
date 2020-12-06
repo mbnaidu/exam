@@ -12,7 +12,7 @@ function AdminExam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data);
+                    // console.log(res.data);
                 }
             }
         )

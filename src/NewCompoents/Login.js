@@ -37,7 +37,6 @@ function Login() {
                     alert(res.data.msg);
                 } else {
                     if(username === "madhu" && password === "madhu"){
-                        console.log("JI")
                         history.push("/admin");
                     }
                     else{

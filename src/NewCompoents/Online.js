@@ -32,7 +32,7 @@ function Online() {
   const Save = () => {
     finalArray.push(array[array.length-1]);
     if(currentQuestion === QUESTIONS.length){
-      console.log(finalArray)
+      // console.log(finalArray)
     }
   }
     const [currentQuestion,setCurrentQuestion]=useState(1)
