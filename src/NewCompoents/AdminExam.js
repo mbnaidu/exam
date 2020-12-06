@@ -2,30 +2,75 @@ import React, { useState, useEffect } from 'react'
 import { Card,Table,Button, Collapse } from 'reactstrap';
 import AdminHeader from './AdminHeader';
 import axios from 'axios';
+import { Menu } from '@material-ui/core';
 
 function AdminExam() {
+    const [ID,SETID] = useState("");
     const [SUBJECT, SETSUBJECT] = useState("");
     const [TOPIC, SETTOPIC] = useState("");
     const [FROM, SETFROM] = useState("");
-    const [TO, SETTO] = useState("");    useEffect(() => {
+    const [TO, SETTO] = useState("");
+    const [TOTAL, SETTOTAL] = useState(0);    
+    const [array,setArray] = useState([])
+    const [upcoming,setUpComing] = useState([]);
+    const [present,setPresent] = useState([]);
+    const [completed,setCompleted] = useState([]);
+
+    
+    const [currentDate, setCurrentDate] = useState(new Date().getDate());
+    const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+    
+    useEffect(() => {
         axios.post('http://localhost:3001/allTests').then(
             function(res) {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
                     {res.data.map((r)=>{
-                        console.log(r.id);
-                        console.log(r.subject);
-                        console.log(r.topic);
-                        console.log(r.from);
-                        console.log(r.to);
-                        console.log(r.total);
-                        
+                        array.push(r);
                     })}
                 }
             }
         )
     }, []);
+    const MENU = (a,b,c) => {
+        console.log(a,b,c);
+        console.log(currentDate,currentMonth,currentYear);
+        if(currentYear < c){
+            console.log("f");
+        }
+        else if(currentYear > c){
+            console.log("p");
+        }
+        else if(currentYear === c){
+            console.log("hi")
+            if(currentMonth < b){
+                console.log("f");
+            }
+            else if(currentMonth > b){
+                console.log("p");
+            }
+            else if(currentMonth === b){
+                if(currentDate < a){
+                    console.log("f");
+                }
+                else if(currentDate > a){
+                    console.log("p");
+                }
+                else if(currentDate === a){
+                    console.log("pre");
+                }
+            }
+        }
+    }
+    const Menu = (u) =>{
+        console.log(u);
+        {u.map((k)=>{
+            MENU((k.from[0]+k.from[1]),(k.from[3]+k.from[4]),(k.from[6]+k.from[7]+k.from[8]+k.from[9]));
+        })}
+        
+    }
     const [isOpen, setOnOpen] = useState(false);
     const [upOpen, setUpOpen] = useState(false);
     const [coOpen, setCoOpen] = useState(false);
@@ -93,30 +138,30 @@ function AdminExam() {
                     </Collapse>
             </div>
             <div>
-                <Button color="primary" onClick={upToggle} style={{ marginBottom: '1rem'}}>UPCOMING EXAMS</Button>
+                <Button color="primary" onClick={()=>{upToggle();Menu(array)}} style={{ marginBottom: '1rem'}}>UPCOMING EXAMS</Button>
                     <Collapse isOpen={upOpen}>
                         <Card>
                             <Table hover>
                                 <thead>
                                     <tr>
-                                        <th>S.NO : </th>
-                                        <th>EXAM DATE</th>
+                                        <th>ID </th>
                                         <th>SUBJECT</th>
                                         <th>TOPIC</th>
+                                        <th>START DATE</th>
                                         <th>LAST DATE</th>
-                                        <th>TIMINGS</th>
+                                        <th>TOTAL MARKS</th>
                                     </tr>
                                 </thead>
-                                {upcomingexams.map((u)=>{
+                                {array.map((u)=>{
                                     return(
                                     <tbody>
                                         <tr>
-                                            <td>{u.sno}</td>
-                                            <td>{u.date}</td>
+                                            <td>{u.id}</td>
                                             <td>{u.subject}</td>
                                             <td>{u.topic}</td>
-                                            <td>{u.lastdate}</td>
-                                            <td>{u.timings}</td>
+                                            <td>{u.from}</td>
+                                            <td>{u.to}</td>
+                                            <td>{u.total}</td>
                                         </tr>
                                     </tbody>
                                     )

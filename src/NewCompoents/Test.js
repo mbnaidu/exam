@@ -26,9 +26,6 @@ function Test(props) {
     const{
         className
     } = props;
-    const [currentDate, setCurrentDate] = useState(new Date().getDate());
-    const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
-    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [SUBJECT, SETSUBJECT] = useState("");
     const [TOPIC, SETTOPIC] = useState("");
     const [FROM, SETFROM] = useState("");
