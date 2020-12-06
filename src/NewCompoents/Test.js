@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGroup, Col } from 'reactstrap';
 import '../styles/Test.css'
 import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "react-datepicker/dist/react-datepicker.css";
+import axios from 'axios';
 
 function Test(props) {
+    //let studentslist;
+    useEffect(() => {
+        axios.post('http://localhost:3001/allStudents').then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    console.log(res.data);
+                }
+            }
+        )
+    });
     const{
         className
     } = props;
@@ -34,6 +47,23 @@ function Test(props) {
         console.log(STUDENTS);
         console.log(QUESTIONS);
         console.log(TOTALMARKS);
+        const data = {
+            "subject":SUBJECT,
+            "topic":TOPIC,
+            "from":FROM,
+            "to":TO,
+            "students": STUDENTS,
+            "questions":QUESTIONS,
+            "total":TOTALMARKS
+        }
+        axios.post('http://localhost:3001/addTest', {data}).then(
+            function(res) {
+                if(res.data) {
+                    console.log("success");
+                    //history.push("/");
+                }
+            }
+        )
     }
     const [modal, setModal] = useState(false);
     const [nestedModal, setNestedModal] = useState(false);

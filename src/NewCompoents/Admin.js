@@ -1,9 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card,Table,Button, Collapse } from 'reactstrap';
 import AdminHeader from './AdminHeader';
+import axios from 'axios';
 
 
 function Admin() {
+    useEffect(() => {
+        const data = {
+            "username": "madhu"
+        }
+        axios.post('http://localhost:3001/studentDetails',{data}).then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    console.log(res.data);
+                }
+            }
+        )
+    });
     const [isOpen, setOpen] = useState(false);
     const toggle = () => setOpen(!isOpen);
     const admins=[
