@@ -20,6 +20,15 @@ function Admin() {
                 }
             }
         )
+        axios.post('http://localhost:3001/allStudents').then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    console.log(res.data);
+                }
+            }
+        )
     });
     const [isOpen, setOpen] = useState(false);
     const toggle = () => setOpen(!isOpen);
