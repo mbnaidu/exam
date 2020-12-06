@@ -7,12 +7,24 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Test(props) {
+    const{
+        className
+    } = props;
+    const studentslist = [
+        {sno:"1",id:"1201",name:"student1",password:"1",email:"student1@gmail.com",contactnumber:"232654563",isChecked:false},
+        {sno:"2",id:"1202",name:"student2",password:"2",email:"student2@gmail.com",contactnumber:"562654563",isChecked:false},
+        {sno:"3",id:"1203",name:"student3",password:"3",email:"student3@gmail.com",contactnumber:"722654563",isChecked:false},
+        {sno:"4",id:"1204",name:"sudent4",password:"4",email:"student4@gmail.com",contactnumber:"452654563",isChecked:false},
+    ]
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+    const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [SUBJECT, SETSUBJECT] = useState("");
     const [TOPIC, SETTOPIC] = useState("");
     const [FROM, SETFROM] = useState("");
     const [TO, SETTO] = useState("");
     const [STUDENTS, SETSTUDENTS] = useState([]);
-    const [QUESTIONS, SETQUESIONS] = useState([]);
+    const [QUESTIONS, SETQUESIONS] = useState(["null"]);
     const [TOTALMARKS, SETTOTALMARKS] = useState(0);
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     const FINALSUBMIT = () => {
@@ -25,15 +37,6 @@ function Test(props) {
         console.log(TOTALMARKS);
         
     }
-    const{
-        className
-    } = props;
-    const studentslist = [
-        {sno:"1",id:"1201",name:"student1",password:"1",email:"student1@gmail.com",contactnumber:"232654563",isChecked:false},
-        {sno:"2",id:"1202",name:"student2",password:"2",email:"student2@gmail.com",contactnumber:"562654563",isChecked:false},
-        {sno:"3",id:"1203",name:"student3",password:"3",email:"student3@gmail.com",contactnumber:"722654563",isChecked:false},
-        {sno:"4",id:"1204",name:"sudent4",password:"4",email:"student4@gmail.com",contactnumber:"452654563",isChecked:false},
-    ]
     const [modal, setModal] = useState(false);
     const [nestedModal, setNestedModal] = useState(false);
     const [closeAll, setCloseAll] = useState(false);
@@ -45,9 +48,6 @@ function Test(props) {
     const toggleAll = () => {
         setNestedModal(!nestedModal);
         setCloseAll(true);
-    }
-    const called = (c) => {
-        console.log(c);
     }
     const [smodal, setSModal] = useState(false);
   const stoggle = () => setSModal(!smodal);
@@ -69,9 +69,6 @@ function Test(props) {
     const [f,setF] = useState("danger");
     const [g,setG] = useState("danger");
     const [h,setH] = useState("danger");
-    const array = (full) => {
-        console.log(full)
-    }
     const change = (event) =>{
         if(subject!=""){setA("success");}
         if(subject==""){setA("danger");}
@@ -195,8 +192,8 @@ function Test(props) {
             }
         }
     }
-    const [startDate, setStartDate] = useState(new Date());
-    const [lastDate, setLastDate] = useState(new Date());
+    const [startDate, setStartDate] = useState();
+    const [lastDate, setLastDate] = useState();
     return (
         <div>
            <Jumbotron fluid className="set">
@@ -221,38 +218,20 @@ function Test(props) {
                                 <Input placeholder={startDate}/>
                                 <InputGroupAddon addonType="append">
                                     <Button className="btn3" color={c} outline onClick={()=>{change();ftoggle();}} >SET DATE</Button>
-                                    <Modal isOpen={fmodal}  className={className} size="lg">
+                                    <Modal isOpen={fmodal}  className={className}>
                                         <ModalHeader toggle={ftoggle}><strong>T I M E</strong></ModalHeader>
                                         <ModalBody  size="lg">
                                         <div>
                                             <InputGroup>
-                                                <Input  value={startDate} />
-                                                    <InputGroupAddon addonType="append">
-                                                        <DatePicker
-                                                            selected={startDate}
-                                                            onChange={date1 => {setStartDate(date1);}}
-                                                            showTimeSelect
-                                                            timeFormat="HH:mm"
-                                                            dateFormat="MMMM d, yyyy h:mm aa"
-                                                        />
-                                                    </InputGroupAddon>
+                                                <Input  value={startDate} placeholder="START DATE  DD-MM-YYYY" onChange={event=>{SETFROM(event.target.value);}}/>
                                             </InputGroup>
                                             <InputGroup>
-                                                <Input  value={lastDate} />
-                                                    <InputGroupAddon addonType="append">
-                                                        <DatePicker
-                                                            selected={lastDate}
-                                                            onChange={date1 => {setLastDate(date1);}}
-                                                            showTimeSelect
-                                                            timeFormat="HH:mm"
-                                                            dateFormat="MMMM d, yyyy h:mm aa"
-                                                        />
-                                                    </InputGroupAddon>
+                                                <Input  value={lastDate} placeholder="LAST DATE  DD-MM-YYYY" onChange={event=>{SETTO(event.target.value);}}/>
                                             </InputGroup>
                                         </div>
                                         </ModalBody>
                                         <ModalFooter>
-                                        <Button color="primary" onClick={()=>{SETFROM(startDate);SETTO(lastDate);ftoggle();}}>SET DATE</Button>{' '}
+                                        <Button color="primary" onClick={()=>{ftoggle();}}>SET DATE</Button>{' '}
                                         <Button color="secondary" onClick={ftoggle}>CANCEL</Button>
                                         </ModalFooter>
                                     </Modal>
