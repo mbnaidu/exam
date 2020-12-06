@@ -11,10 +11,10 @@ function Exam() {
     const coToggle = () => setCoOpen(!coOpen);
 
     const ongoingexams = [
-        {sno:"1",subject:"maths",topic:"linear",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"2",subject:"physics",topic:"linear",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"3",subject:"chemistry",topic:"linear",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
-        {sno:"4",subject:"english",topic:"linear",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"}
+        {sno:"1",subject:"maths",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
+        {sno:"2",subject:"physics",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
+        {sno:"3",subject:"chemistry",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},
+        {sno:"4",subject:"english",topic:"linear",startdate:"12-03-2020",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"}
     ]
     const upcomingexams = [
         {sno:"1",date:"12-03-2020",subject:"maths",topic:"linear",lastdate:"12-03-2020",timings:"10:00am - 12:00noon"},

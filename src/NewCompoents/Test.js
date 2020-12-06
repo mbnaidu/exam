@@ -3,7 +3,6 @@ import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGr
 import '../styles/Test.css'
 import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 function Test(props) {
@@ -16,7 +15,7 @@ function Test(props) {
         {sno:"3",id:"1203",name:"student3",password:"3",email:"student3@gmail.com",contactnumber:"722654563",isChecked:false},
         {sno:"4",id:"1204",name:"sudent4",password:"4",email:"student4@gmail.com",contactnumber:"452654563",isChecked:false},
     ]
-    const [currentDate, setCurrentDate] = useState(new Date());
+    const [currentDate, setCurrentDate] = useState(new Date().getDate());
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [SUBJECT, SETSUBJECT] = useState("");
@@ -35,7 +34,6 @@ function Test(props) {
         console.log(STUDENTS);
         console.log(QUESTIONS);
         console.log(TOTALMARKS);
-        
     }
     const [modal, setModal] = useState(false);
     const [nestedModal, setNestedModal] = useState(false);
