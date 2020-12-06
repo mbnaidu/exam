@@ -23,7 +23,7 @@ function Test(props) {
     const [FROM, SETFROM] = useState("");
     const [TO, SETTO] = useState("");
     const [STUDENTS, SETSTUDENTS] = useState([]);
-    const [QUESTIONS, SETQUESIONS] = useState(["null"]);
+    const [QUESTIONS, SETQUESIONS] = useState([]);
     const [TOTALMARKS, SETTOTALMARKS] = useState(0);
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     const FINALSUBMIT = () => {
