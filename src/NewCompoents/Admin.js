@@ -25,7 +25,9 @@ function Admin() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data);
+                    {res.data.map((i)=>{
+                        console.log(i);
+                    })}
                 }
             }
         )
