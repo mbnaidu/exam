@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import {Badge, Button,Container, CardBody, Jumbotron, Card, CardHeader } from 'reactstrap'
+import {Badge, Button,Container, CardBody, Jumbotron, Card, CardHeader, Progress } from 'reactstrap'
 import { FormControl, RadioGroup } from '@material-ui/core';
 import { QUESTIONS } from '../Questions/NewQuestions'
 import '../styles/Exam.css'
@@ -22,6 +22,7 @@ const BlueRadio = withStyles({
   })((props) => <Radio color="default" {...props} />);
 
 function Online() {
+  const [number,setNumber] = useState(30);
   const [testId,setTestId] = useState("");
   const [Username,setUsername] = useState("");
   const [{user}] = useStateValue();
@@ -39,7 +40,8 @@ function Online() {
           if(res.data.msg) {
               alert(res.data.msg);
           } else {
-              setUsername(res.data[0].id)
+              // setUsername(res.data[0].id)
+              setUsername(12043)
           }
       }
   )
@@ -52,6 +54,8 @@ function Online() {
     setTestId(a.testId)
   })}
 },[]);
+var [rend,setRend] = useState(questionsArray.length);
+
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [score, setScore] = useState(0);
     const [submit,setSubmit] = useState(false);
@@ -72,6 +76,11 @@ function Online() {
     const [currentQuestion,setCurrentQuestion]=useState(1)
     const [counter, setCounter] = React.useState(3);
     React.useEffect(() => {
+      if(currentQuestion*number >= 25){setCol("success");}
+    if(currentQuestion*number >= 50){setCol("info");}
+    if(currentQuestion*number >= 75){setCol("danger");}
+    if(currentQuestion*number >= 100){setCol("danger");}
+
         if(counter===0 && currentQuestion<questionsArray.length){
           if((array[array.length-1])>0){
             finalArray.push(array[array.length-1]);
@@ -110,11 +119,16 @@ function Online() {
         }
         counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
     }, [counter]);
-
+    const [col,setCol] = useState("warning")
+    
     const questionRender = (que) =>{
+      
       return(
         <div>
           <Jumbotron>
+          <Progress multi>
+            <Progress animated bar color={col} value={currentQuestion*number} >{currentQuestion*number}</Progress>
+          </Progress>
             <Fragment>
               <Button className="questions" color="primary" style={{color:"white"}}><strong>QUESTIONS </strong> <Badge color="badge badge-light" pill>{counter}</Badge></Button>
                 </Fragment>

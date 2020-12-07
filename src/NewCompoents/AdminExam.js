@@ -92,7 +92,6 @@ function AdminExam() {
                                             <td>{u.from}</td>
                                             <td>{u.to}</td>
                                             <td>{u.total}</td>
-                                            <td><Button color="success" href="/online"><strong>VIEW</strong></Button></td>
                                         </tr>
                                     </tbody>
                                     )

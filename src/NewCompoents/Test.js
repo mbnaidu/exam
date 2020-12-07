@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGroup, Col, Table, Card } from 'reactstrap';
+import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGroup, Col, Table, Card, Label } from 'reactstrap';
 import '../styles/Test.css'
 import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 function Test(props) {
     const [array,setArray] = useState([]);
@@ -35,6 +36,8 @@ function Test(props) {
     const [TOTALMARKS, SETTOTALMARKS] = useState(0);
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     const FINALSUBMIT = () => {
+        console.log(FROM);
+            console.log(TO);
         if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" ){
             console.log(SUBJECT);
             console.log(TOPIC);
@@ -116,6 +119,9 @@ function Test(props) {
     const submit = (event)=>{
         if(subject!="" && topic!="" && date!="" && timings!="" && students!="" && questions!="" && totalMarks!=""){
             setAssign("ASSIGNED");setA("success");setB("success");setC("success");setD("success");setE("success");setF("success");setG("success");setH("success");
+            window.history.push({
+                pathname: '/adminexam',
+            })
         }
     }
     const [isOpen, setIsOpen] = useState(false);
@@ -149,6 +155,8 @@ function Test(props) {
         const calling3 = (u)=>{if(u!="" && u!="undefined"){store3.push(u);}}
         const calling4 = (v)=>{if(v!="" && v!="undefined"){store4.push(v);}}
         const calling5 = (w)=>{if(w!="" && w!="undefined"){answer=w;}}
+        const [visible, setVisible] = useState(true);
+        const onDismiss = () => setVisible(false);
         return(
             <div>
                 <ul>{Array.from(Array(5), (e, i) =>{
@@ -165,7 +173,7 @@ function Test(props) {
                                         <Input placeholder="OPTION 3" type="text" value={input3}   onChange={event=> calling3(event.target.value)}/>
                                         <Input placeholder="OPTION 4" type="text" value={input4}   onChange={event=> calling4(event.target.value)}/>
                                         <Input placeholder="SELECT CORRECT OPTION" min={0} max={4} type="number" step="1" value={answer} onChange={event=> calling5(event.target.value)}/>
-                                        <Button onClick={()=>{adding();handleQuestions(full,i)}} color="success">CHECK</Button>
+                                        <Button onClick={()=>{adding();handleQuestions(full,i)}} color="success"><strong>ADD {i+1} THIS QUESTION</strong></Button>
                                     </div>
                                 </Col>
                             </FormGroup>
@@ -219,6 +227,17 @@ function Test(props) {
     }
     const [startDate, setStartDate] = useState();
     const [lastDate, setLastDate] = useState();
+    const call = (a1,b1) => {
+        if(a1 != ""){
+            let reversed = "";      
+            for (var i = a1.length - 1; i >= 0; i--){         
+              reversed += a1[i];  
+            }     
+           console.log(reversed);
+        }
+        if(b!=""){
+        }
+    }
     return (
         <div>
            <Jumbotron fluid className="set">
@@ -247,12 +266,30 @@ function Test(props) {
                                         <ModalHeader ><strong>T I M E</strong></ModalHeader>
                                         <ModalBody  size="lg">
                                         <div>
-                                            <InputGroup>
-                                                <Input  value={startDate} placeholder="START DATE  DD-MM-YYYY" onChange={event=>{SETFROM(event.target.value);}}/>
+                                            <FormGroup>
+                                                <Label> START DATE</Label>
+                                                <Input
+                                                type="date"
+                                                value={startDate}
+                                                onChange={event=>{SETFROM(event.target.value);call(event.target.value)}}
+                                                placeholder="START DATE  DD-MM-YYYY"
+                                                />
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Label >END DATE</Label>
+                                                <Input
+                                                type="date"
+                                                value={lastDate}
+                                                onChange={event=>{SETTO(event.target.value);call(event.target.value)}}
+                                                placeholder="LAST DATE  DD-MM-YYYY"
+                                                />
+                                            </FormGroup>
+                                            {/* <InputGroup>
+                                                <Input  value={startDate} placeholder="START DATE  DD-MM-YYYY" type="date" onChange={event=>{SETFROM(event.target.value);}}/>
                                             </InputGroup>
                                             <InputGroup>
-                                                <Input  value={lastDate} placeholder="LAST DATE  DD-MM-YYYY" onChange={event=>{SETTO(event.target.value);}}/>
-                                            </InputGroup>
+                                                <Input  value={lastDate} placeholder="LAST DATE  DD-MM-YYYY" type="date" onChange={event=>{SETTO(event.target.value);}}/>
+                                            </InputGroup> */}
                                         </div>
                                         </ModalBody>
                                         <ModalFooter>
