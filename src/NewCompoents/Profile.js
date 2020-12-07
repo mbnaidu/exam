@@ -53,7 +53,7 @@ function Profile() {
             }
         )
         data = {
-            "id":id
+            "id":"12034"
         }
         axios.post('http://localhost:3001/getReportCard', {data}).then(
             function(res) {

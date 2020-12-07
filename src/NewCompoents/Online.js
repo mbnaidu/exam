@@ -85,18 +85,17 @@ function Online() {
         }
         else if( counter===0 && questionsArray.length === currentQuestion){
           finalArray.push(array[array.length-1]);
-            for(var i in finalArray,answers){
-                if(finalArray[i] === answers[i]){
-                  setMarks(marks+1);
-                }
+          var finalMarks=0;
+            for(var i=0;i<finalArray.length;i++){
+              if(finalArray[i] === answers[i]){
+                finalMarks++;
+              }
             }
+            setMarks(finalMarks);
             setSubmit(true);
-            console.log(Username);
-            console.log(marks);
-            console.log(testId);
             var data = {
               id:Username,
-              marks:marks,
+              marks:finalMarks,
               testId:testId
             }
             axios.post('http://localhost:3001/submitMarks', {data}).then(
@@ -104,7 +103,7 @@ function Online() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data);
+                    // console.log(res.data);
                 }
             }
         )
