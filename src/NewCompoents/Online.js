@@ -39,7 +39,7 @@ function Online() {
           if(res.data.msg) {
               alert(res.data.msg);
           } else {
-              setUsername(res.data[0].username)
+              setUsername(res.data[0].id)
           }
       }
   )
