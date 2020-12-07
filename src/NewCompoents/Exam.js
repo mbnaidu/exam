@@ -1,12 +1,27 @@
 import React, { useState,useEffect } from 'react'
-import { Card,Table,Button, Collapse } from 'reactstrap';
+import { Table,Button, Collapse,Container, CardBody } from 'reactstrap';
 import Header from './Header';
 import axios from 'axios';
 import { useStateValue } from '../redux/StateProvider';
-import { Call } from '@material-ui/icons';
+import {  Card, FormControl, FormControlLabel, RadioGroup } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+import Radio from '@material-ui/core/Radio';
+import { blue, green } from '@material-ui/core/colors';
+import { useHistory } from 'react-router-dom';
+
 
 function Exam() {
+    const history = useHistory();
 
+    const BlueRadio = withStyles({
+        root: {
+          color: blue[400],
+          '&$checked': {
+            color: blue[600],
+          },
+        },
+        checked: {},
+      })((props) => <Radio color="default" {...props} />);
 
     const today = new Date();
     const [currentDate, setCurrentDate] = useState(today.getDate());
@@ -65,20 +80,21 @@ function Exam() {
             }
         )
     },[]);
-    const ONLINE = () => {
-        return(
-            <div>
-                {examArray.map((e)=>{
-                    console.log(e);
-                    // console.log(e.option1)
-                    // console.log(e.option2)
-                    // console.log(e.option3)
-                    // console.log(e.option4)
-                    // console.log(e.answer)
-                })}
-            </div>
-        )
-    }
+    // const ONLINE = () => {
+    //     console.log(examArray)
+    //     return(
+    //         <div>
+    //             {examArray.map((e)=>{
+    //                 {e.map((i)=>{
+                        
+    //                     <div>
+    //                           <h1>{i.question}</h1>
+    //                       </div>
+    //                 })}
+    //             })}
+    //         </div>
+    //     )
+    // }
     const MENU = (a,b,d)=> {
         var dateFrom = a;
         var dateTo = b;
@@ -112,18 +128,21 @@ function Exam() {
         axios.post('http://localhost:3001/getQuestions', {data}).then(
             function(res) {
                 if(res.data){
-                    console.log(res.data)
-                    examArray.push(res.data);
-                    SETEXAM(true);
+                    // examArray.push(res.data);
+                    // SETEXAM(true);
+                    history.push({
+                        pathname: '/online',
+                        state: res.data
+                    })
                 }
             }
         )
     }
     return (
         <div>
-            {!EXAM ? (
+            {/* {!EXAM ? (
                 <div>
-                    <div>
+                    <div> */}
             <div>
                 <Header/>
             </div>
@@ -222,13 +241,13 @@ function Exam() {
                     </Collapse>
             </div>
         </div>
-                </div>
-            ) : (
-                <div>
-                    {ONLINE()}
-                </div>
-            ) }
-        </div>
+        //         </div>
+        //     ) : (
+        //         <div>
+        //             {ONLINE()}
+        //         </div>
+        //     ) }
+        // </div>
     )
 }
 

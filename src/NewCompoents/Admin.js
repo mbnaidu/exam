@@ -112,7 +112,7 @@ function Admin() {
                                     </div>
                                 </ModalBody>
                         <ModalFooter>
-                        <Button color="danger" onClick={()=>{mtoggle();setArray([])}}><strong>CANCEL</strong></Button>{' '}
+                        <Button color="danger" onClick={()=>{mtoggle();}}><strong>CANCEL</strong></Button>{' '}
                         </ModalFooter>
                     </Modal>
                 </div>

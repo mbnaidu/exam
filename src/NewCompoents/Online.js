@@ -1,11 +1,12 @@
-import React, { Fragment, useState } from 'react'
-import {Badge, Button,Container, CardBody, CardHeader, CardTitle, Jumbotron } from 'reactstrap'
-import {  Card, FormControl, FormControlLabel, RadioGroup } from '@material-ui/core';
+import React, { Fragment, useEffect, useState } from 'react'
+import {Badge, Button,Container, CardBody, Jumbotron } from 'reactstrap'
+import { FormControl, RadioGroup } from '@material-ui/core';
 import { QUESTIONS } from '../Questions/NewQuestions'
 import '../styles/Exam.css'
-import { blue, green } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
 import Radio from '@material-ui/core/Radio';
 import { withStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom';
 
 
 const BlueRadio = withStyles({
@@ -19,6 +20,14 @@ const BlueRadio = withStyles({
   })((props) => <Radio color="default" {...props} />);
 
 function Online() {
+  const [questionsArray,setQuestionsArray] = useState([]);
+  const history = useHistory();
+  useEffect(() => {
+    const data = {
+      questionslist: history.location.state
+  }
+  console.log(data);
+  },[]);
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [score, setScore] = useState(0);
     const [submit,setSubmit] = useState(false);

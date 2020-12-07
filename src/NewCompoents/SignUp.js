@@ -52,10 +52,11 @@ function SignUp() {
                             </FormGroup>
                             <FormGroup row >
                             <Input className="input__change__email pl-5" placeholder="Contact Number " type="number" value={contactNumber}   onChange={event=> setContactNumber(event.target.value)}/>
-                        </FormGroup>
+                            </FormGroup>
                         </Form>
+                        <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} onClick={onSignupclickHandler}><a to="/"  ><strong>Sign Up</strong></a></Button>
+
                 </Jumbotron>
-                <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} onClick={onSignupclickHandler}><NavLink to="/"  ><strong>Sign Up</strong></NavLink></Button>
             </div>
         </div>
     )
