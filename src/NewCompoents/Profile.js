@@ -30,6 +30,7 @@ function Profile() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
+                    console.log(res.data)
                     {res.data.map((i)=>{
                         setAdminName(i.username);
                         setPassword(i.password);
