@@ -26,7 +26,8 @@ function Online() {
     const data = {
       questionslist: history.location.state
   }
-  console.log(data);
+  // console.log(data.questionslist)
+  setQuestionsArray(data.questionslist);
   },[]);
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [score, setScore] = useState(0);
@@ -35,27 +36,27 @@ function Online() {
     const [finalArray,setFinalArray] = useState([]);
   const handleChange = (event) => {
     array.push(event.target.value)
-    setSelectedValue(event.target.value);
   };
   const Save = () => {
     finalArray.push(array[array.length-1]);
-    if(currentQuestion === QUESTIONS.length){
-      // console.log(finalArray)
-    }
+    
   }
     const [currentQuestion,setCurrentQuestion]=useState(1)
-    const [counter, setCounter] = React.useState(5);
+    const [counter, setCounter] = React.useState(3);
     React.useEffect(() => {
-        if(counter===0 && currentQuestion<QUESTIONS.length){
+        if(counter===0 && currentQuestion<questionsArray.length){
+          finalArray.push(array[array.length-1]);
             setCurrentQuestion(currentQuestion+1);
-            finalArray.push(array[array.length-1]);
-            setCounter(5);
-
+            setCounter(3);
         }
-        else if(counter === 0 ){
+        else if( counter===0 && questionsArray.length === currentQuestion){
+          finalArray.push(array[array.length-1]);
+            console.log(finalArray)
+            setSubmit(true);
         }
         counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
     }, [counter]);
+
     const questionRender = (que) =>{
       return(
         <div>
@@ -63,21 +64,21 @@ function Online() {
             <Fragment>
               <Button className="questions" color="primary" style={{color:"white"}}><strong>QUESTIONS </strong> <Badge color="badge badge-light" pill>{counter}</Badge></Button>
                 </Fragment>
-                  {QUESTIONS.map((q)=>{
+                  {questionsArray.map((q)=>{
                     let option ;
-                    if(que==q.id){
+                    if(que==q.questId){
                       return(
-                        <div>
-                          <Container className="ques__" fluid="md">{q.id}.  {q.Question}</Container>
+                        <div key={q.questId}>
+                          <Container className="ques__" fluid="md">{q.questId}.  {q.question}</Container>
                           <CardBody>
                             <FormControl>
                               <RadioGroup>
-                                <label><BlueRadio onChange={handleChange} value={q.Option1} size="small" />{q.Option1}</label>
-                                <label><BlueRadio onChange={handleChange} value={q.Option2} size="small"/>{q.Option2}</label>
-                                <label><BlueRadio onChange={handleChange}value={q.Option3} color="default"name="radio-button-demo"size="small"/>{q.Option3}</label>
-                                <label><BlueRadio onChange={handleChange} value={q.Option4} color="default" name="radio-button-demo" size="small"/>{q.Option4}</label>
+                                <label><BlueRadio onChange={handleChange} value="1" size="small" />{q.option1}</label>
+                                <label><BlueRadio onChange={handleChange} value="2" size="small"/>{q.option2}</label>
+                                <label><BlueRadio onChange={handleChange}value="3" color="default" size="small"/>{q.option3}</label>
+                                <label><BlueRadio onChange={handleChange} value="4" color="default"   size="small"/>{q.option4}</label>
                               </RadioGroup>
-                              <Button onClick={()=>{setCurrentQuestion(currentQuestion+1);setCounter(5);Save();}}><strong>NEXT</strong></Button>
+                              <Button onClick={()=>{setCurrentQuestion(currentQuestion+1);setCounter(3);Save();}}><strong>NEXT</strong></Button>
                             </FormControl>
                           </CardBody>
                         </div>
@@ -90,7 +91,15 @@ function Online() {
     return (
       <div>
         <div>
-          {questionRender(currentQuestion)}
+            {!submit ? (
+              <div>
+              {questionRender(currentQuestion)}
+            </div>
+            ) : (
+              <div>
+                hi
+              </div>
+            ) }
         </div>
       </div>
     )
