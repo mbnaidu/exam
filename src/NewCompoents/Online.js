@@ -94,6 +94,20 @@ function Online() {
             console.log(Username);
             console.log(marks);
             console.log(testId);
+            var data = {
+              id:Username,
+              marks:marks,
+              testId:testId
+            }
+            axios.post('http://localhost:3001/submitMarks', {data}).then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    console.log(res.data);
+                }
+            }
+        )
         }
         counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
     }, [counter]);
