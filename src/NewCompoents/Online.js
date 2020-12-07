@@ -6,7 +6,6 @@ import '../styles/Exam.css'
 import { blue, green } from '@material-ui/core/colors';
 import Radio from '@material-ui/core/Radio';
 import { withStyles } from '@material-ui/core/styles';
-import { Save } from '@material-ui/icons';
 
 
 const BlueRadio = withStyles({
