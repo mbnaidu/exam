@@ -48,9 +48,7 @@ function AdminExam() {
             completed.push(d);
         }
         else if(from > check  && to > check){
-            {d.map((i)=>{
-                upcoming.push(i);
-            })}
+            upcoming.push(i);
         }
     }
 
