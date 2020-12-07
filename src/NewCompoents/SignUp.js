@@ -36,7 +36,7 @@ function SignUp() {
                 <Jumbotron className="signup">
                     <Form>
                     <FormGroup row >
-                            <Input className="input__change__email pl-5" placeholder="ID " type="number" value={id}   onChange={event=> setId(event.target.value)}/>
+                            <Input className="input__change__email pl-5" placeholder="ID " type="text" value={id}   onChange={event=> setId(event.target.value)}/>
                         </FormGroup>
                         <FormGroup row >
                             <Input className="input__change__email pl-5" placeholder="E - Mail " type="text" value={email}   onChange={event=> setEmail(event.target.value)}/>
