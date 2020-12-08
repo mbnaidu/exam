@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Card,Table,Button, Collapse, Badge, Container, Row, Col } from 'reactstrap';
 import AdminHeader from './AdminHeader';
 import axios from 'axios';
-import { useStateValue } from '../redux/StateProvider';
+import { useStateValue } from '../../redux/StateProvider';
 import { Menu } from '@material-ui/core';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 

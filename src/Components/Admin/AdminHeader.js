@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import {NavLink} from 'react-router-dom'
 import {Navbar, NavbarBrand,Nav} from 'reactstrap'
-import '../NewStyles/Header.css'
+import '../../styles/AdminHeader.css'
 class AdminHeader extends Component {
 
     constructor(props) {
@@ -37,7 +37,7 @@ class AdminHeader extends Component {
             <div>
             <Navbar className="p-0 navbar-expand-lg " >
                 <NavbarBrand className="ml-5" href="/">
-                    <img  top height="120" className="loginlogo" src={require('../Shared/vit.ico')} alt="Card image cap"  />
+                    <img  top height="120" className="loginlogo" src={require('../../Shared/vit.ico')} alt="Card image cap"  />
                 </NavbarBrand>
                 <Nav Navbar className="pt-3 mr-4">
                     <NavLink className="navbar__link block-example" style={a} onMouseOver={()=>this.men()}   onMouseOut={()=>this.omen()}   exact activeClassName="navbar__link--active" className="navbar__link"to="/admin" >

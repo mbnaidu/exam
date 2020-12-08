@@ -3,12 +3,12 @@ import {Switch,Route} from 'react-router-dom'
 
 import Login from './Login';
 import SignUP from './SignUp';
-import Admin from './Admin';
-import Exam from './Exam';
-import Online from './Online';
-import Profile from './Profile';
-import Test from './Test';
-import AdminExam from './AdminExam';
+import Admin from './Admin/Admin';
+import Exam from './Student/Exam';
+import Online from './Student/Online';
+import Profile from './Student/Profile';
+import Test from './Admin/Test';
+import AdminExam from './Admin/AdminExam';
 
 class MainPage extends Component {
     render() {

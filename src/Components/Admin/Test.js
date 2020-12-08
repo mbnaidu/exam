@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGroup, Col, Table, Card, Label } from 'reactstrap';
-import '../styles/Test.css'
+import '../../styles/Test.css'
 import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "react-datepicker/dist/react-datepicker.css";

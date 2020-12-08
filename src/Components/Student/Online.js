@@ -1,13 +1,12 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import {Badge, Button,Container, CardBody, Jumbotron, Card, CardHeader, Progress } from 'reactstrap'
 import { FormControl, RadioGroup } from '@material-ui/core';
-import { QUESTIONS } from '../Questions/NewQuestions'
-import '../styles/Exam.css'
+import '../../styles/Exam.css'
 import { blue } from '@material-ui/core/colors';
 import Radio from '@material-ui/core/Radio';
 import { withStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
-import { useStateValue } from '../redux/StateProvider';
+import { useStateValue } from '../../redux/StateProvider';
 import axios from 'axios';
 
 
