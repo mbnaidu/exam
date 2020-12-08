@@ -30,12 +30,24 @@ function Test(props) {
     const [TOPIC, SETTOPIC] = useState("");
     const [FROM, SETFROM] = useState("");
     const [TO, SETTO] = useState("");
+    const [STARTTIME,SETSTARTTIME] = useState("");
+    const [ENDTIME,SETENDTIME] = useState("");
     const [STUDENTS, SETSTUDENTS] = useState([]);
     const [QUESTIONS, SETQUESIONS] = useState([]);
     const [TOTALMARKS, SETTOTALMARKS] = useState(0);
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     const FINALSUBMIT = () => {
-        if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" ){
+        console.log(SUBJECT);
+        console.log(TOPIC);
+        console.log(FROM);
+        console.log(TO);
+        console.log(STARTTIME);
+        console.log(ENDTIME);
+        console.log(STUDENTS);
+        console.log(QUESTIONS);
+        console.log(TOTALMARKS);
+        
+        if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" && STARTTIME!="" && ENDTIME!="" ){
             setAssign("ASSIGNED");
             setH("success");
             const data = {
@@ -43,6 +55,8 @@ function Test(props) {
                 "topic":TOPIC,
                 "from":FROM,
                 "to":TO,
+                "starttime":STARTTIME,
+                "endtime":ENDTIME,
                 "students": STUDENTS,
                 "questions":QUESTIONS,
                 "total":TOTALMARKS
@@ -69,8 +83,16 @@ function Test(props) {
         setNestedModal(!nestedModal);
         setCloseAll(true);
     }
-    const [smodal, setSModal] = useState(false);
-  const stoggle = () => setSModal(!smodal);
+    // TOGGLE
+        const [studentmodal, setStudentModal] = useState(false);
+        const studenttoggle = () => setStudentModal(!studentmodal);
+
+        const [timemodal, setTimeModal] = useState(false);
+        const timetoggle = () => setTimeModal(!timemodal);
+
+        const [datemodal, setDateModal] = useState(false);
+        const datetoggle = () => setDateModal(!datemodal);
+
     const [ques,setQues] = useState();
     const [subject,setSubject] = useState("");
     const [topic,setTopic] = useState("");
@@ -103,8 +125,7 @@ function Test(props) {
         if(TOTALMARKS!=0){setG("success");}
         if(TOTALMARKS==0){setG("danger");}
     }
-    const [fmodal, setFModal] = useState(false);
-    const ftoggle = () => setFModal(!fmodal);
+    
     const submit = (event)=>{
         if(subject!="" && topic!="" && date!="" && timings!="" && students!="" && questions!="" && totalMarks!=""){
             setAssign("ASSIGNED");setA("success");setB("success");setC("success");setD("success");setE("success");setF("success");setG("success");setH("success");
@@ -237,10 +258,10 @@ function Test(props) {
                         <br />
                         <div>
                             <InputGroup className="box3">
-                                <Input placeholder={startDate}/>
+                                <Input placeholder={FROM+"      TO      "+TO}/>
                                 <InputGroupAddon addonType="append">
-                                    <Button className="btn3" color={c} outline onClick={()=>{change();ftoggle();}} >SET DATE</Button>
-                                    <Modal isOpen={fmodal}  className={className}>
+                                    <Button className="btn3" color={c} outline onClick={()=>{change();datetoggle();}} >SET DATE</Button>
+                                    <Modal isOpen={datemodal}  className={className}>
                                         <ModalHeader ><strong>D A T E</strong></ModalHeader>
                                         <ModalBody  size="lg">
                                         <div>
@@ -248,7 +269,7 @@ function Test(props) {
                                                 <Label> START DATE</Label>
                                                 <Input
                                                 type="text"
-                                                value={startDate}
+                                                value={FROM}
                                                 onChange={event=>{SETFROM(event.target.value)}}
                                                 placeholder="START DATE  DD-MM-YYYY"
                                                 />
@@ -257,22 +278,16 @@ function Test(props) {
                                                 <Label >END DATE</Label>
                                                 <Input
                                                 type="text"
-                                                value={lastDate}
+                                                value={TO}
                                                 onChange={event=>{SETTO(event.target.value)}}
                                                 placeholder="LAST DATE  DD-MM-YYYY"
                                                 />
                                             </FormGroup>
-                                            {/* <InputGroup>
-                                                <Input  value={startDate} placeholder="START DATE  DD-MM-YYYY" type="date" onChange={event=>{SETFROM(event.target.value);}}/>
-                                            </InputGroup>
-                                            <InputGroup>
-                                                <Input  value={lastDate} placeholder="LAST DATE  DD-MM-YYYY" type="date" onChange={event=>{SETTO(event.target.value);}}/>
-                                            </InputGroup> */}
                                         </div>
                                         </ModalBody>
                                         <ModalFooter>
-                                        <Button color="primary" onClick={()=>{ftoggle();}}>SET DATE</Button>{' '}
-                                        <Button color="secondary" onClick={ftoggle}>CANCEL</Button>
+                                        <Button color="primary" onClick={()=>{datetoggle();}}>SET DATE</Button>{' '}
+                                        <Button color="secondary" onClick={datetoggle}>CANCEL</Button>
                                         </ModalFooter>
                                     </Modal>
                                 </InputGroupAddon>
@@ -280,11 +295,47 @@ function Test(props) {
                         </div>
                         <br />
                         <div>
+                            <InputGroup className="box6">
+                                <Input placeholder={STARTTIME+"     TO    "+ENDTIME}/>
+                                <InputGroupAddon addonType="append">
+                                    <Button className="btn3" color={c} outline onClick={()=>{change();timetoggle();}} >SET TIME</Button>
+                                    <Modal isOpen={timemodal}  className={className}>
+                                        <ModalHeader ><strong>D A T E</strong></ModalHeader>
+                                        <ModalBody  size="lg">
+                                        <div>
+                                            <FormGroup>
+                                                <Label> START TIME</Label>
+                                                <Input
+                                                type="time"
+                                                value={STARTTIME}
+                                                onChange={event=>{SETSTARTTIME(event.target.value)}}
+                                                />
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Label >END TIME</Label>
+                                                <Input
+                                                type="time"
+                                                value={ENDTIME}
+                                                onChange={event=>{SETENDTIME(event.target.value)}}
+                                                />
+                                            </FormGroup>
+                                        </div>
+                                        </ModalBody>
+                                        <ModalFooter>
+                                        <Button color="primary" onClick={()=>{timetoggle();}}>SET TIME</Button>{' '}
+                                        <Button color="secondary" onClick={timetoggle}>CANCEL</Button>
+                                        </ModalFooter>
+                                    </Modal>
+                                </InputGroupAddon>
+                            </InputGroup>
+                        </div>
+                        <br/>
+                        <div>
                             <InputGroup className="box4">
                                 <Input />
                                 <InputGroupAddon addonType="append">
-                                    <Button className="btn4" color={e} outline onClick={()=>{change();stoggle();}}>SELECT STUDENTS</Button>
-                                    <Modal isOpen={smodal}  >
+                                    <Button className="btn4" color={e} outline onClick={()=>{change();studenttoggle();}}>SELECT STUDENTS</Button>
+                                    <Modal isOpen={studentmodal}  >
                                         <ModalHeader ><strong>S T U D E N T S</strong></ModalHeader>
                                         <ModalBody>
                                             {array.map((s)=>{  
@@ -310,8 +361,8 @@ function Test(props) {
                                                 />
                                                 SELECT ALL STUDENTS
                                             </label>
-                                        <Button color="success" onClick={()=>{stoggle();change();handleStudents()}}>SUBMIT</Button>{' '}
-                                        <Button color="danger" onClick={()=>{stoggle();}}>Cancel</Button>
+                                        <Button color="success" onClick={()=>{studenttoggle();change();handleStudents()}}>SUBMIT</Button>{' '}
+                                        <Button color="danger" onClick={()=>{studenttoggle();}}>Cancel</Button>
                                         </ModalFooter>
                                     </Modal>                            
                                 </InputGroupAddon>

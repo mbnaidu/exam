@@ -28,7 +28,6 @@ function Admin(props) {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data)
                     {res.data.map((k)=>{
                         students.push(k);
                     })}
@@ -101,24 +100,23 @@ function Admin(props) {
                 
             </Container>
             <Row>
-                <Col sm={{ size: 'auto', offset: 1 }}><Button color="success" onClick={()=>{mtoggle()}}><strong>STUDENTS DETAILS</strong></Button></Col>
-                <Col sm={{ size: 'auto', offset: 1 }}><Button color="success" onClick={()=>{stoggle()}}><strong>ASSIGNED QUIZES</strong></Button></Col>
+                <Col sm={{ size: 'auto', offset: 1 }}><Button color="info" onClick={()=>{mtoggle()}}><strong>USER DETAILS</strong></Button></Col>
+                <Col sm={{ size: 'auto', offset: 1 }}><Button color="info" onClick={()=>{stoggle()}}><strong>ASSIGNED QUIZES</strong></Button></Col>
             </Row>
             </div>
                 <div>
                     <Modal isOpen={bmodal} size="lg" toggle={btoggle} >
-                        <ModalHeader ><strong>STUDENTS</strong></ModalHeader>
+                        <ModalHeader ><strong>USERS</strong></ModalHeader>
                             <ModalBody>
                                     <div>
                                         <Card>
                                             <Table  hover bordered responsive>
                                                 <thead>
                                                     <tr>
-                                                        <th>STUDENTS</th>
+                                                        <th>USERS</th>
                                                     </tr>
                                                 </thead>
                                                 {students.map((s)=>{
-                                                    console.log(s)
                                                     return(
                                                     <tbody>
                                                         {s.students.map((j)=>{
@@ -146,7 +144,7 @@ function Admin(props) {
                 </div>
                 <div>
                     <Modal isOpen={mmodal} size="lg" toggle={mtoggle} >
-                        <ModalHeader ><strong>STUDENTS</strong></ModalHeader>
+                        <ModalHeader ><strong>USERS</strong></ModalHeader>
                             <ModalBody>
                                     <div>
                                         <Card>

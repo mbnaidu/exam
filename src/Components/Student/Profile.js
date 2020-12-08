@@ -30,7 +30,6 @@ function Profile() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data)
                     {res.data.map((i)=>{
                         setAdminName(i.username);
                         setPassword(i.password);
@@ -46,6 +45,7 @@ function Profile() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
+                    console.log(res.data);
                     {res.data.map((i)=>{
                         array.push(i);
                     })}
@@ -60,7 +60,7 @@ function Profile() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data);
+                    // console.log(res.data);
                 }
             }
         )
@@ -97,7 +97,7 @@ function Profile() {
                 </div>
             </div>
             <div>
-            <Button color="primary" onClick={toggle} style={{ marginBottom: '1rem'}} className="reportcard">REPORT CARD</Button>
+            <Button color="info" onClick={toggle} style={{ marginBottom: '1rem'}} className="reportcard">REPORT CARD</Button>
                 <Collapse isOpen={isOpen}>
                     <Card>
                         <Table hover>

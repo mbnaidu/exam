@@ -68,7 +68,7 @@ function AdminExam() {
                 <Button color="success" href="/test" style={{ marginBottom: '1rem'}}>ASSIGN TEST</Button>
             </div>
             <div>
-                <Button color="primary" onClick={()=>{onToggle();}} style={{ marginBottom: '1rem'}}>ONGOING EXAMS</Button>
+                <Button color="info" onClick={()=>{onToggle();}} style={{ marginBottom: '1rem'}}>ONGOING EXAMS</Button>
                     <Collapse isOpen={isOpen}>
                         <Card>
                             <Table hover>
@@ -79,6 +79,7 @@ function AdminExam() {
                                         <th>TOPIC</th>
                                         <th>START DATE</th>
                                         <th>LAST DATE</th>
+                                        <th>TIMINIGS</th>
                                         <th>TOTAL MARKS</th>
                                     </tr>
                                 </thead>
@@ -91,6 +92,7 @@ function AdminExam() {
                                             <td>{u.topic}</td>
                                             <td>{u.from}</td>
                                             <td>{u.to}</td>
+                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.total}</td>
                                         </tr>
                                     </tbody>
@@ -101,7 +103,7 @@ function AdminExam() {
                     </Collapse>
             </div>
             <div>
-                <Button color="primary" onClick={()=>{upToggle();}} style={{ marginBottom: '1rem'}}>UPCOMING EXAMS</Button>
+                <Button color="info" onClick={()=>{upToggle();}} style={{ marginBottom: '1rem'}}>UPCOMING EXAMS</Button>
                     <Collapse isOpen={upOpen}>
                         <Card>
                             <Table hover>
@@ -112,6 +114,7 @@ function AdminExam() {
                                         <th>TOPIC</th>
                                         <th>START DATE</th>
                                         <th>LAST DATE</th>
+                                        <th>TIMINIGS</th>
                                         <th>TOTAL MARKS</th>
                                     </tr>
                                 </thead>
@@ -124,6 +127,7 @@ function AdminExam() {
                                             <td>{u.topic}</td>
                                             <td>{u.from}</td>
                                             <td>{u.to}</td>
+                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.total}</td>
                                         </tr>
                                     </tbody>
@@ -134,7 +138,7 @@ function AdminExam() {
                     </Collapse>
             </div>
             <div>
-                <Button color="primary" onClick={()=>{coToggle();}} style={{ marginBottom: '1rem'}}>COMPLETED EXAMS</Button>
+                <Button color="info" onClick={()=>{coToggle();}} style={{ marginBottom: '1rem'}}>COMPLETED EXAMS</Button>
                     <Collapse isOpen={coOpen}>
                         <Card>
                             <Table hover>
@@ -145,6 +149,7 @@ function AdminExam() {
                                         <th>TOPIC</th>
                                         <th>START DATE</th>
                                         <th>LAST DATE</th>
+                                        <th>TIMINIGS</th>
                                         <th>TOTAL MARKS</th>
                                     </tr>
                                 </thead>
@@ -157,6 +162,7 @@ function AdminExam() {
                                             <td>{u.topic}</td>
                                             <td>{u.from}</td>
                                             <td>{u.to}</td>
+                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.total}</td>
                                         </tr>
                                     </tbody>

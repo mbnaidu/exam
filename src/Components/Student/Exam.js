@@ -3,7 +3,7 @@ import { Table,Button, Collapse,Container, CardBody } from 'reactstrap';
 import Header from './Header';
 import axios from 'axios';
 import { useStateValue } from '../../redux/StateProvider';
-import {  Card, FormControl, FormControlLabel, RadioGroup } from '@material-ui/core';
+import {  Card,} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import { blue, green } from '@material-ui/core/colors';
@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 
 function Exam() {
     const history = useHistory();
-
+    const [start,setStart] = useState("Wait...")
     const BlueRadio = withStyles({
         root: {
           color: blue[400],
@@ -22,13 +22,17 @@ function Exam() {
         },
         checked: {},
       })((props) => <Radio color="default" {...props} />);
-
+    // GETTING TODAY'S DATE AND DAY
     const today = new Date();
+
     const [currentDate, setCurrentDate] = useState(today.getDate());
     const [currentMonth, setCurrentMonth] = useState(today.getMonth()+1);
     const [currentYear, setCurrentYear] = useState(today.getFullYear());
 
     var  TODAY = currentDate + "-" +currentMonth + "-"+ currentYear;
+
+    const hours = today.getHours();
+    const minutes = today.getMinutes();
 
     const [upcoming,setUpComing] = useState([]);
     const [present,setPresent] = useState([]);
@@ -36,7 +40,6 @@ function Exam() {
 
 
     const [{user}] = useStateValue();
-    // const [iD, setID] = useState(0);
     let id = 0;
     const [isOpen, setOnOpen] = useState(false);
     const [upOpen, setUpOpen] = useState(false);
@@ -44,10 +47,9 @@ function Exam() {
     const onToggle = () => setOnOpen(!isOpen);
     const upToggle = () => setUpOpen(!upOpen);
     const coToggle = () => setCoOpen(!coOpen);
-
     const [EXAM,SETEXAM] = useState(false);
     const [examArray,setExamArray] = useState([]);
-
+ 
     useEffect(() => {
         let data = {
             "username": user.username,
@@ -57,12 +59,8 @@ function Exam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    // {res.data.map((r)=>{
-                    //     setId(r.id);
-                    // })}
-                    // CALL(id);
-                    id = res.data[0].id;
-                    // id="1202"
+                    // id = res.data[0].id;
+                    id = "18pa1a1205";
                 }
             }
         )
@@ -80,21 +78,23 @@ function Exam() {
             }
         )
     },[]);
-    // const ONLINE = () => {
-    //     console.log(examArray)
-    //     return(
-    //         <div>
-    //             {examArray.map((e)=>{
-    //                 {e.map((i)=>{
-                        
-    //                     <div>
-    //                           <h1>{i.question}</h1>
-    //                       </div>
-    //                 })}
-    //             })}
-    //         </div>
-    //     )
-    // }
+    const calling = (starttime,endtime) => {
+        var h1 = starttime[0]+starttime[1];
+        var m1 = starttime[3]+starttime[4];
+
+        var h2 = endtime[0]+endtime[1];
+        var m2 = endtime[3]+endtime[4];
+
+        for(var i=h1;i<=h2;i++){
+            if(i === hours){
+                for(var j=m1;j<=m2;j++){
+                    if(j === minutes){
+                        setStart("START");
+                    }
+                }
+            }
+        }
+    }
     const MENU = (a,b,d)=> {
         var dateFrom = a;
         var dateTo = b;
@@ -112,6 +112,7 @@ function Exam() {
         {
             if(from <= check && to >= check ){
                 present.push(d);
+                calling(d.starttime,d.endtime);
             }
             else if(from < check  && to < check){
                 upcoming.push(d);
@@ -122,32 +123,30 @@ function Exam() {
         }
     }
     function startTest(testId) {
-        const data = {
-            "id":testId,
-        }
-        axios.post('http://localhost:3001/getQuestions', {data}).then(
-            function(res) {
-                if(res.data){
-                    // examArray.push(res.data);
-                    // SETEXAM(true);
-                    history.push({
-                        pathname: '/online',
-                        state: res.data
-                    })
-                }
+        console.log(start)
+        if(start === "START"){
+            const data = {
+                "id":testId,
             }
-        )
+            axios.post('http://localhost:3001/getQuestions', {data}).then(
+                function(res) {
+                    if(res.data){
+                        history.push({
+                            pathname: '/online',
+                            state: res.data
+                        })
+                    }
+                }
+            )
+        }
     }
     return (
         <div>
-            {/* {!EXAM ? (
-                <div>
-                    <div> */}
             <div>
                 <Header/>
             </div>
             <div>
-                <Button color="primary" onClick={()=>{onToggle()}} style={{ marginBottom: '1rem'}}>ONGOING EXAMS</Button>
+                <Button color="info" onClick={()=>{onToggle();}} style={{ marginBottom: '1rem'}}>ONGOING EXAMS</Button>
                     <Collapse isOpen={isOpen}>
                         <Card>
                             <Table hover>
@@ -157,6 +156,7 @@ function Exam() {
                                         <th>TOPIC</th>
                                         <th>START DATE</th>
                                         <th>LAST DATE</th>
+                                        <th>TIMINIGS</th>
                                         <th>TOTAL MARKS</th>
                                     </tr>
                                 </thead>
@@ -168,8 +168,9 @@ function Exam() {
                                             <td>{u.topic}</td>
                                             <td>{u.from}</td>
                                             <td>{u.to}</td>
+                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.total}</td>
-                                            <td><Button color="success"  onClick={()=>{startTest(u.id);}}><strong>START</strong></Button></td>
+                                            <td><Button color="success"  onClick={()=>{startTest(u.id,u.starttime,u.endtime);}}><strong>{start}</strong></Button></td>
                                         </tr>
                                     </tbody>
                                     )
@@ -179,7 +180,7 @@ function Exam() {
                     </Collapse>
             </div>
             <div>
-                <Button color="primary" onClick={()=>{upToggle();}} style={{ marginBottom: '1rem'}}>UPCOMING EXAMS</Button>
+                <Button color="info" onClick={()=>{upToggle();}} style={{ marginBottom: '1rem'}}>UPCOMING EXAMS</Button>
                     <Collapse isOpen={upOpen}>
                         <Card>
                             <Table hover>
@@ -189,6 +190,7 @@ function Exam() {
                                         <th>TOPIC</th>
                                         <th>START DATE</th>
                                         <th>LAST DATE</th>
+                                        <th>TIMINIGS</th>
                                         <th>TOTAL MARKS</th>
                                     </tr>
                                 </thead>
@@ -200,6 +202,7 @@ function Exam() {
                                             <td>{u.topic}</td>
                                             <td>{u.from}</td>
                                             <td>{u.to}</td>
+                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.total}</td>
                                         </tr>
                                     </tbody>
@@ -210,7 +213,7 @@ function Exam() {
                     </Collapse>
             </div>
             <div>
-                <Button color="primary" onClick={()=>{coToggle();}} style={{ marginBottom: '1rem'}}>COMPLETED EXAMS</Button>
+                <Button color="info" onClick={()=>{coToggle();}} style={{ marginBottom: '1rem'}}>COMPLETED EXAMS</Button>
                     <Collapse isOpen={coOpen}>
                         <Card>
                             <Table hover>
@@ -220,6 +223,7 @@ function Exam() {
                                         <th>TOPIC</th>
                                         <th>START DATE</th>
                                         <th>LAST DATE</th>
+                                        <th>TIMINIGS</th>
                                         <th>TOTAL MARKS</th>
                                     </tr>
                                 </thead>
@@ -231,6 +235,7 @@ function Exam() {
                                             <td>{u.topic}</td>
                                             <td>{u.from}</td>
                                             <td>{u.to}</td>
+                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.total}</td>
                                         </tr>
                                     </tbody>
@@ -241,13 +246,6 @@ function Exam() {
                     </Collapse>
             </div>
         </div>
-        //         </div>
-        //     ) : (
-        //         <div>
-        //             {ONLINE()}
-        //         </div>
-        //     ) }
-        // </div>
     )
 }
 

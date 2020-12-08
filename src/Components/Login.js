@@ -23,8 +23,6 @@ function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
-    const [errors, setErrors] = useState("false");
-    const [errorText, setErrorText] = useState("");
     const onclick = () => {
         if(input === "text"){
             setVisible(true);
@@ -37,8 +35,6 @@ function Login() {
     }
     const handleInputChange=(event)=>{
         if(!username || !password) {
-            setErrorText(errorText + 'Username/Password cannot be empty');
-            setErrors("true");
         } 
         else {
         const data = {
@@ -66,7 +62,7 @@ function Login() {
             <div className="login">
                 <Form>
                     <Jumbotron className="logincard ">
-                            <img  top height="120" className="loginlogo" src={require('../Shared/vit.ico')} alt="Card image cap"  />
+                            <img  top height="120" className="loginlogo" src={require('../Shared/vit.ico')} alt="" />
                         <CardBody>
                             <InputGroup className="login_username">
                                 <InputGroupAddon addonType="prepend">

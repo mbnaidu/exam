@@ -111,7 +111,6 @@ var [rend,setRend] = useState(questionsArray.length);
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    // console.log(res.data);
                 }
             }
         )
