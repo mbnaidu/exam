@@ -26,6 +26,11 @@ function Test(props) {
     const{
         className
     } = props;
+    const today = new Date();
+    var currentDay = today.getDate();
+    var currentMonth = today.getMonth()+1;
+    var currentYear = today.getFullYear();
+
     const [SUBJECT, SETSUBJECT] = useState("");
     const [TOPIC, SETTOPIC] = useState("");
     const [FROM, SETFROM] = useState("");
@@ -37,15 +42,52 @@ function Test(props) {
     const [TOTALMARKS, SETTOTALMARKS] = useState(0);
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     const FINALSUBMIT = () => {
-        console.log(SUBJECT);
-        console.log(TOPIC);
-        console.log(FROM);
-        console.log(TO);
-        console.log(STARTTIME);
-        console.log(ENDTIME);
-        console.log(STUDENTS);
-        console.log(QUESTIONS);
-        console.log(TOTALMARKS);
+
+        // console.log(SUBJECT);
+        // console.log(TOPIC);
+        
+        var from = FROM;
+        var d1 = from.split("-");
+        var givenDay = d1[2];
+        var givenMonth = d1[1];
+        var givenYear = d1[0];
+        
+        console.log(currentDay,currentMonth,currentYear);
+        console.log(givenDay,givenMonth,givenYear);
+
+        if(currentYear == givenYear){
+            console.log("h")
+            if(currentMonth == givenMonth){
+                if(currentDay == givenDay){
+                    console.log("present");
+                }
+                else if(currentDay > givenDay){
+                    console.log("completed");
+                }
+                else if(currentDay < givenDay){
+                    console.log("upcoming");
+                }
+            }
+            else if(currentMonth > givenMonth){
+                console.log("completed");
+            }
+            else if(currentMonth < givenMonth){
+                console.log("upcoming");
+            }
+        }
+        if(currentYear > givenYear){
+            console.log("completed");
+        }
+        if(currentYear < givenYear){
+            console.log("upcoming")
+        }
+
+        // console.log(TO);
+        // console.log(STARTTIME);
+        // console.log(ENDTIME);
+        // console.log(STUDENTS);
+        // console.log(QUESTIONS);
+        // console.log(TOTALMARKS);
         
         if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" && STARTTIME!="" && ENDTIME!="" ){
             setAssign("ASSIGNED");
@@ -268,7 +310,7 @@ function Test(props) {
                                             <FormGroup>
                                                 <Label> START DATE</Label>
                                                 <Input
-                                                type="text"
+                                                type="date"
                                                 value={FROM}
                                                 onChange={event=>{SETFROM(event.target.value)}}
                                                 placeholder="START DATE  DD-MM-YYYY"
@@ -277,7 +319,7 @@ function Test(props) {
                                             <FormGroup>
                                                 <Label >END DATE</Label>
                                                 <Input
-                                                type="text"
+                                                type="date"
                                                 value={TO}
                                                 onChange={event=>{SETTO(event.target.value)}}
                                                 placeholder="LAST DATE  DD-MM-YYYY"

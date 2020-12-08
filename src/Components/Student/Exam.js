@@ -12,7 +12,6 @@ import { useHistory } from 'react-router-dom';
 
 function Exam() {
     const history = useHistory();
-    const [start,setStart] = useState("Wait...")
     const BlueRadio = withStyles({
         root: {
           color: blue[400],
@@ -25,11 +24,9 @@ function Exam() {
     // GETTING TODAY'S DATE AND DAY
     const today = new Date();
 
-    const [currentDate, setCurrentDate] = useState(today.getDate());
-    const [currentMonth, setCurrentMonth] = useState(today.getMonth()+1);
-    const [currentYear, setCurrentYear] = useState(today.getFullYear());
-
-    var  TODAY = currentDate + "-" +currentMonth + "-"+ currentYear;
+    const currentDay = today.getDate();
+    const currentMonth = today.getMonth()+1;
+    const currentYear =  today.getFullYear();
 
     const hours = today.getHours();
     const minutes = today.getMinutes();
@@ -59,8 +56,8 @@ function Exam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    // id = res.data[0].id;
-                    id = "18pa1a1205";
+                    id = res.data[0].id;
+                    // id = "1202";
                 }
             }
         )
@@ -78,66 +75,69 @@ function Exam() {
             }
         )
     },[]);
-    const calling = (starttime,endtime) => {
-        var h1 = starttime[0]+starttime[1];
-        var m1 = starttime[3]+starttime[4];
+    const MENU = (a,b,d)=> {
+        var from = a;
+        var d1 = from.split("-");
+        var givenDay = d1[2];
+        var givenMonth = d1[1];
+        var givenYear = d1[0];
+        
 
-        var h2 = endtime[0]+endtime[1];
-        var m2 = endtime[3]+endtime[4];
-
-        for(var i=h1;i<=h2;i++){
-            if(i === hours){
-                for(var j=m1;j<=m2;j++){
-                    if(j === minutes){
-                        setStart("START");
+        if(d.students.indexOf(id)>=0){
+            if(currentYear == givenYear){
+                if(currentMonth == givenMonth){
+                    if(currentDay == givenDay){
+                        present.push(d);        
+                    }
+                    else if(currentDay > givenDay){
+                        completed.push(d);        
+                    }
+                    else if(currentDay < givenDay){
+                        upcoming.push(d);        
                     }
                 }
+                else if(currentMonth > givenMonth){
+                    completed.push(d);    
+                }
+                else if(currentMonth < givenMonth){
+                    upcoming.push(d);    
+                }
             }
-        }
-    }
-    const MENU = (a,b,d)=> {
-        var dateFrom = a;
-        var dateTo = b;
-        var dateCheck = TODAY;
-
-        var d1 = dateFrom.split("-");
-        var d2 = dateTo.split("-");
-        var c = dateCheck.split("-");
-
-        var from = new Date(d1[2], parseInt(d1[1])-1, d1[0]); 
-        var to = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
-        var check = new Date(c[2], parseInt(c[1])-1, c[0]);
-
-        if(d.students.indexOf(id) >= 0)
-        {
-            if(from <= check && to >= check ){
-                present.push(d);
-                calling(d.starttime,d.endtime);
+            if(currentYear > givenYear){
+                completed.push(d);
             }
-            else if(from < check  && to < check){
+            if(currentYear < givenYear){
                 upcoming.push(d);
             }
-            else if(from > check  && to > check){
-                    completed.push(d);
-            }
         }
+        
     }
-    function startTest(testId) {
-        console.log(start)
-        if(start === "START"){
-            const data = {
-                "id":testId,
-            }
-            axios.post('http://localhost:3001/getQuestions', {data}).then(
-                function(res) {
-                    if(res.data){
-                        history.push({
-                            pathname: '/online',
-                            state: res.data
-                        })
-                    }
+    function startTest(testId,starttime,endtime) {
+        var s = starttime.split(":");
+        var e = endtime.split(":");
+
+        var h1 = s[0];
+        var m1 = s[1];
+
+        var h2 = e[0];
+        var m2 = e[1];
+
+        for(var i=h1;i<h2;i++){
+            if(i === hours){
+                const data = {
+                    "id":testId,
                 }
-            )
+                axios.post('http://localhost:3001/getQuestions', {data}).then(
+                    function(res) {
+                        if(res.data){
+                                history.push({
+                                    pathname: '/online',
+                                    state: res.data
+                                })
+                        }
+                    }
+                )
+            }
         }
     }
     return (
@@ -170,7 +170,7 @@ function Exam() {
                                             <td>{u.to}</td>
                                             <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.total}</td>
-                                            <td><Button color="success"  onClick={()=>{startTest(u.id,u.starttime,u.endtime);}}><strong>{start}</strong></Button></td>
+                                            <td><Button color="success"  onClick={()=>{startTest(u.id,u.starttime,u.endtime);}}><strong>START</strong></Button></td>
                                         </tr>
                                     </tbody>
                                     )
@@ -180,7 +180,7 @@ function Exam() {
                     </Collapse>
             </div>
             <div>
-                <Button color="info" onClick={()=>{upToggle();}} style={{ marginBottom: '1rem'}}>UPCOMING EXAMS</Button>
+                <Button color="info" onClick={()=>{upToggle();}} style={{ marginBottom: '1rem'}}>COMPLETED EXAMS</Button>
                     <Collapse isOpen={upOpen}>
                         <Card>
                             <Table hover>
@@ -213,7 +213,7 @@ function Exam() {
                     </Collapse>
             </div>
             <div>
-                <Button color="info" onClick={()=>{coToggle();}} style={{ marginBottom: '1rem'}}>COMPLETED EXAMS</Button>
+                <Button color="info" onClick={()=>{coToggle();}} style={{ marginBottom: '1rem'}}>UPCOMING EXAMS</Button>
                     <Collapse isOpen={coOpen}>
                         <Card>
                             <Table hover>
