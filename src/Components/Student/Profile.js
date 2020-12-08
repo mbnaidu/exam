@@ -91,6 +91,7 @@ function Profile() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
+                    console.log(res.data)
                     {res.data.map((m)=>{
                         subarray1.push(m);
                     })}                  
@@ -106,7 +107,6 @@ function Profile() {
                 }
             })}
         })}
-        console.log(finalArray)
     }
     return (
         <div>

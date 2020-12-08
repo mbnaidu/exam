@@ -54,7 +54,7 @@ function Test(props) {
         
         console.log(currentDay,currentMonth,currentYear);
         console.log(givenDay,givenMonth,givenYear);
-
+        let submittedDate = currentDay+"-"+currentMonth+"-"+currentYear;
         if(currentYear == givenYear){
             console.log("h")
             if(currentMonth == givenMonth){
@@ -101,7 +101,8 @@ function Test(props) {
                 "endtime":ENDTIME,
                 "students": STUDENTS,
                 "questions":QUESTIONS,
-                "total":TOTALMARKS
+                "total":TOTALMARKS,
+                "submittedDate":submittedDate,
             }
             axios.post('http://localhost:3001/addTest', {data}).then(
                 function(res) {

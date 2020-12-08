@@ -57,7 +57,7 @@ function Exam() {
                     alert(res.data.msg);
                 } else {
                     id = res.data[0].id;
-                    // id = "1202";
+                    // id="18pa1a1240"
                 }
             }
         )
