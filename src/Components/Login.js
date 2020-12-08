@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Button, Form,Input, InputGroup, InputGroupText, CardText, CardBody, Jumbotron, InputGroupAddon } from 'reactstrap';
 import LockIcon from '@material-ui/icons/Lock';
 import PersonIcon from '@material-ui/icons/Person';
-import { NavLink, Redirect, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import '../styles/Login.css'
 import axios from 'axios';
 import { useStateValue } from '../redux/StateProvider'
 import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+
 
 function Login() {
     const [state,dispatch] = useStateValue();
@@ -15,12 +17,24 @@ function Login() {
             type:"SET_USER",
             user:{username}
         })
-    }
+    };
+    const [Visibile,setVisible] = useState(true);
+    const [input,setInput] = useState("password");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
     const [errors, setErrors] = useState("false");
     const [errorText, setErrorText] = useState("");
+    const onclick = () => {
+        if(input === "text"){
+            setVisible(true);
+            setInput("password")
+        }
+        else{
+            setVisible(false);
+            setInput("text");
+        }
+    }
     const handleInputChange=(event)=>{
         if(!username || !password) {
             setErrorText(errorText + 'Username/Password cannot be empty');
@@ -64,9 +78,8 @@ function Login() {
                                 <InputGroupAddon addonType="prepend">
                                 <InputGroupText style={{borderColor:"rgb(110,94,254)"}}><LockIcon style={{color:"rgb(110,94,254)"}} /></InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Password" style={{borderColor:"rgb(110,94,254)"}} type="password" value={password} onChange={event=> setPassword(event.target.value)}/>
-                                <InputGroupText style={{borderColor:"rgb(110,94,254)"}}><VisibilityOffOutlinedIcon style={{color:"rgb(110,94,254)"}} /></InputGroupText>
-                            </InputGroup>
+                                <Input placeholder="Password" style={{borderColor:"rgb(110,94,254)"}} type={input} value={password} onChange={event=> setPassword(event.target.value)}/>
+                                    <InputGroupText style={{borderColor:"rgb(110,94,254)"}}>{Visibile ? <VisibilityOffOutlinedIcon style={{color:"rgb(110,94,254)"}} onClick={()=>{onclick();}} /> : <VisibilityIcon style={{color:"rgb(110,94,254)"}} onClick={()=>{onclick();}}/>}</InputGroupText>                            </InputGroup>
                             <NavLink to="/" className="login_forgotpassword">Forgot Password ?</NavLink>
                             <InputGroup  >
                                 <Button className="loginbutton" size="md" block onClick={() => {handleInputChange();loginToApp(username);}}><strong>Login</strong></Button>
