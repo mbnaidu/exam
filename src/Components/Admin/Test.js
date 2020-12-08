@@ -5,7 +5,6 @@ import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 
 function Test(props) {
     const [array,setArray] = useState([]);
@@ -36,16 +35,7 @@ function Test(props) {
     const [TOTALMARKS, SETTOTALMARKS] = useState(0);
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     const FINALSUBMIT = () => {
-        console.log(FROM);
-            console.log(TO);
         if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" ){
-            console.log(SUBJECT);
-            console.log(TOPIC);
-            console.log(FROM);
-            console.log(TO);
-            console.log(STUDENTS);
-            console.log(QUESTIONS);
-            console.log(TOTALMARKS);
             setAssign("ASSIGNED");
             setH("success");
             const data = {
@@ -60,8 +50,7 @@ function Test(props) {
             axios.post('http://localhost:3001/addTest', {data}).then(
                 function(res) {
                     if(res.data) {
-                        console.log("success");
-                        //history.push("/");
+                        
                     }
                 }
             )
@@ -227,20 +216,9 @@ function Test(props) {
     }
     const [startDate, setStartDate] = useState();
     const [lastDate, setLastDate] = useState();
-    const call = (a1,b1) => {
-        if(a1 != ""){
-            let reversed = "";      
-            for (var i = a1.length - 1; i >= 0; i--){         
-              reversed += a1[i];  
-            }     
-           console.log(reversed);
-        }
-        if(b!=""){
-        }
-    }
     return (
         <div>
-           <Jumbotron fluid className="set">
+           <Jumbotron className="set">
                 <Container >
                     <FormControl >
                         <InputGroup className="box1">
@@ -263,24 +241,24 @@ function Test(props) {
                                 <InputGroupAddon addonType="append">
                                     <Button className="btn3" color={c} outline onClick={()=>{change();ftoggle();}} >SET DATE</Button>
                                     <Modal isOpen={fmodal}  className={className}>
-                                        <ModalHeader ><strong>T I M E</strong></ModalHeader>
+                                        <ModalHeader ><strong>D A T E</strong></ModalHeader>
                                         <ModalBody  size="lg">
                                         <div>
                                             <FormGroup>
                                                 <Label> START DATE</Label>
                                                 <Input
-                                                type="date"
+                                                type="text"
                                                 value={startDate}
-                                                onChange={event=>{SETFROM(event.target.value);call(event.target.value)}}
+                                                onChange={event=>{SETFROM(event.target.value)}}
                                                 placeholder="START DATE  DD-MM-YYYY"
                                                 />
                                             </FormGroup>
                                             <FormGroup>
                                                 <Label >END DATE</Label>
                                                 <Input
-                                                type="date"
+                                                type="text"
                                                 value={lastDate}
-                                                onChange={event=>{SETTO(event.target.value);call(event.target.value)}}
+                                                onChange={event=>{SETTO(event.target.value)}}
                                                 placeholder="LAST DATE  DD-MM-YYYY"
                                                 />
                                             </FormGroup>
