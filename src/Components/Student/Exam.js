@@ -122,7 +122,7 @@ function Exam() {
         var h2 = e[0];
         var m2 = e[1];
 
-        for(var i=h1;i<h2;i++){
+        for(var i=h1;i<=h2;i++){
             if(i === hours){
                 const data = {
                     "id":testId,

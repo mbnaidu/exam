@@ -62,25 +62,6 @@ function AdminExam() {
         if(currentYear < givenYear){
             upcoming.push(d);
         }
-
-        // var dateFrom = a;
-        // var dateTo = b;
-        // var dateCheck = TODAY;
-
-        // var d1 = dateFrom.split("-");
-        // var d2 = dateTo.split("-");
-        // var c = dateCheck.split("-");
-
-        // var from = new Date(d1[2], parseInt(d1[1])-1, d1[0]); 
-        // var to = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
-        // var check = new Date(c[2], parseInt(c[1])-1, c[0]);
-
-        // if(from <= check && to >= check ){
-        // }
-        // else if(from < check  && to < check){
-        // }
-        // else if(from > check  && to > check){
-        // }
     }
 
     const [isOpen, setOnOpen] = useState(false);

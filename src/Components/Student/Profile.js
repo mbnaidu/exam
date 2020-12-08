@@ -4,8 +4,24 @@ import { useStateValue } from '../../redux/StateProvider';
 import Header from './Header';
 import axios from 'axios';
 
+let ID = 0;
 
 function Profile() {
+
+    //REPORT CARD
+    const [testId,setTestId] = useState([]);
+    const [marks,setMarks] = useState([]);
+    const [isSubmitted,setIsSubmitted] = useState([]);
+    const [subject,setSubject] = useState("");
+    const [topic,setTopic] = useState("");
+    const [subarray,setSubArray] = useState([])
+    const [subarray1,setSubArray1] = useState([])
+    const [finalArray,setFinalArray] = useState([]);
+
+
+
+
+
     const [{user}] = useStateValue();
     const [adminName, setAdminName] = useState("");
     const [id, setId] = useState("");
@@ -37,6 +53,8 @@ function Profile() {
                         setContactNumber(i.contact);
                         setId(i.id);
                     })}
+                    // ID="18pa1a1240"
+                    ID = res.data[0].id;
                 }
             }
         )
@@ -45,7 +63,6 @@ function Profile() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data);
                     {res.data.map((i)=>{
                         array.push(i);
                     })}
@@ -53,18 +70,44 @@ function Profile() {
             }
         )
         data = {
-            "id":"12034"
+            "id":ID
         }
         axios.post('http://localhost:3001/getReportCard', {data}).then(
             function(res) {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    // console.log(res.data);
+                    {res.data.map((r)=>{
+                        testId.push(r.testId);
+                        isSubmitted.push(r.isSubmitted);
+                        marks.push(r.marks);
+                        subarray.push(r);
+                    })}
+                }
+            }
+        )
+        axios.post('http://localhost:3001/allTests').then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    {res.data.map((m)=>{
+                        subarray1.push(m);
+                    })}                  
                 }
             }
         )
     }, []);
+    const ReportCard = () =>{
+        {subarray1.map((s)=>{
+            {subarray.map((m)=>{
+                if(s.id == m.testId){
+                    finalArray[m.testId]=m.testId+"-"+s.subject+"-"+s.topic+"-"+m.marks+"-"+m.isSubmitted;
+                }
+            })}
+        })}
+        console.log(finalArray)
+    }
     return (
         <div>
             <div>
@@ -97,30 +140,30 @@ function Profile() {
                 </div>
             </div>
             <div>
-            <Button color="info" onClick={toggle} style={{ marginBottom: '1rem'}} className="reportcard">REPORT CARD</Button>
+            <Button color="info" onClick={()=>{toggle();ReportCard();}} style={{ marginBottom: '1rem'}} className="reportcard">REPORT CARD</Button>
                 <Collapse isOpen={isOpen}>
                     <Card>
                         <Table hover>
                             <thead>
                                 <tr>
-                                    <th>S.NO : </th>
-                                    <th>DATE</th>
+                                    <th>TEST ID</th>
                                     <th>SUBJECT</th>
                                     <th>TOPIC</th>
-                                    <th>SUBMISSION</th>
                                     <th>MARKS</th>
+                                    <th>SUBMISSION</th>
                                 </tr>
                             </thead>
-                            {report.map((r)=>{
+                            {finalArray.map((r)=>{
+                                var from = r;
+                                var d1 = from.split("-")
                                 return(
-                                <tbody>
+                                <tbody key={r}>
                                     <tr>
-                                        <td>{r.sno}</td>
-                                        <td>{r.examdate}</td>
-                                        <td>{r.subject}</td>
-                                        <td>{r.topic}</td>
-                                        <td>{r.submittedDate}</td>
-                                        <td>{r.marks}</td>
+                                        <td>{d1[0]}</td>
+                                        <td>{d1[1]}</td>
+                                        <td>{d1[2]}</td>
+                                        <td>{d1[3]}</td>
+                                        <td>{d1[4] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</td>
                                     </tr>
                                 </tbody>
                                 )
