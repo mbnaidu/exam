@@ -6,7 +6,7 @@ import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import '../styles/Login.css'
 import axios from 'axios';
 import { useStateValue } from '../redux/StateProvider'
-
+import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
 
 function Login() {
     const [state,dispatch] = useStateValue();
@@ -49,7 +49,7 @@ function Login() {
     }
     return (
         <div>
-            <div className="login ">
+            <div className="login">
                 <Form>
                     <Jumbotron className="logincard ">
                             <img  top height="120" className="loginlogo" src={require('../Shared/vit.ico')} alt="Card image cap"  />
@@ -65,6 +65,7 @@ function Login() {
                                 <InputGroupText style={{borderColor:"rgb(110,94,254)"}}><LockIcon style={{color:"rgb(110,94,254)"}} /></InputGroupText>
                                 </InputGroupAddon>
                                 <Input placeholder="Password" style={{borderColor:"rgb(110,94,254)"}} type="password" value={password} onChange={event=> setPassword(event.target.value)}/>
+                                <InputGroupText style={{borderColor:"rgb(110,94,254)"}}><VisibilityOffOutlinedIcon style={{color:"rgb(110,94,254)"}} /></InputGroupText>
                             </InputGroup>
                             <NavLink to="/" className="login_forgotpassword">Forgot Password ?</NavLink>
                             <InputGroup  >

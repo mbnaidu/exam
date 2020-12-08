@@ -1,34 +1,39 @@
 .signup{
-    margin: 70px 350px 100px 350px;
+    margin: 70px 620px 0px 500px;
     border-radius: 50px;
 }
 .input__change:hover{
     border-radius: 30px;
     animation: mymov 10s infinite;
 }
-.input__change__email{
+.id_input{
     border-radius: 30px;
-    margin-top: 16px;
-    width: 300px;
+    width: 450px;
     
 }
-.input__change__username{
+.email_input{
     border-radius: 30px;
-    margin-top: 16px;
-    width: 300px;
+    width: 450px;
     
 }
-.input__change__password{
+.username_input{
     border-radius: 30px;
-    margin-top: 16px;
-    width: 300px;
+    width: 450px;
     
 }
-.input__change__confirm{
+.password_input{
     border-radius: 30px;
-    margin-top: 16px;
-    width: 300px;
+    width: 450px;
     
+}
+.confirm_input{
+    border-radius: 30px;
+    width: 450px;
+    
+}
+.contact_input{
+    border-radius: 30px;
+    width: 450px; 
 }
 .textForRegister{
     color: white;
@@ -44,6 +49,6 @@
         width: 130px;
         color:white;
         font-family: 'Courier New', Courier, monospace;
-        margin-left: 300px;
+        margin-left: 120px;
         margin-top: 20px;
     }
