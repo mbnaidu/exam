@@ -31,12 +31,6 @@ function Profile() {
     const [isOpen, setOpen] = useState(false);
     const [array,setArray] = useState([]);
     const toggle = () => setOpen(!isOpen);
-   const report = [
-        {sno:"1",examdate:"12-03-2020",subject:"maths",topic:"linear",marks:"23",submittedDate:"12-03-2020"},
-        {sno:"2",examdate:"12-03-2020",subject:"physics",topic:"linear",marks:"56",submittedDate:"12-03-2020"},
-        {sno:"3",examdate:"12-03-2020",subject:"chemistry",topic:"linear",marks:"72",submittedDate:"12-03-2020"},
-        {sno:"4",examdate:"12-03-2020",subject:"english",topic:"linear",marks:"45",submittedDate:"12-03-2020"}
-    ]
     useEffect(() => {
         let data = {
             "username": user.username,

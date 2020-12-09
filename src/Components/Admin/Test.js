@@ -3,7 +3,6 @@ import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGr
 import '../../styles/Test.css'
 import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import "react-datepicker/dist/react-datepicker.css";
 import axios from 'axios';
 
 function Test(props) {
