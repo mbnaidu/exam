@@ -4,6 +4,7 @@ import '../../styles/Test.css'
 import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 function AssignTest(props) {
     const [array,setArray] = useState([]);
@@ -110,7 +111,7 @@ function AssignTest(props) {
     const [questions,setQuestions] = useState([]);
     const [totalMarks,setTotalMarks] = useState(0);
     const [i,setI] = useState(0);
-    const [assign,setAssign] = useState("ASSIGN");
+    const [assign,setAssign] = useState(false);
     const [a,setA] = useState("danger");
     const [b,setB] = useState("danger");
     const [c,setC] = useState("danger");
@@ -136,7 +137,7 @@ function AssignTest(props) {
     
     const submit = (event)=>{
         if(subject!="" && topic!="" && date!="" && timings!="" && students!="" && questions!="" && totalMarks!=""){
-            setAssign("ASSIGNED");setA("success");setB("success");setC("success");setD("success");setE("success");setF("success");setG("success");setH("success");
+            setAssign(true);setA("success");setB("success");setC("success");setD("success");setE("success");setF("success");setG("success");setH("success");
             window.history.push({
                 pathname: '/adminexam',
             })
@@ -414,7 +415,9 @@ function AssignTest(props) {
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
-                        <Button className="btn7" color={h} onClick={()=>{submit();FINALSUBMIT()}}><strong>{assign}</strong></Button>
+                        <NavLink to={assign ? "/adminexam" : ""}>
+                            <Button className="btn7" color={h} onClick={()=>{submit();FINALSUBMIT()}}><strong>{!assign ? "ASSIGN" : "ASSIGNED"}</strong></Button>
+                        </NavLink>
                     </FormControl>
                 </Container>
             </Jumbotron>
