@@ -1,11 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { Card,Table,Button, Collapse } from 'reactstrap';
+import {Menu,Segment,Sidebar,} from 'semantic-ui-react'
+import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
+import HomeIcon from '@material-ui/icons/Home';
+import GroupIcon from '@material-ui/icons/Group';
+import CreateIcon from '@material-ui/icons/Create';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useStateValue } from '../../redux/StateProvider';
+import { Modal, ModalHeader, ModalBody, ModalFooter,Button } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { Card,Table, Collapse } from 'reactstrap';
 import axios from 'axios';
-import StudentHeader from './StudentHeader';
 
 let ID = 0;
 
+function exampleReducer(state, action) {
+    switch (action.type) {
+        case 'CHANGE_ANIMATION':
+            return { ...state, animation: action.animation, visible: !state.visible }
+        case 'CHANGE_DIMMED':
+            return { ...state, dimmed: action.dimmed }
+        case 'CHANGE_DIRECTION':
+            return { ...state, direction: action.direction, visible: false }
+        default:
+        throw new Error()
+    }
+}
 function StudentProfile() {
 
     //REPORT CARD
@@ -17,10 +37,6 @@ function StudentProfile() {
     const [subarray,setSubArray] = useState([])
     const [subarray1,setSubArray1] = useState([])
     const [finalArray,setFinalArray] = useState([]);
-
-
-
-
 
     const [{user}] = useStateValue();
     const [adminName, setAdminName] = useState("");
@@ -47,8 +63,8 @@ function StudentProfile() {
                         setContactNumber(i.contact);
                         setId(i.id);
                     })}
-                    // ID="18pa1a1240"
-                    ID = res.data[0].id;
+                    ID="18pa1a1240"
+                    // ID = res.data[0].id;
                 }
             }
         )
@@ -101,12 +117,76 @@ function StudentProfile() {
             })}
         })}
     }
+    const [state, dispatch] = React.useReducer(exampleReducer, {
+        animation: 'overlay',
+        dimmed: true,
+        visible: false,
+    })
+    const { animation, dimmed, direction, visible } = state
+    const vertical = direction === 'bottom' || direction === 'top'
+    const VerticalSidebar = ({ animation, direction, visible }) => (
+        <Sidebar
+            color = "blue"
+            as={Menu}
+            animation={animation}
+            direction= "left"
+            icon='labeled'
+            inverted
+            vertical
+            visible={visible}
+            width='thin'
+        >
+        <Menu.Item as='a' 
+            onClick={() =>
+            dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })
+        }>
+        <HomeIcon  fontSize="large" 
+        />
+        <h6>HOME</h6>
+        </Menu.Item>
+        <Menu.Item as='a' active >
+            <NavLink to="/profile">
+            <PersonIcon  fontSize="large" />
+            <h6>PROFILE</h6>
+            </NavLink>
+        </Menu.Item>
+        <Menu.Item as='a'>
+            <NavLink to="/exam">
+            <CreateIcon  fontSize="large" />
+            <h6>TESTS</h6>
+            </NavLink>
+        </Menu.Item>
+        <Menu.Item as='a' onClick={toggle}>
+            <CheckCircleIcon />
+            <h6>TESTS</h6>
+        </Menu.Item>
+        <Menu.Item as='a' >
+            <NavLink to="/">
+            <ExitToAppIcon  fontSize="large" />
+            <h6>SIGN OUT</h6>
+            </NavLink>
+        </Menu.Item>
+    </Sidebar>
+)
     return (
         <div>
+            <Button color="primary"
+                onClick={() =>
+                dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
+                <MenuIcon />
+            </Button>
+        <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:800}} >
+            {!vertical && (
+                <VerticalSidebar
+                    animation={animation}
+                    direction={direction}
+                    visible={visible}
+                />
+            )}
+        <Sidebar.Pusher dimmed={dimmed && visible}>
+            <Segment basic>
             <div>
-                <div>
-                    <StudentHeader/>
-                </div>
+            <div>
                 <div>
                     <Card>
                         <Table hover>
@@ -133,39 +213,53 @@ function StudentProfile() {
                 </div>
             </div>
             <div>
-            <Button color="info" onClick={()=>{toggle();ReportCard();}} style={{ marginBottom: '1rem'}} className="reportcard">REPORT CARD</Button>
+                        <Modal isOpen={isOpen} size="lg" toggle={toggle} >
+                            <ModalHeader ><strong>USERS</strong></ModalHeader>
+                                <ModalBody>
+                                        <div>
+                                        <Card>
+                                            <Table hover>
+                                                <thead>
+                                                    <tr>
+                                                        <th>TEST ID</th>
+                                                        <th>SUBJECT</th>
+                                                        <th>TOPIC</th>
+                                                        <th>MARKS</th>
+                                                        <th>SUBMISSION</th>
+                                                    </tr>
+                                                </thead>
+                                                {finalArray.map((r)=>{
+                                                    var from = r;
+                                                    var d1 = from.split("-")
+                                                    return(
+                                                    <tbody key={r}>
+                                                        <tr>
+                                                            <td>{d1[0]}</td>
+                                                            <td>{d1[1]}</td>
+                                                            <td>{d1[2]}</td>
+                                                            <td>{d1[3]}</td>
+                                                            <td>{d1[4] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    )
+                                                })}
+                                            </Table>
+                                        </Card>
+                                        </div>
+                                    </ModalBody>
+                            <ModalFooter>
+                                <Button color="black" onClick={()=>{toggle();}}><strong>CANCEL</strong></Button>{' '}
+                            </ModalFooter>
+                        </Modal>
                 <Collapse isOpen={isOpen}>
-                    <Card>
-                        <Table hover>
-                            <thead>
-                                <tr>
-                                    <th>TEST ID</th>
-                                    <th>SUBJECT</th>
-                                    <th>TOPIC</th>
-                                    <th>MARKS</th>
-                                    <th>SUBMISSION</th>
-                                </tr>
-                            </thead>
-                            {finalArray.map((r)=>{
-                                var from = r;
-                                var d1 = from.split("-")
-                                return(
-                                <tbody key={r}>
-                                    <tr>
-                                        <td>{d1[0]}</td>
-                                        <td>{d1[1]}</td>
-                                        <td>{d1[2]}</td>
-                                        <td>{d1[3]}</td>
-                                        <td>{d1[4] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</td>
-                                    </tr>
-                                </tbody>
-                                )
-                            })}
-                        </Table>
-                    </Card>
+                    
                 </Collapse>
             </div>
         </div>
+            </Segment>
+        </Sidebar.Pusher>
+    </Sidebar.Pushable>
+    </div>
     )
 }
 
