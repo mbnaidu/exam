@@ -1,18 +1,36 @@
 import React, { useState,useEffect } from 'react'
-import { Table,Button, Collapse,Container, CardBody } from 'reactstrap';
+import { Table,Button, Collapse,Container, Card } from 'reactstrap';
 import axios from 'axios';
 import { useStateValue } from '../../redux/StateProvider';
-import {  Card,} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import { blue, green } from '@material-ui/core/colors';
 import { useHistory } from 'react-router-dom';
-import StudentHeader from './StudentHeader';
+import {Header, Menu,Segment,Sidebar,} from 'semantic-ui-react'
+import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
+import HomeIcon from '@material-ui/icons/Home';
+import GroupIcon from '@material-ui/icons/Group';
+import CreateIcon from '@material-ui/icons/Create';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 
 let id = 0;
 
-
+function exampleReducer(state, action) {
+    switch (action.type) {
+        case 'CHANGE_ANIMATION':
+            return { ...state, animation: action.animation, visible: !state.visible }
+        case 'CHANGE_DIMMED':
+            return { ...state, dimmed: action.dimmed }
+        case 'CHANGE_DIRECTION':
+            return { ...state, direction: action.direction, visible: false }
+        default:
+        throw new Error()
+    }
+}
 function StudentExam() {
     const [start,setStart] =useState("START");
     const [subarray,setSubArray] = useState([])
@@ -70,7 +88,6 @@ function StudentExam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    console.log(res.data)
                     {res.data.map((k)=>{
                         MENU(k.from,k.to,k);
                     })}
@@ -133,9 +150,7 @@ function StudentExam() {
         
     }
     function startTest(testId,starttime,endtime,isSubmitted) {
-        console.log(present);
-        console.log(subarray);
-        console.log(isSubmitted)
+
         var s = starttime.split(":");
         var e = endtime.split(":");
 
@@ -144,8 +159,6 @@ function StudentExam() {
 
         var h2 = e[0];
         var m2 = e[1];
-        console.log(hours);
-        console.log(h1,h2)
         if(hours >= h1 && hours <=h2){
             if(!isSubmitted){
                 const data = {
@@ -164,14 +177,86 @@ function StudentExam() {
             }
         }
     }
+    const [state, dispatch] = React.useReducer(exampleReducer, {
+        animation: 'overlay',
+        dimmed: true,
+        visible: false,
+    })
+    const { animation, dimmed, direction, visible } = state
+    const vertical = direction === 'bottom' || direction === 'top'
+    const VerticalSidebar = ({ animation, direction, visible }) => (
+        <Sidebar
+            color = "blue"
+            as={Menu}
+            animation={animation}
+            direction= "left"
+            icon='labeled'
+            inverted
+            vertical
+            visible={visible}
+            width='thin'
+        >
+        <Menu.Item as='a' 
+            onClick={() =>
+            dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })
+        }>
+        <HomeIcon  fontSize="large" 
+        />
+        <h6>HOME</h6>
+        </Menu.Item>
+        <Menu.Item as='a'  >
+            <NavLink to="/profile">
+            <PersonIcon  fontSize="large" />
+            <h6>PROFILE</h6>
+            </NavLink>
+        </Menu.Item>
+        <Menu.Item as='a' active>
+            <CheckCircleIcon />
+            <h6>TESTS</h6>
+        </Menu.Item>
+        <Menu.Item as='a' onClick={()=>{onToggle()}}>
+            <NavLink to="/exam" >
+            <CreateIcon  fontSize="large" />
+            <h6>TODAY</h6>
+            </NavLink>
+        </Menu.Item>
+        <Menu.Item as='a' onClick={()=>{coToggle()}}>
+            <CreateIcon  fontSize="large" />
+            <h6>UP COMING</h6>
+        </Menu.Item>
+        <Menu.Item as='a' onClick={()=>{upToggle()}}>
+            <CreateIcon  fontSize="large" />
+            <h6>COMPLETED</h6>
+        </Menu.Item>
+        <Menu.Item as='a' >
+            <NavLink to="/">
+            <ExitToAppIcon  fontSize="large" />
+            <h6>SIGN OUT</h6>
+            </NavLink>
+        </Menu.Item>
+    </Sidebar>
+)
     return (
         <div>
+            <Button color="primary"
+                onClick={() =>
+                dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
+                <MenuIcon />
+            </Button>
+            <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:800}} >
+                {!vertical && (
+                    <VerticalSidebar
+                        animation={animation}
+                        direction={direction}
+                        visible={visible}
+                    />
+                )}
+            <Sidebar.Pusher dimmed={dimmed && visible}>
+                <Segment basic>
+                <div>
             <div>
-                <StudentHeader/>
-            </div>
-            <div>
-                <Button color="info" onClick={()=>{onToggle();}} style={{ marginBottom: '1rem'}}>TODAY</Button>
                     <Collapse isOpen={isOpen}>
+                        <Header>TODAY EXAMS</Header>
                         <Card>
                             <Table hover>
                                 <thead>
@@ -185,13 +270,11 @@ function StudentExam() {
                                     </tr>
                                 </thead>
                                 {present.map((u)=>{
-                                    console.log(subarray);
                                     var f = false;
                                     {subarray.map((s)=>{
                                         if(s.testId == u.id){
                                             if(s.isSubmitted){
                                                 f = true;
-                                                console.log(s.testId)
                                             }
                                         }
                                     })}
@@ -214,7 +297,6 @@ function StudentExam() {
                     </Collapse>
             </div>
             <div>
-                <Button color="info" onClick={()=>{upToggle();}} style={{ marginBottom: '1rem'}}>COMPLETED EXAMS</Button>
                     <Collapse isOpen={upOpen}>
                         <Card>
                             <Table hover>
@@ -247,7 +329,6 @@ function StudentExam() {
                     </Collapse>
             </div>
             <div>
-                <Button color="info" onClick={()=>{coToggle();}} style={{ marginBottom: '1rem'}}>UPCOMING EXAMS</Button>
                     <Collapse isOpen={coOpen}>
                         <Card>
                             <Table hover>
@@ -280,6 +361,10 @@ function StudentExam() {
                     </Collapse>
             </div>
         </div>
+                </Segment>
+            </Sidebar.Pusher>
+            </Sidebar.Pushable>
+    </div>
     )
 }
 

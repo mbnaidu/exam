@@ -3,10 +3,8 @@ import { Card, Jumbotron, Collapse,Table,Badge,Container,Row, Col, Nav } from 'r
 import {Checkbox,Grid,Header,Icon,Image,Menu,Segment,Sidebar,} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
-import GroupIcon from '@material-ui/icons/Group';
 import CreateIcon from '@material-ui/icons/Create';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { useStateValue } from '../../redux/StateProvider';
 import axios from 'axios';
 import { Modal, ModalHeader, ModalBody, ModalFooter,Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
@@ -152,7 +150,7 @@ function AdminExam() {
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
                 <MenuIcon />
             </Button>
-            <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:800}} >
+            <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:900}} >
                 {!vertical && (
                     <VerticalSidebar
                         animation={animation}

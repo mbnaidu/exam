@@ -1,5 +1,5 @@
 import React from 'react'
-import Example from "./AdminProfile";
+import Example from "./Admin/AdminProfile";
 
 const App = ({ children }) => (
     <div >

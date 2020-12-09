@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import {Menu,Segment,Sidebar,} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
-import GroupIcon from '@material-ui/icons/Group';
 import CreateIcon from '@material-ui/icons/Create';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useStateValue } from '../../redux/StateProvider';
@@ -156,7 +155,7 @@ function StudentProfile() {
             <h6>TESTS</h6>
             </NavLink>
         </Menu.Item>
-        <Menu.Item as='a' onClick={toggle}>
+        <Menu.Item as='a' onClick={()=>{toggle();ReportCard()}}>
             <CheckCircleIcon />
             <h6>TESTS</h6>
         </Menu.Item>
@@ -175,7 +174,7 @@ function StudentProfile() {
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
                 <MenuIcon />
             </Button>
-        <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:800}} >
+        <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:500}} >
             {!vertical && (
                 <VerticalSidebar
                     animation={animation}
