@@ -5,7 +5,7 @@ import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 
-function Test(props) {
+function AssignTest(props) {
     const [array,setArray] = useState([]);
 
     //let studentslist;
@@ -422,4 +422,4 @@ function Test(props) {
     )
 }
 
-export default Test
+export default AssignTest

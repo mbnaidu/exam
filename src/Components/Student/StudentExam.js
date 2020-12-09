@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from 'react'
 import { Table,Button, Collapse,Container, CardBody } from 'reactstrap';
-import Header from './Header';
 import axios from 'axios';
 import { useStateValue } from '../../redux/StateProvider';
 import {  Card,} from '@material-ui/core';
@@ -8,12 +7,13 @@ import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import { blue, green } from '@material-ui/core/colors';
 import { useHistory } from 'react-router-dom';
+import StudentHeader from './StudentHeader';
 
 
 let id = 0;
 
 
-function Exam() {
+function StudentExam() {
     const [start,setStart] =useState("START");
     const [subarray,setSubArray] = useState([])
     const history = useHistory();
@@ -166,7 +166,7 @@ function Exam() {
     return (
         <div>
             <div>
-                <Header/>
+                <StudentHeader/>
             </div>
             <div>
                 <Button color="info" onClick={()=>{onToggle();}} style={{ marginBottom: '1rem'}}>TODAY</Button>
@@ -282,4 +282,4 @@ function Exam() {
     )
 }
 
-export default Exam
+export default StudentExam

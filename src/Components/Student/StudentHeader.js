@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import {NavLink} from 'react-router-dom'
 import {Navbar, NavbarBrand,Nav} from 'reactstrap'
 import '../../styles/StudentHeader.css';
-class Header extends Component {
+class StudentHeader extends Component {
 
     constructor(props) {
         super(props)
@@ -53,4 +53,4 @@ class Header extends Component {
     }
 }
 
-export default Header
+export default StudentHeader

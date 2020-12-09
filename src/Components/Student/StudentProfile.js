@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Card,Table,Button, Collapse } from 'reactstrap';
 import { useStateValue } from '../../redux/StateProvider';
-import Header from './Header';
 import axios from 'axios';
+import StudentHeader from './StudentHeader';
 
 let ID = 0;
 
-function Profile() {
+function StudentProfile() {
 
     //REPORT CARD
     const [testId,setTestId] = useState([]);
@@ -105,7 +105,7 @@ function Profile() {
         <div>
             <div>
                 <div>
-                    <Header/>
+                    <StudentHeader/>
                 </div>
                 <div>
                     <Card>
@@ -169,4 +169,4 @@ function Profile() {
     )
 }
 
-export default Profile
+export default StudentProfile

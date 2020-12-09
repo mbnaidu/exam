@@ -1,12 +1,12 @@
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom'
-import MainPage from './Components/MainPage';
+import Main from './Components/Main';
 
 function App() {
   return (
     <div>
       <BrowserRouter >
-          <MainPage />
+          <Main />
       </BrowserRouter>
     </div>
   );

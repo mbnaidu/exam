@@ -6,7 +6,7 @@ import { useStateValue } from '../../redux/StateProvider';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
-function Admin(props) {
+function AdminProfile(props) {
     const {
         className
       } = props;
@@ -230,4 +230,4 @@ function Admin(props) {
     )
 }
 
-export default Admin
+export default AdminProfile
