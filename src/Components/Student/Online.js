@@ -21,7 +21,6 @@ const BlueRadio = withStyles({
   })((props) => <Radio color="default" {...props} />);
 
 function Online() {
-  const [number,setNumber] = useState(30);
   const [testId,setTestId] = useState("");
   const [Username,setUsername] = useState("");
   const [{user}] = useStateValue();
@@ -75,10 +74,10 @@ var [rend,setRend] = useState(questionsArray.length);
     const [currentQuestion,setCurrentQuestion]=useState(1)
     const [counter, setCounter] = React.useState(3);
     React.useEffect(() => {
-      if(currentQuestion*number >= 25){setCol("success");}
-    if(currentQuestion*number >= 50){setCol("info");}
-    if(currentQuestion*number >= 75){setCol("danger");}
-    if(currentQuestion*number >= 100){setCol("danger");}
+      if(Math.floor(100/currentQuestion) >= 25){setCol("success");}
+    if(Math.floor(100/currentQuestion) >= 50){setCol("info");}
+    if(Math.floor(100/currentQuestion) >= 75){setCol("danger");}
+    if(Math.floor(100/currentQuestion) >= 100){setCol("danger");}
 
         if(counter===0 && currentQuestion<questionsArray.length){
           if((array[array.length-1])>0){
@@ -125,7 +124,7 @@ var [rend,setRend] = useState(questionsArray.length);
         <div>
           <Jumbotron>
           <Progress multi>
-            <Progress animated bar color={col} value={currentQuestion*number} >{currentQuestion*number}</Progress>
+            <Progress animated bar color={col} value={Math.floor(100/currentQuestion)} >{Math.floor(100/currentQuestion)}</Progress>
           </Progress>
             <Fragment>
               <Button className="questions" color="primary" style={{color:"white"}}><strong>QUESTIONS </strong> <Badge color="badge badge-light" pill>{counter}</Badge></Button>

@@ -15,7 +15,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-
+import UpdateIcon from '@material-ui/icons/Update';
+import NextWeekIcon from '@material-ui/icons/NextWeek';
 
 let id = 0;
 
@@ -78,8 +79,8 @@ function StudentExam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    // id = res.data[0].id;
-                    id="18pa1a1240"
+                    id = res.data[0].id;
+                    // id="18pa1a1240"
                 }
             }
         )
@@ -150,6 +151,7 @@ function StudentExam() {
         
     }
     function startTest(testId,starttime,endtime,isSubmitted) {
+        console.log(isSubmitted)
 
         var s = starttime.split(":");
         var e = endtime.split(":");
@@ -210,7 +212,9 @@ function StudentExam() {
             <h6>PROFILE</h6>
             </NavLink>
         </Menu.Item>
-        <Menu.Item as='a' active>
+        <Menu.Item as='a' active onClick={() =>
+            dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })
+        }>
             <CheckCircleIcon />
             <h6>TESTS</h6>
         </Menu.Item>
@@ -221,11 +225,11 @@ function StudentExam() {
             </NavLink>
         </Menu.Item>
         <Menu.Item as='a' onClick={()=>{coToggle()}}>
-            <CreateIcon  fontSize="large" />
+            <NextWeekIcon  fontSize="large" />
             <h6>UP COMING</h6>
         </Menu.Item>
         <Menu.Item as='a' onClick={()=>{upToggle()}}>
-            <CreateIcon  fontSize="large" />
+            <UpdateIcon  fontSize="large" />
             <h6>COMPLETED</h6>
         </Menu.Item>
         <Menu.Item as='a' >
@@ -243,7 +247,7 @@ function StudentExam() {
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
                 <MenuIcon />
             </Button>
-            <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:800}} >
+            <Sidebar.Pushable as={Segment}  style={{ overflow: 'hidden' ,height:800}} >
                 {!vertical && (
                     <VerticalSidebar
                         animation={animation}
@@ -298,6 +302,7 @@ function StudentExam() {
             </div>
             <div>
                     <Collapse isOpen={upOpen}>
+                    <Header>COMPLETED EXAMS</Header>
                         <Card>
                             <Table hover>
                                 <thead>
@@ -330,6 +335,7 @@ function StudentExam() {
             </div>
             <div>
                     <Collapse isOpen={coOpen}>
+                    <Header>UPCOMING EXAMS</Header>
                         <Card>
                             <Table hover>
                                 <thead>

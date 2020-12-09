@@ -106,11 +106,11 @@ useEffect(() => {
         />
         <h6>HOME</h6>
         </Menu.Item>
-        <Menu.Item as='a' active >
-            <NavLink to="/admin">
+        <Menu.Item as='a' active onClick={() =>
+            dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })
+        }>
             <PersonIcon  fontSize="large" />
             <h6>PROFILE</h6>
-            </NavLink>
         </Menu.Item>
         <Menu.Item as='a' onClick={mtoggle}>
             <GroupIcon  fontSize="large" />

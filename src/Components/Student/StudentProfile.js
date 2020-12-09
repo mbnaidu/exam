@@ -62,8 +62,8 @@ function StudentProfile() {
                         setContactNumber(i.contact);
                         setId(i.id);
                     })}
-                    ID="18pa1a1240"
-                    // ID = res.data[0].id;
+                    // ID="18pa1a1240"
+                    ID = res.data[0].id;
                 }
             }
         )
@@ -143,11 +143,11 @@ function StudentProfile() {
         />
         <h6>HOME</h6>
         </Menu.Item>
-        <Menu.Item as='a' active >
-            <NavLink to="/profile">
+        <Menu.Item as='a' active onClick={() =>
+            dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })
+        }>
             <PersonIcon  fontSize="large" />
             <h6>PROFILE</h6>
-            </NavLink>
         </Menu.Item>
         <Menu.Item as='a'>
             <NavLink to="/exam">
@@ -174,7 +174,7 @@ function StudentProfile() {
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
                 <MenuIcon />
             </Button>
-        <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:500}} >
+        <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:800}} >
             {!vertical && (
                 <VerticalSidebar
                     animation={animation}

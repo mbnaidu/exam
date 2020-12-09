@@ -129,11 +129,11 @@ function AdminExam() {
             <UpdateIcon fontSize="large"/>
             <h6>COMPLETED EXAMS </h6>
         </Menu.Item>
-        <Menu.Item as='a' active>
-            <NavLink to="/adminexam">
+        <Menu.Item as='a' active onClick={() =>
+            dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })
+        }>
             <CreateIcon  fontSize="large" />
             <h6>TESTS</h6>
-            </NavLink>
         </Menu.Item>
         <Menu.Item as='a' >
             <NavLink to="/">
