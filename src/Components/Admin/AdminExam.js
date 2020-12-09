@@ -10,6 +10,9 @@ import { useStateValue } from '../../redux/StateProvider';
 import axios from 'axios';
 import { Modal, ModalHeader, ModalBody, ModalFooter,Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import UpdateIcon from '@material-ui/icons/Update';
+import NextWeekIcon from '@material-ui/icons/NextWeek';
+
 
 function exampleReducer(state, action) {
     switch (action.type) {
@@ -116,9 +119,17 @@ function AdminExam() {
             <h6>PROFILE</h6>
             </NavLink>
         </Menu.Item>
-        <Menu.Item as='a' >
-            <GroupIcon  fontSize="large" />
-            <h6>STUDENTS </h6>
+        <Menu.Item as='a' onClick={onToggle}>
+            <CreateIcon fontSize="large"/>
+            <h6>ONGOING EXAMS </h6>
+        </Menu.Item>
+        <Menu.Item as='a' onClick={coToggle}>
+            <NextWeekIcon fontSize="large" />
+            <h6>UPCOMING EXAMS </h6>
+        </Menu.Item>
+        <Menu.Item as='a' onClick={upToggle}>
+            <UpdateIcon fontSize="large"/>
+            <h6>COMPLETED EXAMS </h6>
         </Menu.Item>
         <Menu.Item as='a' active>
             <NavLink to="/adminexam">
@@ -155,109 +166,130 @@ function AdminExam() {
                         <Button color="success" href="/test" style={{ marginBottom: '1rem'}}>ASSIGN TEST</Button>
                     </div>
                     <div>
-                        <Button color="info" onClick={()=>{onToggle();}} style={{ marginBottom: '1rem'}}>ONGOING EXAMS</Button>
-                        <Collapse isOpen={isOpen}>
-                            <Card>
-                                <Table hover>
-                                    <thead>
-                                        <tr>
-                                            <th>ID </th>
-                                            <th>SUBJECT</th>
-                                            <th>TOPIC</th>
-                                            <th>START DATE</th>
-                                            <th>LAST DATE</th>
-                                            <th>TIMINIGS</th>
-                                            <th>TOTAL MARKS</th>
-                                        </tr>
-                                    </thead>
-                                    {present.map((u)=>{
-                                        return(
-                                        <tbody>
-                                            <tr>
-                                            <td>{u.id}</td>
-                                                <td>{u.subject}</td>
-                                                <td>{u.topic}</td>
-                                                <td>{u.from}</td>
-                                                <td>{u.to}</td>
-                                                <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                                <td>{u.total}</td>
-                                            </tr>
-                                        </tbody>
-                                        )
-                                    })}
-                                </Table>
-                            </Card>
-                        </Collapse>
+                        <Modal isOpen={isOpen} size="lg" toggle={onToggle} >
+                            <ModalHeader ><strong>USERS</strong></ModalHeader>
+                                <ModalBody>
+                                        <div>
+                                            <Card>
+                                                <Table hover>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID </th>
+                                                            <th>SUBJECT</th>
+                                                            <th>TOPIC</th>
+                                                            <th>START DATE</th>
+                                                            <th>LAST DATE</th>
+                                                            <th>TIMINIGS</th>
+                                                            <th>TOTAL MARKS</th>
+                                                        </tr>
+                                                    </thead>
+                                                    {present.map((u)=>{
+                                                        return(
+                                                        <tbody>
+                                                            <tr>
+                                                            <td>{u.id}</td>
+                                                                <td>{u.subject}</td>
+                                                                <td>{u.topic}</td>
+                                                                <td>{u.from}</td>
+                                                                <td>{u.to}</td>
+                                                                <td>{u.starttime }{" to "}{ u.endtime}</td>
+                                                                <td>{u.total}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        )
+                                                    })}
+                                                </Table>
+                                            </Card>
+                                        </div>
+                                    </ModalBody>
+                            <ModalFooter>
+                                <Button color="black" onClick={()=>{onToggle();}}><strong>CANCEL</strong></Button>{' '}
+                            </ModalFooter>
+                        </Modal>
                     </div>
                     <div>
-                        <Button color="info" onClick={()=>{upToggle();}} style={{ marginBottom: '1rem'}}>COMPLETED EXAMS</Button>
-                            <Collapse isOpen={upOpen}>
-                                <Card>
-                                    <Table hover>
-                                        <thead>
-                                            <tr>
-                                                <th>ID </th>
-                                                <th>SUBJECT</th>
-                                                <th>TOPIC</th>
-                                                <th>START DATE</th>
-                                                <th>LAST DATE</th>
-                                                <th>TIMINIGS</th>
-                                                <th>TOTAL MARKS</th>
-                                            </tr>
-                                        </thead>
-                                        {completed.map((u)=>{
-                                            return(
-                                            <tbody>
-                                                <tr>
-                                                    <td>{u.id}</td>
-                                                    <td>{u.subject}</td>
-                                                    <td>{u.topic}</td>
-                                                    <td>{u.from}</td>
-                                                    <td>{u.to}</td>
-                                                    <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                                    <td>{u.total}</td>
-                                                </tr>
-                                            </tbody>
-                                            )
-                                        })}
-                                    </Table>
-                                </Card>
-                            </Collapse>
+                        <Modal isOpen={upOpen} size="lg" toggle={upToggle} >
+                            <ModalHeader ><strong>USERS</strong></ModalHeader>
+                                <ModalBody>
+                                        <div>
+                                            <Card>
+                                                <Table hover>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID </th>
+                                                            <th>SUBJECT</th>
+                                                            <th>TOPIC</th>
+                                                            <th>START DATE</th>
+                                                            <th>LAST DATE</th>
+                                                            <th>TIMINIGS</th>
+                                                            <th>TOTAL MARKS</th>
+                                                        </tr>
+                                                    </thead>
+                                                    {completed.map((u)=>{
+                                                        return(
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>{u.id}</td>
+                                                                <td>{u.subject}</td>
+                                                                <td>{u.topic}</td>
+                                                                <td>{u.from}</td>
+                                                                <td>{u.to}</td>
+                                                                <td>{u.starttime }{" to "}{ u.endtime}</td>
+                                                                <td>{u.total}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                        )
+                                                    })}
+                                                </Table>
+                                            </Card>
+                                        </div>
+                                    </ModalBody>
+                            <ModalFooter>
+                                <Button color="black" onClick={()=>{upToggle();}}><strong>CANCEL</strong></Button>{' '}
+                            </ModalFooter>
+                        </Modal>
                     </div>
                     <div>
-                        <Button color="info" onClick={()=>{coToggle();}} style={{ marginBottom: '1rem'}}>UPCOMING EXAMS</Button>
-                            <Collapse isOpen={coOpen}>
-                                <Card>
-                                    <Table hover>
-                                        <thead>
-                                            <tr>
-                                                <th>ID </th>
-                                                <th>SUBJECT</th>
-                                                <th>TOPIC</th>
-                                                <th>START DATE</th>
-                                                <th>LAST DATE</th>
-                                                <th>TIMINIGS</th>
-                                                <th>TOTAL MARKS</th>
-                                            </tr>
-                                        </thead>
-                                        {upcoming.map((u)=>{
-                                            return(
-                                            <tbody>
-                                                <tr>
-                                                    <td>{u.id}</td>
-                                                    <td>{u.subject}</td>
-                                                    <td>{u.topic}</td>
-                                                    <td>{u.from}</td>
-                                                    <td>{u.to}</td>
-                                                    <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                                    <td>{u.total}</td>
-                                                </tr>
-                                            </tbody>
-                                            )
-                                        })}
-                                    </Table>
-                                </Card>
-                            </Collapse>
+                        <Modal isOpen={coOpen} size="lg" toggle={coToggle} >
+                            <ModalHeader ><strong>USERS</strong></ModalHeader>
+                                <ModalBody>
+                                        <div>
+                                        <Card>
+                                            <Table hover>
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID </th>
+                                                        <th>SUBJECT</th>
+                                                        <th>TOPIC</th>
+                                                        <th>START DATE</th>
+                                                        <th>LAST DATE</th>
+                                                        <th>TIMINIGS</th>
+                                                        <th>TOTAL MARKS</th>
+                                                    </tr>
+                                                </thead>
+                                                {upcoming.map((u)=>{
+                                                    return(
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{u.id}</td>
+                                                            <td>{u.subject}</td>
+                                                            <td>{u.topic}</td>
+                                                            <td>{u.from}</td>
+                                                            <td>{u.to}</td>
+                                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
+                                                            <td>{u.total}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    )
+                                                })}
+                                            </Table>
+                                        </Card>
+                                        </div>
+                                    </ModalBody>
+                            <ModalFooter>
+                                <Button color="black" onClick={()=>{coToggle();}}><strong>CANCEL</strong></Button>{' '}
+                            </ModalFooter>
+                        </Modal>
                     </div>
                 </Segment>
             </Sidebar.Pusher>

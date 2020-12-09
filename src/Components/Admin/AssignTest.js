@@ -4,7 +4,8 @@ import '../../styles/Test.css'
 import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+
+var kp;
 
 function AssignTest(props) {
     const [array,setArray] = useState([]);
@@ -39,7 +40,7 @@ function AssignTest(props) {
     const [ENDTIME,SETENDTIME] = useState("");
     const [STUDENTS, SETSTUDENTS] = useState([]);
     const [QUESTIONS, SETQUESIONS] = useState([]);
-    const [TOTALMARKS, SETTOTALMARKS] = useState(0);
+    const [TOTALMARKS, SETTOTALMARKS] = useState();
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     const FINALSUBMIT = () => {
 
@@ -57,7 +58,6 @@ function AssignTest(props) {
         
         if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" && STARTTIME!="" && ENDTIME!="" ){
             setAssign("ASSIGNED");
-            setH("success");
             const data = {
                 "subject":SUBJECT,
                 "topic":TOPIC,
@@ -111,41 +111,10 @@ function AssignTest(props) {
     const [questions,setQuestions] = useState([]);
     const [totalMarks,setTotalMarks] = useState(0);
     const [i,setI] = useState(0);
-    const [assign,setAssign] = useState(false);
-    const [a,setA] = useState("danger");
-    const [b,setB] = useState("danger");
-    const [c,setC] = useState("danger");
-    const [d,setD] = useState("danger");
-    const [e,setE] = useState("danger");
-    const [f,setF] = useState("danger");
-    const [g,setG] = useState("danger");
-    const [h,setH] = useState("danger");
-    const change = (event) =>{
-        if(SUBJECT!=""){setA("success");}
-        if(SUBJECT==""){setA("danger");}
-        if(TOPIC!=""){setB("success");}
-        if(TOPIC==""){setB("danger");}
-        if(FROM!="" && TO!=""){setC("success");}
-        if(FROM=="" && TO!=""){setC("danger");}
-        if(STUDENTS!=""){setE("success");}
-        if(STUDENTS==""){setE("danger");}
-        if(QUESTIONS!=""){setF("success");}
-        if(QUESTIONS==""){setF("danger");}
-        if(TOTALMARKS!=0){setG("success");}
-        if(TOTALMARKS==0){setG("danger");}
-    }
-    
-    const submit = (event)=>{
-        if(subject!="" && topic!="" && date!="" && timings!="" && students!="" && questions!="" && totalMarks!=""){
-            setAssign(true);setA("success");setB("success");setC("success");setD("success");setE("success");setF("success");setG("success");setH("success");
-            window.history.push({
-                pathname: '/adminexam',
-            })
-        }
-    }
+    const [assign,setAssign] = useState("ASSIGN");
     const [isOpen, setIsOpen] = useState(false);
-    var kp;
     const MENU = (p) => {
+        kp = p;
         let input0;
         let input1 ;
         let input2 ;
@@ -178,10 +147,10 @@ function AssignTest(props) {
         const onDismiss = () => setVisible(false);
         return(
             <div>
-                <ul>{Array.from(Array(5), (e, i) =>{
+                <ul>{Array.from(Array(kp), (e, i) =>{
                         return(
                             <li key={i}>
-                              <FormGroup row>
+                                <FormGroup row>
                                 <Col sm={12}>
                                     {i+1}<Input placeholder="QUESTION" value={input0} onChange={event=> calling0(event.target.value)}/>
                                 </Col>
@@ -192,7 +161,7 @@ function AssignTest(props) {
                                         <Input placeholder="OPTION 3" type="text" value={input3}   onChange={event=> calling3(event.target.value)}/>
                                         <Input placeholder="OPTION 4" type="text" value={input4}   onChange={event=> calling4(event.target.value)}/>
                                         <Input placeholder="SELECT CORRECT OPTION" min={0} max={4} type="number" step="1" value={answer} onChange={event=> calling5(event.target.value)}/>
-                                        <Button onClick={()=>{adding();handleQuestions(full,i)}} color="success"><strong>ADD {i+1} THIS QUESTION</strong></Button>
+                                        <Button onClick={()=>{adding();handleQuestions(full,i)}} color="success"><strong>ADD THIS QUESTION</strong></Button>
                                     </div>
                                 </Col>
                             </FormGroup>
@@ -244,32 +213,30 @@ function AssignTest(props) {
             }
         }
     }
-    const [startDate, setStartDate] = useState();
-    const [lastDate, setLastDate] = useState();
     return (
         <div>
-           <Jumbotron className="set">
+            <Jumbotron className="set">
                 <Container >
                     <FormControl >
                         <InputGroup className="box1">
                             <Input  value={SUBJECT} onChange={event=> SETSUBJECT(event.target.value)}/>
                             <InputGroupAddon addonType="append">
-                                    <Button className="btn1 "  color={a} outline onClick={()=>change()}>SET SUBJECT</Button>
+                                    <Button className="btn1 "  color={SUBJECT.length>0 ? "success" : "danger"} outline >SET SUBJECT</Button>
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
                         <InputGroup className="box2">
                             <Input value={TOPIC} onChange={event=> SETTOPIC(event.target.value)}/>
                             <InputGroupAddon addonType="append">
-                                <Button className="btn2" color={b} outline onClick={()=>change()} >SET TOPIC </Button>
+                                <Button className="btn2" color={TOPIC.length>0 ? "success" : "danger"} outline  >SET TOPIC </Button>
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
                         <div>
                             <InputGroup className="box3">
-                                <Input placeholder={FROM+"      TO      "+TO}/>
+                                <Input placeholder={FROM.length>0 || TO.length >0 ? FROM+"      TO      "+TO : ""} disabled/>
                                 <InputGroupAddon addonType="append">
-                                    <Button className="btn3" color={c} outline onClick={()=>{change();datetoggle();}} >SET DATE</Button>
+                                    <Button className="btn3" color={FROM.length>0 && TO.length>0 ? "success" : "danger"} outline onClick={()=>{datetoggle();}} >SET DATE</Button>
                                     <Modal isOpen={datemodal}  className={className}>
                                         <ModalHeader ><strong>D A T E</strong></ModalHeader>
                                         <ModalBody  size="lg">
@@ -305,9 +272,9 @@ function AssignTest(props) {
                         <br />
                         <div>
                             <InputGroup className="box6">
-                                <Input placeholder={STARTTIME+"     TO    "+ENDTIME}/>
+                                <Input placeholder={STARTTIME.length>0 || ENDTIME.length>0 ? STARTTIME+"     TO    "+ENDTIME : ""} disabled/>
                                 <InputGroupAddon addonType="append">
-                                    <Button className="btn3" color={c} outline onClick={()=>{change();timetoggle();}} >SET TIME</Button>
+                                    <Button className="btn3" color={STARTTIME.length>0 && ENDTIME.length>0 ? "success" : "danger"} outline onClick={()=>{timetoggle();}} >SET TIME</Button>
                                     <Modal isOpen={timemodal}  className={className}>
                                         <ModalHeader ><strong>D A T E</strong></ModalHeader>
                                         <ModalBody  size="lg">
@@ -341,24 +308,26 @@ function AssignTest(props) {
                         <br/>
                         <div>
                             <InputGroup className="box4">
-                                <Input />
+                                <Input placeholder={STUDENTS.length>0 ? STUDENTS.length : ""} disabled/>
                                 <InputGroupAddon addonType="append">
-                                    <Button className="btn4" color={e} outline onClick={()=>{change();studenttoggle();}}>SELECT STUDENTS</Button>
+                                    <Button className="btn4" color={STUDENTS.length>0 ? "success" : "danger"} outline onClick={()=>{studenttoggle();}}>SELECT STUDENTS</Button>
                                     <Modal isOpen={studentmodal}  >
                                         <ModalHeader ><strong>S T U D E N T S</strong></ModalHeader>
                                         <ModalBody>
                                             {array.map((s)=>{  
                                                 return(
                                                     <div>
-                                                        <FormGroup check>
-                                                        <label>
-                                                        <input type="checkbox"
-                                                            onClick={()=>{checked(s.id);}}
-                                                            value={s.id}
-                                                        />
-                                                        {s.id}{' '}{s.username}
-                                                        </label>
-                                                        </FormGroup>
+                                                        <Card>
+                                                            <FormGroup check>
+                                                            <Label>
+                                                            <Input type="checkbox"
+                                                                onClick={()=>{checked(s.id);}}
+                                                                value={s.id}
+                                                            />
+                                                            {s.id}{' '}{s.username}
+                                                            </Label>
+                                                            </FormGroup>
+                                                        </Card>
                                                     </div>
                                                 )
                                             })}
@@ -370,7 +339,7 @@ function AssignTest(props) {
                                                 />
                                                 SELECT ALL STUDENTS
                                             </label>
-                                        <Button color="success" onClick={()=>{studenttoggle();change();handleStudents()}}>SUBMIT</Button>{' '}
+                                        <Button color="success" onClick={()=>{studenttoggle();handleStudents()}}>SUBMIT</Button>{' '}
                                         <Button color="danger" onClick={()=>{studenttoggle();}}>Cancel</Button>
                                         </ModalFooter>
                                     </Modal>                            
@@ -379,10 +348,10 @@ function AssignTest(props) {
                         </div>
                         <br />
                         <InputGroup className="box5">
-                            <Input />
+                            <Input placeholder={QUESTIONS.length>0 ? "TOTAL QUESTIONS  " + QUESTIONS.length : ""} disabled/>
                             <InputGroupAddon addonType="append">
                                 <div>
-                                    <Button className="btn5" color={f} outline onClick={()=>{toggle();change();}}>SET QUESTIONS</Button>
+                                    <Button className="btn5" color={QUESTIONS.length>0 ? "success" : "danger"} outline onClick={()=>{toggle();}}>SET QUESTIONS</Button>
                                     <Modal isOpen={modal}  className={className} >
                                         <ModalHeader toggle={toggle}><strong>Q U E S T I O N S</strong></ModalHeader>
                                         <ModalBody>
@@ -395,7 +364,7 @@ function AssignTest(props) {
                                             <ModalHeader size="lg">Question Paper</ModalHeader>
                                             <ModalBody size="lg">{MENU(ques)}</ModalBody>
                                             <ModalFooter>
-                                            <Button color="success" onClick={()=>{toggleAll();change();setQuestions(20);}}>SUBMIT</Button>
+                                            <Button color="success" onClick={()=>{toggleAll();setQuestions(20);}}>SUBMIT</Button>
                                             <Button color="danger" onClick={toggleAll}>CANCEL</Button>
                                             </ModalFooter>
                                         </Modal>
@@ -408,16 +377,14 @@ function AssignTest(props) {
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
-                        <InputGroup className="box6">
-                            <Input value={TOTALMARKS} onChange={event=> SETTOTALMARKS(event.target.value)}/>
+                        <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
+                            <Input value={TOTALMARKS} onChange={event=> SETTOTALMARKS(event.target.value)} type="number"/>
                             <InputGroupAddon addonType="append">
-                                <Button className="btn6" color={g} outline onClick={()=>change()} >SET TOTAL MARKS</Button>
+                                <Button className="btn6" color={TOTALMARKS > 0 ? "success" : "danger"} outline  >SET TOTAL MARKS</Button>
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
-                        <NavLink to={assign ? "/adminexam" : ""}>
-                            <Button className="btn7" color={h} onClick={()=>{submit();FINALSUBMIT()}}><strong>{!assign ? "ASSIGN" : "ASSIGNED"}</strong></Button>
-                        </NavLink>
+                        <Button className="btn7" color={assign === "ASSIGN" ? "danger" : "success"} onClick={()=>{FINALSUBMIT()}}><strong>{assign}</strong></Button>
                     </FormControl>
                 </Container>
             </Jumbotron>
