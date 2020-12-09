@@ -10,7 +10,12 @@ import { blue, green } from '@material-ui/core/colors';
 import { useHistory } from 'react-router-dom';
 
 
+let id = 0;
+
+
 function Exam() {
+    const [start,setStart] =useState("START");
+    const [subarray,setSubArray] = useState([])
     const history = useHistory();
     const BlueRadio = withStyles({
         root: {
@@ -37,7 +42,6 @@ function Exam() {
 
 
     const [{user}] = useStateValue();
-    let id = 0;
     const [isOpen, setOnOpen] = useState(false);
     const [upOpen, setUpOpen] = useState(false);
     const [coOpen, setCoOpen] = useState(false);
@@ -61,15 +65,28 @@ function Exam() {
                 }
             }
         )
-    },[]);
-    useEffect(() => {
         axios.post('http://localhost:3001/allTests').then(
             function(res) {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
+                    console.log(res.data)
                     {res.data.map((k)=>{
                         MENU(k.from,k.to,k);
+                    })}
+                }
+            }
+        )
+        data = {
+            "id":id
+        }
+        axios.post('http://localhost:3001/getReportCard', {data}).then(
+            function(res) {
+                if(res.data.msg) {
+                    alert(res.data.msg);
+                } else {
+                    {res.data.map((r)=>{
+                        subarray.push(r);
                     })}
                 }
             }
@@ -77,42 +94,48 @@ function Exam() {
     },[]);
     const MENU = (a,b,d)=> {
         var from = a;
+        var to = b;
+        var d2 = to.split("-");
         var d1 = from.split("-");
         var givenDay = d1[2];
         var givenMonth = d1[1];
         var givenYear = d1[0];
-        
-
+        var GivenDay = d2[2];
+        var GivenMonth = d2[1];
+        var GivenYear = d2[0];
         if(d.students.indexOf(id)>=0){
-            if(currentYear == givenYear){
-                if(currentMonth == givenMonth){
-                    if(currentDay == givenDay){
+            if(currentYear >= givenYear && currentYear <=GivenYear){
+                if(currentMonth > givenMonth && currentMonth > GivenMonth){
+                    completed.push(d);        
+                }
+                else if(currentMonth <givenMonth && currentMonth < GivenMonth){
+                    upcoming.push(d);        
+                }
+                else if(currentMonth >= givenMonth && currentMonth<=GivenMonth){
+                    if(currentDay >= givenDay && currentDay <= GivenDay){
                         present.push(d);        
                     }
-                    else if(currentDay > givenDay){
+                    else if(currentDay > givenDay && currentDay > GivenDay){
                         completed.push(d);        
                     }
-                    else if(currentDay < givenDay){
+                    else if(currentDay < givenDay && currentDay < GivenDay){
                         upcoming.push(d);        
                     }
                 }
-                else if(currentMonth > givenMonth){
-                    completed.push(d);    
-                }
-                else if(currentMonth < givenMonth){
-                    upcoming.push(d);    
-                }
             }
-            if(currentYear > givenYear){
-                completed.push(d);
+            if(currentYear > givenYear && currentYear >GivenYear){  
+                completed.push(d);        
             }
-            if(currentYear < givenYear){
-                upcoming.push(d);
+            if(currentYear < givenYear && currentYear<GivenYear){
+                upcoming.push(d);        
             }
         }
         
     }
-    function startTest(testId,starttime,endtime) {
+    function startTest(testId,starttime,endtime,isSubmitted) {
+        console.log(present);
+        console.log(subarray);
+        console.log(isSubmitted)
         var s = starttime.split(":");
         var e = endtime.split(":");
 
@@ -122,8 +145,8 @@ function Exam() {
         var h2 = e[0];
         var m2 = e[1];
 
-        for(var i=h1;i<=h2;i++){
-            if(i === hours){
+        for(var i=h1;i<h2;i++){
+            if(i === hours && !isSubmitted){
                 const data = {
                     "id":testId,
                 }
@@ -146,7 +169,7 @@ function Exam() {
                 <Header/>
             </div>
             <div>
-                <Button color="info" onClick={()=>{onToggle();}} style={{ marginBottom: '1rem'}}>ONGOING EXAMS</Button>
+                <Button color="info" onClick={()=>{onToggle();}} style={{ marginBottom: '1rem'}}>TODAY</Button>
                     <Collapse isOpen={isOpen}>
                         <Card>
                             <Table hover>
@@ -161,19 +184,29 @@ function Exam() {
                                     </tr>
                                 </thead>
                                 {present.map((u)=>{
-                                    return(
-                                    <tbody>
-                                        <tr>
-                                            <td>{u.subject}</td>
-                                            <td>{u.topic}</td>
-                                            <td>{u.from}</td>
-                                            <td>{u.to}</td>
-                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                            <td>{u.total}</td>
-                                            <td><Button color="success"  onClick={()=>{startTest(u.id,u.starttime,u.endtime);}}><strong>START</strong></Button></td>
-                                        </tr>
-                                    </tbody>
-                                    )
+                                    console.log(subarray);
+                                    var f = false;
+                                    {subarray.map((s)=>{
+                                        if(s.testId == u.id){
+                                            if(s.isSubmitted){
+                                                f = true;
+                                                console.log(s.testId)
+                                            }
+                                        }
+                                    })}
+                                        return(
+                                            <tbody key={u.id}>
+                                                <tr>
+                                                    <td>{u.subject}</td>
+                                                    <td>{u.topic}</td>
+                                                    <td>{u.from}</td>
+                                                    <td>{u.to}</td>
+                                                    <td>{u.starttime }{" to "}{ u.endtime}</td>
+                                                    <td>{u.total}</td>
+                                                    <td><Button color={ f ? "danger" : "success"}  onClick={()=>{startTest(u.id,u.starttime,u.endtime,f);}}><strong>{ f ? "SUBMITTED" : "START"}</strong></Button></td>
+                                                </tr>
+                                            </tbody>
+                                        )
                                 })}
                             </Table>
                         </Card>

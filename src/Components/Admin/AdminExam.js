@@ -34,8 +34,6 @@ function AdminExam() {
         var givenMonth = d1[1];
         var givenYear = d1[0];
         
-        console.log(currentDay,currentMonth,currentYear);
-        console.log(givenDay,givenMonth,givenYear);
 
         if(currentYear == givenYear){
             if(currentMonth == givenMonth){

@@ -50,7 +50,7 @@ function Login() {
                         history.push("/admin");
                     }
                     else{
-                        history.push("/exam");
+                        history.push("/profile");
                     }
                 }
             }

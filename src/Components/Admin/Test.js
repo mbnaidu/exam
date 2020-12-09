@@ -45,42 +45,8 @@ function Test(props) {
 
         // console.log(SUBJECT);
         // console.log(TOPIC);
-        
-        var from = FROM;
-        var d1 = from.split("-");
-        var givenDay = d1[2];
-        var givenMonth = d1[1];
-        var givenYear = d1[0];
-        
-        console.log(currentDay,currentMonth,currentYear);
-        console.log(givenDay,givenMonth,givenYear);
         let submittedDate = currentDay+"-"+currentMonth+"-"+currentYear;
-        if(currentYear == givenYear){
-            console.log("h")
-            if(currentMonth == givenMonth){
-                if(currentDay == givenDay){
-                    console.log("present");
-                }
-                else if(currentDay > givenDay){
-                    console.log("completed");
-                }
-                else if(currentDay < givenDay){
-                    console.log("upcoming");
-                }
-            }
-            else if(currentMonth > givenMonth){
-                console.log("completed");
-            }
-            else if(currentMonth < givenMonth){
-                console.log("upcoming");
-            }
-        }
-        if(currentYear > givenYear){
-            console.log("completed");
-        }
-        if(currentYear < givenYear){
-            console.log("upcoming")
-        }
+        
 
         // console.log(TO);
         // console.log(STARTTIME);
