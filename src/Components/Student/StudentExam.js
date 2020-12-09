@@ -144,9 +144,10 @@ function StudentExam() {
 
         var h2 = e[0];
         var m2 = e[1];
-
-        for(var i=h1;i<h2;i++){
-            if(i === hours && !isSubmitted){
+        console.log(hours);
+        console.log(h1,h2)
+        if(hours >= h1 && hours <=h2){
+            if(!isSubmitted){
                 const data = {
                     "id":testId,
                 }
