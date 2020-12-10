@@ -24,7 +24,7 @@ function exampleReducer(state, action) {
         throw new Error()
     }
 }
-function SidebarExampleTransitions() {
+function AdminProfile() {
 const [{user}] = useStateValue();
 const [adminName, setAdminName] = useState("");
 const [password, setPassword] = useState("");
@@ -305,4 +305,4 @@ useEffect(() => {
 )
 }
 
-export default SidebarExampleTransitions
+export default AdminProfile

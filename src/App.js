@@ -1,14 +1,16 @@
 import React from 'react';
 import {BrowserRouter} from 'react-router-dom'
-import Header from './Components/SideBar';
+import Trail from './Components/Admin/Trail';
 import Main from './Components/Main';
+import Header from './Components/SideBar';
 
 function App() {
   return (
     <div>
       <BrowserRouter >
           <Main />
-          {/* <Header /> */}
+          {/* <Trail/> */}
+          {/* <Header/> */}
       </BrowserRouter>
     </div>
   );
