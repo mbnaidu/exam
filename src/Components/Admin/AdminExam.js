@@ -10,8 +10,9 @@ import { Modal, ModalHeader, ModalBody, ModalFooter,Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import UpdateIcon from '@material-ui/icons/Update';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
-
-
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import LooksOneIcon from '@material-ui/icons/LooksOne';
 function exampleReducer(state, action) {
     switch (action.type) {
         case 'CHANGE_ANIMATION':
@@ -115,15 +116,16 @@ function AdminExam() {
             </NavLink>
         </Menu.Item>
         <Menu.Item as='a' onClick={onToggle}>
-            <CreateIcon fontSize="large"/>
-            <h6>ONGOING EXAMS </h6>
+            <LooksOneIcon fontSize="large"/>
+            <LooksOneIcon fontSize="large"/>
+            <h6>ON GOING EXAMS </h6>
         </Menu.Item>
         <Menu.Item as='a' onClick={coToggle}>
-            <NextWeekIcon fontSize="large" />
+            <EventNoteIcon fontSize="large" />
             <h6>UPCOMING EXAMS </h6>
         </Menu.Item>
         <Menu.Item as='a' onClick={upToggle}>
-            <UpdateIcon fontSize="large"/>
+            <EventAvailableIcon fontSize="large"/>
             <h6>COMPLETED EXAMS </h6>
         </Menu.Item>
         <Menu.Item as='a' active onClick={() =>
@@ -179,14 +181,18 @@ function AdminExam() {
                                                         </tr>
                                                     </thead>
                                                     {present.map((u)=>{
+                                                        var FROM = u.from;
+                                                        var TO = u.to;
+                                                        var d2 = TO.split("-");
+                                                        var d1 = FROM.split("-");
                                                         return(
                                                         <tbody>
                                                             <tr>
                                                             <td>{u.id}</td>
                                                                 <td>{u.subject}</td>
                                                                 <td>{u.topic}</td>
-                                                                <td>{u.from}</td>
-                                                                <td>{u.to}</td>
+                                                                <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
+                                                                <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
                                                                 <td>{u.starttime }{" to "}{ u.endtime}</td>
                                                                 <td>{u.total}</td>
                                                             </tr>
@@ -221,14 +227,18 @@ function AdminExam() {
                                                         </tr>
                                                     </thead>
                                                     {completed.map((u)=>{
+                                                        var FROM = u.from;
+                                                        var TO = u.to;
+                                                        var d2 = TO.split("-");
+                                                        var d1 = FROM.split("-");
                                                         return(
                                                         <tbody>
                                                             <tr>
                                                                 <td>{u.id}</td>
                                                                 <td>{u.subject}</td>
                                                                 <td>{u.topic}</td>
-                                                                <td>{u.from}</td>
-                                                                <td>{u.to}</td>
+                                                                <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
+                                                                <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
                                                                 <td>{u.starttime }{" to "}{ u.endtime}</td>
                                                                 <td>{u.total}</td>
                                                             </tr>
@@ -263,14 +273,18 @@ function AdminExam() {
                                                     </tr>
                                                 </thead>
                                                 {upcoming.map((u)=>{
+                                                    var FROM = u.from;
+                                                    var TO = u.to;
+                                                    var d2 = TO.split("-");
+                                                    var d1 = FROM.split("-");
                                                     return(
                                                     <tbody>
                                                         <tr>
                                                             <td>{u.id}</td>
                                                             <td>{u.subject}</td>
                                                             <td>{u.topic}</td>
-                                                            <td>{u.from}</td>
-                                                            <td>{u.to}</td>
+                                                            <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
+                                                            <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
                                                             <td>{u.starttime }{" to "}{ u.endtime}</td>
                                                             <td>{u.total}</td>
                                                         </tr>

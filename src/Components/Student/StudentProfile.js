@@ -38,7 +38,6 @@ function StudentProfile() {
     const [{user}] = useStateValue();
     const [adminName, setAdminName] = useState("");
     const [id, setId] = useState("");
-    const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [contactNumber, setContactNumber] = useState("");
     const [isOpen, setOpen] = useState(false);
@@ -55,7 +54,6 @@ function StudentProfile() {
                 } else {
                     {res.data.map((i)=>{
                         setAdminName(i.username);
-                        setPassword(i.password);
                         setEmail(i.email);
                         setContactNumber(i.contact);
                         setId(i.id);
@@ -190,7 +188,6 @@ function StudentProfile() {
                                 <tr>
                                     <th>ID : </th>
                                     <th>USER NAME</th>
-                                    <th>PASSWORD</th>
                                     <th>E-MAIL</th>
                                     <th>CONTACT NUMBER</th>
                                 </tr>
@@ -199,7 +196,6 @@ function StudentProfile() {
                                     <tr>
                                         <td>{id}</td>
                                         <td>{adminName}</td>
-                                        <td>{password}</td>
                                         <td>{email}</td>
                                         <td>{contactNumber}</td>
                                     </tr>

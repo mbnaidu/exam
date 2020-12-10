@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Jumbotron, Table,Badge,Container,Row, Col } from 'reactstrap'
+import { Card, Table,Badge, Jumbotron } from 'reactstrap'
 import {Menu,Segment,Sidebar,} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
@@ -11,6 +11,7 @@ import axios from 'axios';
 import { Modal, ModalHeader, ModalBody, ModalFooter,Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+
 
 function exampleReducer(state, action) {
     switch (action.type) {
@@ -25,7 +26,6 @@ function exampleReducer(state, action) {
 function AdminProfile() {
 const [{user}] = useStateValue();
 const [adminName, setAdminName] = useState("");
-const [password, setPassword] = useState("");
 const [email, setEmail] = useState("");
 const [contactNumber, setContactNumber] = useState("");
 const [array,setArray] = useState([]);
@@ -56,7 +56,6 @@ useEffect(() => {
             } else {
                 {res.data.map((i)=>{
                     setAdminName(i.username);
-                    setPassword(i.password);
                     setEmail(i.email);
                     setContactNumber(i.contact);
                 })}
@@ -155,7 +154,6 @@ useEffect(() => {
                                 <thead>
                                     <tr>
                                         <th>ADMINS</th>
-                                        <th>PASSWORD</th>
                                         <th>E-MAIL</th>
                                         <th>CONTACT NUMBER</th>
                                     </tr>
@@ -163,7 +161,6 @@ useEffect(() => {
                                     <tbody>
                                         <tr>
                                             <td>{adminName}</td>
-                                            <td>{password}</td>
                                             <td>{email}</td>
                                             <td>{contactNumber}</td>
                                         </tr>
@@ -175,31 +172,30 @@ useEffect(() => {
                     </div>
                     <div>
                         <Modal isOpen={bmodal} size="lg" toggle={btoggle} >
-                            <ModalHeader ><strong>USERS</strong></ModalHeader>
+                            <ModalHeader ><strong>All Tests</strong></ModalHeader>
                                 <ModalBody>
                                         <div>
                                             <Card>
                                                 <Table  hover bordered responsive>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>USERS</th>
-                                                        </tr>
-                                                    </thead>
                                                     {students.map((s)=>{
                                                         return(
-                                                        <tbody>
+                                                            <div>
+                                                                <div>
+                                                                    TEST ID : {s.id}
+                                                                </div>
+                                                                <Jumbotron>
                                                             {s.students.map((j)=>{
                                                                 if(j !== ""){
                                                                     return(
                                                                         <div>
-                                                                            <tr>
-                                                                                <td>{j}</td>
-                                                                            </tr>
+                                                                            {j}
                                                                         </div>
                                                                     )
                                                                 }
                                                             })}
-                                                        </tbody>
+                                                                </Jumbotron>
+                                                        
+                                                            </div>
                                                         )
                                                     })}
                                                 </Table>
@@ -213,7 +209,7 @@ useEffect(() => {
                     </div>
                     <div>
                         <Modal isOpen={mmodal} size="lg" toggle={mtoggle} >
-                            <ModalHeader ><strong>USERS</strong></ModalHeader>
+                            <ModalHeader ><strong>STUDENT DETAILS</strong></ModalHeader>
                                 <ModalBody>
                                         <div>
                                             <Card>
@@ -222,7 +218,6 @@ useEffect(() => {
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>USERNAME</th>
-                                                            <th>PASSWORD</th>
                                                             <th>E-MAIL</th>
                                                             <th>CONTACT NUMBER</th>
                                                         </tr>
@@ -233,7 +228,6 @@ useEffect(() => {
                                                             <tr>
                                                                 <td>{s.id}</td>
                                                                 <td>{s.username}</td>
-                                                                <td>{s.password}</td>
                                                                 <td>{s.email}</td>
                                                                 <td>{s.contact}</td>
                                                             </tr>

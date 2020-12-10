@@ -17,6 +17,11 @@ import { NavLink } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import UpdateIcon from '@material-ui/icons/Update';
 import NextWeekIcon from '@material-ui/icons/NextWeek';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import LooksOneIcon from '@material-ui/icons/LooksOne';
+
+
 
 let id = 0;
 
@@ -217,16 +222,17 @@ function StudentExam() {
         </Menu.Item>
         <Menu.Item as='a' onClick={()=>{onToggle()}}>
             <NavLink to="/exam" >
-            <CreateIcon  fontSize="large" />
-            <h6>TODAY</h6>
+            <LooksOneIcon  fontSize="large" />
+            <LooksOneIcon  fontSize="large" />
+            <h6>ON GOING EXAMS</h6>
             </NavLink>
         </Menu.Item>
         <Menu.Item as='a' onClick={()=>{coToggle()}}>
-            <NextWeekIcon  fontSize="large" />
+            <EventNoteIcon  fontSize="large" />
             <h6>UP COMING</h6>
         </Menu.Item>
         <Menu.Item as='a' onClick={()=>{upToggle()}}>
-            <UpdateIcon  fontSize="large" />
+            <EventAvailableIcon  fontSize="large" />
             <h6>COMPLETED</h6>
         </Menu.Item>
         <Menu.Item as='a' >
@@ -271,6 +277,10 @@ function StudentExam() {
                                     </tr>
                                 </thead>
                                 {present.map((u)=>{
+                                    var FROM = u.from;
+                                    var TO = u.to;
+                                    var d2 = TO.split("-");
+                                    var d1 = FROM.split("-");
                                     var f = false;
                                     {subarray.map((s)=>{
                                         if(s.testId == u.id){
@@ -284,8 +294,8 @@ function StudentExam() {
                                                 <tr>
                                                     <td>{u.subject}</td>
                                                     <td>{u.topic}</td>
-                                                    <td>{u.from}</td>
-                                                    <td>{u.to}</td>
+                                                    <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
+                                                    <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
                                                     <td>{u.starttime }{" to "}{ u.endtime}</td>
                                                     <td>{u.total}</td>
                                                     <td><Button color={ f ? "danger" : "success"}  onClick={()=>{startTest(u.id,u.starttime,u.endtime,f);}}><strong>{ f ? "SUBMITTED" : "START"}</strong></Button></td>
@@ -313,13 +323,19 @@ function StudentExam() {
                                     </tr>
                                 </thead>
                                 {completed.map((u)=>{
+                                    var FROM = u.from;
+                                    var TO = u.to;
+                                    var d2 = TO.split("-");
+                                    var d1 = FROM.split("-");
+                                    var f = false;
                                     return(
                                     <tbody>
                                         <tr>
                                             <td>{u.subject}</td>
                                             <td>{u.topic}</td>
-                                            <td>{u.from}</td>
-                                            <td>{u.to}</td>
+                                            <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
+                                            <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
+                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.total}</td>
                                         </tr>
@@ -346,13 +362,19 @@ function StudentExam() {
                                     </tr>
                                 </thead>
                                 {upcoming.map((u)=>{
+                                    var FROM = u.from;
+                                    var TO = u.to;
+                                    var d2 = TO.split("-");
+                                    var d1 = FROM.split("-");
+                                    var f = false;
                                     return(
                                     <tbody>
                                         <tr>
                                             <td>{u.subject}</td>
                                             <td>{u.topic}</td>
-                                            <td>{u.from}</td>
-                                            <td>{u.to}</td>
+                                            <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
+                                            <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
+                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.starttime }{" to "}{ u.endtime}</td>
                                             <td>{u.total}</td>
                                         </tr>
