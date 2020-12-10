@@ -88,7 +88,7 @@ useEffect(() => {
     const vertical = direction === 'bottom' || direction === 'top'
     const VerticalSidebar = ({ animation, direction, visible }) => (
         <Sidebar
-            color = "blue"
+            color = "dark"
             as={Menu}
             animation={animation}
             direction= "left"
@@ -136,7 +136,7 @@ useEffect(() => {
 )
     return (
         <div>
-            <Button color="primary"
+            <Button color="dark"
                 onClick={() =>
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
                 <MenuIcon />

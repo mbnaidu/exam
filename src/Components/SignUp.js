@@ -11,11 +11,23 @@ function SignUp() {
 
     //setting color before the input
         const [EM,setEM] = useState(false);
-        const [ID,setID] = useState(false)
-        const [UN,setUN] = useState(false)
-        const [PA,setPA] = useState(false)
-        const [PB,setPB] = useState(false)
+        const [EMD,setEMD] = useState(false);
+
+        const [ID,setID] = useState(false);
+        const [IDD,setIDD] = useState(false);
+
+        const [UN,setUN] = useState(false);
+        const [UND,setUND] = useState(false);
+
+        const [PA,setPA] = useState(false);
+        const [PAD,setPAD] = useState(false);
+
+        const [PB,setPB] = useState(false);
+        const [PBD,setPBD] = useState(false);
+        
         const [C,setC] = useState(false);
+        const [CD,setCD] = useState(false);
+
 
     // input
         const [id, setId] = useState("");
@@ -26,24 +38,25 @@ function SignUp() {
         const [contactNumber, setContactNumber] = useState("");
 
     // setting color after input
-        const change = () => {
-            if(email!=""){setEM(true)};
-            if(email ===""){setEM(false)};
-    
-            if(id!=""){setID(true)};
-            if(id ===""){setID(false)};
-    
-            if(username!=""){setUN(true)};
-            if(username ===""){setUN(false)};
-    
-            if(password2!=""){setPB(true)};
-            if(password2 === ""){setPB(false)};
-    
-            if(password1!=""){setPA(true)};
-            if(password1 ===""){setPA(false)};
-    
-            if(contactNumber!=""){setC(true)};
-            if(contactNumber === ""){setC(false)};
+        const id_change = () =>{
+            if(id.length === 8){setID(false);setIDD(true);};
+            if(id.length<8){setID(true);setIDD(false)};
+        }
+        const email_change = () => {
+            if(email.length>=8){setEM(false);setEMD(true);};
+            if(email.length<7){setEM(true);setEMD(false);};
+        }
+        const username_change = () => {
+            if(username.length>5){setUN(false);setUND(true)};
+            if(username.length<4){setUN(true);setUND(false)};
+        }
+        const password_change = (a,b) =>{
+            if(b === a){setPB(false);setPBD(true)};
+            if(b !== a){setPB(true);setPBD(false)};
+        }
+        const contactNumber_change = () => {
+            if(contactNumber.length<9){setC(true);setCD(false)};
+            if(contactNumber.length>=10){setCD(true);setC(false)};
         }
     // checking input 
         function onSignupclickHandler() {
@@ -71,32 +84,43 @@ function SignUp() {
                 <Jumbotron className="signup">
                     <Form>
                         <FormGroup  >
-                            <Label className="id_label pl-2"><strong>REGISTER NUMBER</strong></Label>
-                            <Input valid={ID} className="id_input pl-5"  type="text" value={id}   onChange={event=> {setId(event.target.value);change()}} this/>
-                            <FormFeedback>Oh noes! that name is already taken</FormFeedback>
+                            <div class="form-floating mb-3">
+                                <Input type="email" className={ID ? "form-control is-invalid" : "form-control "}  id="floatingInput" placeholder="name@example.com" valid={IDD} value={id}   onChange={event=> {setId(event.target.value);id_change()}} this/>
+                                <Label >Register Id</Label>
+                            </div>
                         </FormGroup>
                         <FormGroup  >
-                            <Label className="email_label pl-2"><strong>E-MAIL</strong></Label>
-                            <Input valid={EM} className="email_input pl-5" type="text" value={email}   onChange={event=> {setEmail(event.target.value);change()}}/>
+                            <div class="form-floating">
+                                <Input type="password" className={EM ? "form-control is-invalid" : "form-control "}  id="floatingPassword" placeholder="Password" valid={EMD}  type="text" value={email}   onChange={event=> {setEmail(event.target.value);email_change()}}/>
+                                <Label for="floatingPassword">E-Mail</Label>
+                            </div>
                         </FormGroup>
                         <FormGroup  >
-                            <Label className="username_label pl-2"><strong>USER NAME</strong></Label>
-                            <Input valid={UN} className="username_input pl-5"  type="text" value={username }   onChange={event=> {setUsername(event.target.value);change()}}/>
+                            <div class="form-floating">
+                                <Input type="password" className={UN ? "form-control is-invalid" : "form-control "}  id="floatingPassword" placeholder="Password" valid={UND}   type="text" value={username }   onChange={event=> {setUsername(event.target.value);username_change()}}/>
+                                <Label for="floatingPassword">Username</Label>
+                            </div>
                         </FormGroup>
                         <FormGroup  >
-                            <Label className="password_label pl-2"><strong>PASSWORD</strong></Label>
-                            <Input valid={PA} className="password_input pl-5" type="password" value={password1 }   onChange={event=> {setPassword1(event.target.value);change()}}/>
+                            <div class="form-floating">
+                                <Input type="password" className="form-control "  id="floatingPassword" placeholder="Password"   type="password" value={password1 }   onChange={event=> {setPassword1(event.target.value);}}/>
+                                <Label for="floatingPassword">Password</Label>
+                            </div>
+                        </FormGroup>
+                        <FormGroup  >
+                            <div class="form-floating">
+                                <Input type="password" className={PB ? "form-control is-invalid" : "form-control "}  id="floatingPassword" placeholder="Password" valid={PBD}   type="password" value={password2}   onChange={event=> {setPassword2(event.target.value);password_change(password1,event.target.value)}}/>
+                                <Label for="floatingPassword">Confirm password</Label>
+                            </div>
                             </FormGroup>
                         <FormGroup  >
-                            <Label className="password_label pl-2"><strong>CONFIRM PASSWORD</strong></Label>
-                            <Input valid={PB} className="confirm_input pl-5"  type="password" value={password2}   onChange={event=> {setPassword2(event.target.value);change()}}/>
-                            </FormGroup>
-                        <FormGroup  >
-                            <Label className="contact_label pl-2"><strong>CONTACT NUMBER</strong></Label>
-                            <Input valid={C} className="contact_input pl-5" type="number" value={contactNumber}   onChange={event=> {setContactNumber(event.target.value);change()}}/>
+                            <div class="form-floating">
+                                <Input type="password" className={C ? "form-control is-invalid" : "form-control "} id="floatingPassword" placeholder="Password" valid={CD}  type="number" value={contactNumber}   onChange={event=> {setContactNumber(event.target.value);contactNumber_change()}}/>
+                                <Label for="floatingPassword">Contact number</Label>
+                            </div>
                             </FormGroup>
                     </Form>
-                        <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} onClick={()=>{onSignupclickHandler();change()}}><strong>Sign Up</strong></Button>
+                        <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} onClick={()=>{onSignupclickHandler();}}><strong>Sign Up</strong></Button>
                 </Jumbotron>
             </div>
         </div>

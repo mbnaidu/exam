@@ -160,6 +160,13 @@ function AssignTest(props) {
                                         <Input placeholder="OPTION 2" type="text" value={input2}   onChange={event=> calling2(event.target.value)}/>
                                         <Input placeholder="OPTION 3" type="text" value={input3}   onChange={event=> calling3(event.target.value)}/>
                                         <Input placeholder="OPTION 4" type="text" value={input4}   onChange={event=> calling4(event.target.value)}/>
+                                        <select class="form-select" aria-label=".form-select-lg example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1" onChange={event=> calling5(event.target.value)}>ONE</option>
+                                            <option value="2" onChange={event=> calling5(event.target.value)}>TWO</option>
+                                            <option value="3" onChange={event=> calling5(event.target.value)}>THREE</option>
+                                            <option value="1" onChange={event=> calling5(event.target.value)}>FOUT</option>
+                                        </select>
                                         <Input placeholder="SELECT CORRECT OPTION" min={0} max={4} type="number" step="1" value={answer} onChange={event=> calling5(event.target.value)}/>
                                         <Button onClick={()=>{adding();handleQuestions(full,i)}} color="success"><strong>ADD THIS QUESTION</strong></Button>
                                     </div>
