@@ -1,11 +1,18 @@
-.body{
-  background-color: linear-gradient(90deg,rgb(110,94,254) 0%,rgba(73,63,252,1)100%);
+.hero-image {
+  background-image: url(../Shared/5.png);
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  height: 790px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
 }
-.login{
-  margin: 150px 100px 0px 550px;
-}
-.logincard{
-  width: 400px;
+.hero-text {
+  position: absolute;
+  top: 40%;
+  left: 45%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
 }
 .loginlogo{
   margin-top: -40px;
@@ -17,17 +24,26 @@
 .login_password{
   margin-left: 10px;
   padding-top:10px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .login_forgotpassword{
-  color: blue;
+  color: rgb(84, 8, 134);
   margin-left: 167px;
 }
-.loginbutton{
-  margin-top: 40px;
+.login_Button{
+  background-color: rgb(86, 139, 236);
+  margin-top: 30px;
   margin-left: 10px;
 }
-.cardfooter{
+.login_Button:hover{
+  background-color: rgb(86, 139, 236);
+}
+.login_Button:active{
+  background-color: rgb(86, 139, 236);
+
+}
+.card_footer{
+  color: rgb(250, 247, 252);
   margin-top: 20px;
   padding-left: 80px;
   font-weight: 300;

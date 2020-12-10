@@ -24,8 +24,6 @@ function exampleReducer(state, action) {
     switch (action.type) {
         case 'CHANGE_ANIMATION':
             return { ...state, animation: action.animation, visible: !state.visible }
-        case 'CHANGE_DIMMED':
-            return { ...state, dimmed: action.dimmed }
         case 'CHANGE_DIRECTION':
             return { ...state, direction: action.direction, visible: false }
         default:
@@ -181,10 +179,9 @@ function StudentExam() {
     }
     const [state, dispatch] = React.useReducer(exampleReducer, {
         animation: 'overlay',
-        dimmed: true,
         visible: false,
     })
-    const { animation, dimmed, direction, visible } = state
+    const { animation, direction, visible } = state
     const vertical = direction === 'bottom' || direction === 'top'
     const VerticalSidebar = ({ animation, direction, visible }) => (
         <Sidebar
@@ -255,7 +252,7 @@ function StudentExam() {
                         visible={visible}
                     />
                 )}
-            <Sidebar.Pusher dimmed={dimmed && visible}>
+            <Sidebar.Pusher >
                 <Segment basic>
                 <div>
             <div>

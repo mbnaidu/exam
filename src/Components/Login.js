@@ -58,33 +58,33 @@ function Login() {
     }
     }
     return (
-        <div>
-            <div className="login">
+        <div className="hero-image">
+            <div className="hero-text" >
                 <Form>
-                    <Jumbotron className="logincard ">
+                    <div className="logincard ">
                             <img  top height="120" className="loginlogo" src={require('../Shared/vit.ico')} alt="" />
                         <CardBody>
                             <InputGroup className="login_username">
                                 <InputGroupAddon addonType="prepend">
-                                <InputGroupText style={{borderColor:"rgb(110,94,254)"}}><PersonIcon style={{color:"rgb(110,94,254)"}} /></InputGroupText>
+                                <InputGroupText style={{borderColor:" rgb(171, 96, 221)"}}><PersonIcon style={{color:" rgb(171, 96, 221)"}} /></InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Username"  value={username}  style={{borderColor:"rgb(110,94,254)"}} onChange={event=> setUsername(event.target.value)}/>
+                                <Input placeholder="Username"  value={username}  style={{borderColor:" rgb(171, 96, 221)"}} onChange={event=> setUsername(event.target.value)}/>
                             </InputGroup>
                             <InputGroup className="login_password" >
                                 <InputGroupAddon addonType="prepend">
-                                <InputGroupText style={{borderColor:"rgb(110,94,254)"}}><LockIcon style={{color:"rgb(110,94,254)"}} /></InputGroupText>
+                                <InputGroupText style={{borderColor:" rgb(171, 96, 221)"}}><LockIcon style={{color:" rgb(171, 96, 221)"}} /></InputGroupText>
                                 </InputGroupAddon>
-                                <Input placeholder="Password" style={{borderColor:"rgb(110,94,254)"}} type={input} value={password} onChange={event=> setPassword(event.target.value)}/>
-                                    <InputGroupText style={{borderColor:"rgb(110,94,254)"}}>{Visibile ? <VisibilityOffOutlinedIcon style={{color:"rgb(110,94,254)"}} onClick={()=>{onclick();}} /> : <VisibilityIcon style={{color:"rgb(110,94,254)"}} onClick={()=>{onclick();}}/>}</InputGroupText>                            </InputGroup>
-                            <NavLink to="/" className="login_forgotpassword">Forgot Password ?</NavLink>
+                                <Input placeholder="Password" style={{borderColor:" rgb(171, 96, 221)"}} type={input} value={password} onChange={event=> setPassword(event.target.value)}/>
+                                    <InputGroupText style={{borderColor:" rgb(171, 96, 221)"}}>{Visibile ? <VisibilityOffOutlinedIcon style={{color:" rgb(171, 96, 221)"}} onClick={()=>{onclick();}} /> : <VisibilityIcon style={{color:" rgb(171, 96, 221)"}} onClick={()=>{onclick();}}/>}</InputGroupText>                            </InputGroup>
+                            <NavLink to="/" className="login_forgotpassword ">Forgot Password ?</NavLink>
                             <InputGroup  >
-                                <Button className="loginbutton" size="md" block onClick={() => {handleInputChange();loginToApp(username);}}><strong>Login</strong></Button>
+                                <Button className="login_Button" size="md" block onClick={() => {handleInputChange();loginToApp(username);}}><strong>Login</strong></Button>
                             </InputGroup>
                         </CardBody>
-                        <div className="cardfooter">
+                        <div className="card_footer">
                             <CardText><strong> NEW USER . . .? </strong><NavLink to="/register"  ><strong>Sign Up</strong></NavLink></CardText>
                         </div>
-                    </Jumbotron>
+                    </div>
                 </Form>
             </div>
         </div>

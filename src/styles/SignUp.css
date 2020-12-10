@@ -1,54 +1,38 @@
 .signup{
-    margin: 70px 620px 0px 600px;
-    border-radius: 50px;
+    margin: 0px 650px 0px 560px;
 }
-.input__change:hover{
-    border-radius: 30px;
-    animation: mymov 10s infinite;
+.form-control {
+    border-radius: 25px;
 }
-.id_input{
-    border-radius: 30px;
-    width: 450px;
-    
+.form-control is-invalid{
+    border-radius: 25px;
 }
-.email_input{
-    border-radius: 30px;
-    width: 450px;
-    
+.sign__up{
+    padding-top: 45px;
 }
-.username_input{
-    border-radius: 30px;
-    width: 450px;
-    
+.signup_image{
+    padding-top: 20px;
+    margin-left: 110px;
 }
-.password_input{
-    border-radius: 30px;
-    width: 450px;
-    
+.signup_Button {
+    display: inline-block;
+    margin-top: 30px;
+    padding-left: 50px;
+    padding-right: 50px;    
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    margin-left: 115px;
+    color: rgb(12, 4, 4);
+    background-color: rgb(228, 149, 238);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
 }
-.confirm_input{
-    border-radius: 30px;
-    width: 450px;
-    
+.signup_Button:hover {    background-color: rgb(34, 121, 202);
 }
-.contact_input{
-    border-radius: 30px;
-    width: 450px; 
+.signup_Button:active {
+    background-color: rgb(228, 149, 238);
+    box-shadow: 0 5px rgb(188, 44, 207);
+    transform: translateY(4px);
 }
-.textForRegister{
-    color: white;
-    font-size: 30px;
-    font-family: 'Courier New', Courier, monospace;
-    margin-left: 130px;
-    }
-
-
-    .buttonl{
-        border-color:rgb(110,94,254) ;
-        border-radius: 30px;
-        width: 130px;
-        color:white;
-        font-family: 'Courier New', Courier, monospace;
-        margin-left: 120px;
-        margin-top: 20px;
-    }

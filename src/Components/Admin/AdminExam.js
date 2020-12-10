@@ -16,8 +16,6 @@ function exampleReducer(state, action) {
     switch (action.type) {
         case 'CHANGE_ANIMATION':
             return { ...state, animation: action.animation, visible: !state.visible }
-        case 'CHANGE_DIMMED':
-            return { ...state, dimmed: action.dimmed }
         case 'CHANGE_DIRECTION':
             return { ...state, direction: action.direction, visible: false }
         default:
@@ -53,7 +51,6 @@ function AdminExam() {
     const coToggle = () => setCoOpen(!coOpen);
     const [state, dispatch] = React.useReducer(exampleReducer, {
         animation: 'overlay',
-        dimmed: true,
         visible: false,
         })
     const MENU = (a,b,d)=> {
@@ -89,7 +86,7 @@ function AdminExam() {
             upcoming.push(d);
         }
     }
-    const { animation, dimmed, direction, visible } = state
+    const { animation,direction, visible } = state
     const vertical = direction === 'bottom' || direction === 'top'
     const VerticalSidebar = ({ animation, direction, visible }) => (
         <Sidebar
@@ -158,7 +155,7 @@ function AdminExam() {
                         visible={visible}
                     />
                 )}
-            <Sidebar.Pusher dimmed={dimmed && visible}>
+            <Sidebar.Pusher >
                 <Segment basic>
                     <div>
                         <Button color="success" href="/test" style={{ marginBottom: '1rem'}}>ASSIGN TEST</Button>

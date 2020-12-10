@@ -39,8 +39,8 @@ function SignUp() {
 
     // setting color after input
         const id_change = () =>{
-            if(id.length === 8){setID(false);setIDD(true);};
-            if(id.length<8){setID(true);setIDD(false)};
+            if(id.length === 7){setID(false);setIDD(true);};
+            if(id.length >7 || id.length<7){setID(true);setIDD(false)};
         }
         const email_change = () => {
             if(email.length>=8){setEM(false);setEMD(true);};
@@ -54,9 +54,9 @@ function SignUp() {
             if(b === a){setPB(false);setPBD(true)};
             if(b !== a){setPB(true);setPBD(false)};
         }
-        const contactNumber_change = () => {
-            if(contactNumber.length<9){setC(true);setCD(false)};
-            if(contactNumber.length>=10){setCD(true);setC(false)};
+        const contactNumber_change = (c) => {
+            if(contactNumber.length===9 ){setCD(true);setC(false)};
+            if(contactNumber.length>9 || contactNumber.length<9){setC(true);setCD(false)};
         }
     // checking input 
         function onSignupclickHandler() {
@@ -79,49 +79,67 @@ function SignUp() {
             }
         };
     return (
-        <div>
-            <div>
-                <Jumbotron className="signup">
+        <div className="hero-image"> 
+            <div className="signup">
+                <a href="/">
+                <img  top height="120" className="signup_image" src={require('../Shared/vit.ico')} alt="" />
+                </a>
+                    <div className="sign__up">
                     <Form>
                         <FormGroup  >
-                            <div class="form-floating mb-3">
-                                <Input type="email" className={ID ? "form-control is-invalid" : "form-control "}  id="floatingInput" placeholder="name@example.com" valid={IDD} value={id}   onChange={event=> {setId(event.target.value);id_change()}} this/>
+                            <div class="form-floating ">
+                                <Input type="email" className={ID ? "form-control is-invalid" : "form-control "}  id="floatingInput" placeholder="name@example.com" valid={IDD} value={id}   onChange={event=> {setId(event.target.value);id_change()}} this required/>
                                 <Label >Register Id</Label>
+                                <div className={ID ? "invalid-tooltip" : ""}>
+                                    {ID ? "ID length should be greater than 8" : ""}
+                                </div>
                             </div>
                         </FormGroup>
                         <FormGroup  >
                             <div class="form-floating">
-                                <Input type="password" className={EM ? "form-control is-invalid" : "form-control "}  id="floatingPassword" placeholder="Password" valid={EMD}  type="text" value={email}   onChange={event=> {setEmail(event.target.value);email_change()}}/>
+                                <Input type="password" className={EM ? "form-control is-invalid" : "form-control "} id="floatingPassword" placeholder="Password" valid={EMD}  type="text" value={email}   onChange={event=> {setEmail(event.target.value);email_change()}}/>
                                 <Label for="floatingPassword">E-Mail</Label>
+                                <div className={EM ? "invalid-tooltip" : ""}>
+                                    {EM ? "length should be greater than 8" : ""}
+                            </div>
                             </div>
                         </FormGroup>
                         <FormGroup  >
                             <div class="form-floating">
-                                <Input type="password" className={UN ? "form-control is-invalid" : "form-control "}  id="floatingPassword" placeholder="Password" valid={UND}   type="text" value={username }   onChange={event=> {setUsername(event.target.value);username_change()}}/>
+                                <Input type="password" className={UN ? "form-control is-invalid" : "form-control "} id="floatingPassword" placeholder="Password" valid={UND}   type="text" value={username }   onChange={event=> {setUsername(event.target.value);username_change()}}/>
                                 <Label for="floatingPassword">Username</Label>
+                            <div className={UN ? "invalid-tooltip" : ""}>
+                                    {UN ? "length should be greater than 5" : ""}
+                            </div>
                             </div>
                         </FormGroup>
                         <FormGroup  >
                             <div class="form-floating">
-                                <Input type="password" className="form-control "  id="floatingPassword" placeholder="Password"   type="password" value={password1 }   onChange={event=> {setPassword1(event.target.value);}}/>
+                                <Input type="password" className="form-control "  id="floatingPassword" placeholder="Password"  type="password" value={password1 }   onChange={event=> {setPassword1(event.target.value);}}/>
                                 <Label for="floatingPassword">Password</Label>
                             </div>
                         </FormGroup>
                         <FormGroup  >
                             <div class="form-floating">
-                                <Input type="password" className={PB ? "form-control is-invalid" : "form-control "}  id="floatingPassword" placeholder="Password" valid={PBD}   type="password" value={password2}   onChange={event=> {setPassword2(event.target.value);password_change(password1,event.target.value)}}/>
+                                <Input type="password" className={PB ? "form-control is-invalid" : "form-control "} id="floatingPassword" placeholder="Password" valid={PBD}   type="password" value={password2}   onChange={event=> {setPassword2(event.target.value);password_change(password1,event.target.value)}}/>
                                 <Label for="floatingPassword">Confirm password</Label>
+                            <div className={PB ? "invalid-tooltip" : ""}>
+                                    {PB ? "NOT MATCHED" : ""}
+                            </div>
                             </div>
                             </FormGroup>
                         <FormGroup  >
                             <div class="form-floating">
-                                <Input type="password" className={C ? "form-control is-invalid" : "form-control "} id="floatingPassword" placeholder="Password" valid={CD}  type="number" value={contactNumber}   onChange={event=> {setContactNumber(event.target.value);contactNumber_change()}}/>
+                                <Input type="password" className={C ? "form-control is-invalid" : "form-control "} id="floatingPassword" placeholder="Password" valid={CD}  type="number" value={contactNumber}   onChange={event=> {setContactNumber(event.target.value);contactNumber_change(contactNumber)}}/>
                                 <Label for="floatingPassword">Contact number</Label>
+                            <div className={C ? "invalid-tooltip" : ""}>
+                                    {C ? "Please enter correct number" : ""}
+                            </div>
                             </div>
                             </FormGroup>
                     </Form>
-                        <Button className="buttonl" style={{backgroundColor:"rgb(110,94,254) "}} onClick={()=>{onSignupclickHandler();}}><strong>Sign Up</strong></Button>
-                </Jumbotron>
+                        <Button className="signup_Button "  onClick={()=>{onSignupclickHandler();}}><strong>Sign Up</strong></Button>
+                </div>
             </div>
         </div>
     )

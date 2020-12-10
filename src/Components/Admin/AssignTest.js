@@ -73,12 +73,10 @@ function AssignTest(props) {
             axios.post('http://localhost:3001/addTest', {data}).then(
                 function(res) {
                     if(res.data) {
-                        
                     }
                 }
             )
         }
-
     }
     const [modal, setModal] = useState(false);
     const [nestedModal, setNestedModal] = useState(false);
