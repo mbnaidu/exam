@@ -1,12 +1,12 @@
 import React, { useState,useEffect } from 'react'
-import { Table,Button, Collapse,Container, Card } from 'reactstrap';
+import {  Collapse,Container, Card } from 'reactstrap';
 import axios from 'axios';
 import { useStateValue } from '../../redux/StateProvider';
 import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
 import { blue, green } from '@material-ui/core/colors';
 import { useHistory } from 'react-router-dom';
-import {Header, Menu,Segment,Sidebar,} from 'semantic-ui-react'
+import {ButtonContent, Header, Menu,Segment,Sidebar,Button,Table,TableHeader,TableBody, TableRow, TableHeaderCell, TableCell, Label, Icon, MenuItem} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
@@ -16,7 +16,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import UpdateIcon from '@material-ui/icons/Update';
-import NextWeekIcon from '@material-ui/icons/NextWeek';
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import LooksOneIcon from '@material-ui/icons/LooksOne';
@@ -82,8 +82,8 @@ function StudentExam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    id = res.data[0].id;
-                    // id="18pa1a1240"
+                    // id = res.data[0].id;
+                    id="18pa1a1240"
                 }
             }
         )
@@ -224,7 +224,7 @@ function StudentExam() {
             <NavLink to="/exam" >
             <LooksOneIcon  fontSize="large" />
             <LooksOneIcon  fontSize="large" />
-            <h6>ON GOING EXAMS</h6>
+            <h6>TODAY EXAMS</h6>
             </NavLink>
         </Menu.Item>
         <Menu.Item as='a' onClick={()=>{coToggle()}}>
@@ -236,6 +236,10 @@ function StudentExam() {
             <h6>COMPLETED</h6>
         </Menu.Item>
         <Menu.Item as='a' >
+            <LiveHelpIcon  fontSize="large" />
+            <h6>HELP</h6>
+        </Menu.Item>
+        <Menu.Item as='a' >
             <NavLink to="/">
             <ExitToAppIcon  fontSize="large" />
             <h6>SIGN OUT</h6>
@@ -244,13 +248,13 @@ function StudentExam() {
     </Sidebar>
 )
     return (
-        <div>
+        <div className="overflow-auto">
             <Button color="primary"
                 onClick={() =>
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
                 <MenuIcon />
             </Button>
-            <Sidebar.Pushable as={Segment}  style={{ overflow: 'hidden' ,height:800}} >
+            <Sidebar.Pushable as={Segment}  style={{ overflow: 'show' ,height:700}} >
                 {!vertical && (
                     <VerticalSidebar
                         animation={animation}
@@ -260,22 +264,30 @@ function StudentExam() {
                 )}
             <Sidebar.Pusher >
                 <Segment basic>
-                <div>
+                <div >
             <div>
                     <Collapse isOpen={isOpen}>
-                        <Header>TODAY EXAMS</Header>
                         <Card>
-                            <Table hover>
-                                <thead>
-                                    <tr>
-                                        <th>SUBJECT</th>
-                                        <th>TOPIC</th>
-                                        <th>START DATE</th>
-                                        <th>LAST DATE</th>
-                                        <th>TIMINIGS</th>
-                                        <th>TOTAL MARKS</th>
-                                    </tr>
-                                </thead>
+                        <Menu compact>
+                            <MenuItem as='a'>
+                            <Button color="green" onClick={()=>{onToggle()}}><Header>TODAY EXAMS</Header></Button>
+                            <Label color='green' floating>
+                                {present.length}
+                            </Label>
+                            </MenuItem>
+                        </Menu>
+                            <Table celled color="green">
+                                <TableHeader>
+                                <TableRow>
+                                    <TableHeaderCell>SUBJECT</TableHeaderCell>
+                                    <TableHeaderCell>TOPIC</TableHeaderCell>
+                                    <TableHeaderCell>START DATE</TableHeaderCell>
+                                    <TableHeaderCell>LAST DATE</TableHeaderCell>
+                                    <TableHeaderCell>TIMINIGS</TableHeaderCell>
+                                    <TableHeaderCell>TOTAL MARKS</TableHeaderCell>
+                                    <TableHeaderCell>STATUS</TableHeaderCell>
+                                </TableRow>
+                                </TableHeader>
                                 {present.map((u)=>{
                                     var FROM = u.from;
                                     var TO = u.to;
@@ -290,17 +302,31 @@ function StudentExam() {
                                         }
                                     })}
                                         return(
-                                            <tbody key={u.id}>
-                                                <tr>
-                                                    <td>{u.subject}</td>
-                                                    <td>{u.topic}</td>
-                                                    <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
-                                                    <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
-                                                    <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                                    <td>{u.total}</td>
-                                                    <td><Button color={ f ? "danger" : "success"}  onClick={()=>{startTest(u.id,u.starttime,u.endtime,f);}}><strong>{ f ? "SUBMITTED" : "START"}</strong></Button></td>
-                                                </tr>
-                                            </tbody>
+                                            <TableBody>
+                                        <TableRow>
+                                            <TableCell>
+                                            <Label ribbon color="green">{u.subject}</Label>
+                                            </TableCell>
+                                            <TableCell>{u.topic}</TableCell>
+                                            <TableCell>{d1[2]+"-"+d1[1]+"-"+d1[0]}</TableCell>
+                                            <TableCell>{d2[2]+"-"+d2[1]+"-"+d2[0]}</TableCell>
+                                            <TableCell>{u.starttime }{" to "}{ u.endtime}</TableCell>
+                                            <TableCell>{u.total}</TableCell>
+                                            <TableCell>
+                                            <Button animated="vertical" inverted color={f ? "red" : "green"} onClick={()=>{startTest(u.id,u.starttime,u.endtime,f);}}>
+                                                        { f ? (<div>
+                                                            <ButtonContent visible>SUBMITTED</ButtonContent>
+                                                            <ButtonContent hidden>0 Attempts left</ButtonContent>
+                                                        </div>) : (
+                                                            <div>
+                                                                <ButtonContent visible >START</ButtonContent>
+                                                                <ButtonContent hidden>{u.starttime}</ButtonContent>
+                                                            </div>
+                                                        )}
+                                                        </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                        </TableBody>
                                         )
                                 })}
                             </Table>
@@ -308,38 +334,46 @@ function StudentExam() {
                     </Collapse>
             </div>
             <div>
-                    <Collapse isOpen={upOpen}>
-                    <Header>COMPLETED EXAMS</Header>
+                    <Collapse isOpen={coOpen}>
                         <Card>
-                            <Table hover>
-                                <thead>
-                                    <tr>
-                                        <th>SUBJECT</th>
-                                        <th>TOPIC</th>
-                                        <th>START DATE</th>
-                                        <th>LAST DATE</th>
-                                        <th>TIMINIGS</th>
-                                        <th>TOTAL MARKS</th>
-                                    </tr>
-                                </thead>
-                                {completed.map((u)=>{
+                        <Menu compact>
+                            <MenuItem as='a'>
+                            <Button color="orange" onClick={()=>{coToggle()}}><Header>UPCOMING EXAMS</Header></Button>
+                            <Label color='orange' floating>
+                                {upcoming.length}
+                            </Label>
+                            </MenuItem>
+                        </Menu>
+                        <Table celled color="orange">
+                            <TableHeader>
+                            <TableRow>
+                                <TableHeaderCell>SUBJECT</TableHeaderCell>
+                                <TableHeaderCell>TOPIC</TableHeaderCell>
+                                <TableHeaderCell>START DATE</TableHeaderCell>
+                                <TableHeaderCell>LAST DATE</TableHeaderCell>
+                                <TableHeaderCell>TIMINIGS</TableHeaderCell>
+                                <TableHeaderCell>TOTAL MARKS</TableHeaderCell>
+                            </TableRow>
+                            </TableHeader>
+                                {upcoming.map((u)=>{
                                     var FROM = u.from;
                                     var TO = u.to;
                                     var d2 = TO.split("-");
                                     var d1 = FROM.split("-");
                                     var f = false;
-                                    return(
-                                    <tbody>
-                                        <tr>
-                                            <td>{u.subject}</td>
-                                            <td>{u.topic}</td>
-                                            <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
-                                            <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
-                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                            <td>{u.total}</td>
-                                        </tr>
-                                    </tbody>
+                                    return (
+                                        <TableBody>
+                                        <TableRow>
+                                            <TableCell>
+                                            <Label ribbon color="orange">{u.subject}</Label>
+                                            </TableCell>
+                                            <TableCell>{u.topic}</TableCell>
+                                            <TableCell>{d1[2]+"-"+d1[1]+"-"+d1[0]}</TableCell>
+                                            <TableCell>{d2[2]+"-"+d2[1]+"-"+d2[0]}</TableCell>
+                                            <TableCell>{u.starttime }{" to "}{ u.endtime}</TableCell>
+                                            <TableCell>{u.total}</TableCell>
+                                        </TableRow>
+                                        </TableBody>
                                     )
                                 })}
                             </Table>
@@ -347,41 +381,48 @@ function StudentExam() {
                     </Collapse>
             </div>
             <div>
-                    <Collapse isOpen={coOpen}>
-                    <Header>UPCOMING EXAMS</Header>
+                    <Collapse isOpen={upOpen}>
                         <Card>
-                            <Table hover>
-                                <thead>
-                                    <tr>
-                                        <th>SUBJECT</th>
-                                        <th>TOPIC</th>
-                                        <th>START DATE</th>
-                                        <th>LAST DATE</th>
-                                        <th>TIMINIGS</th>
-                                        <th>TOTAL MARKS</th>
-                                    </tr>
-                                </thead>
-                                {upcoming.map((u)=>{
+                        <Menu compact>
+                            <MenuItem as='a'>
+                            <Button color="red" onClick={()=>{upToggle()}}><Header >COMPLETED EXAMS</Header></Button>
+                            <Label color='red' floating>
+                                {upcoming.length}
+                            </Label>
+                            </MenuItem>
+                        </Menu>
+                        <Table celled color="red" >
+                            <TableHeader>
+                            <TableRow>
+                                <TableHeaderCell>SUBJECT</TableHeaderCell>
+                                <TableHeaderCell>TOPIC</TableHeaderCell>
+                                <TableHeaderCell>START DATE</TableHeaderCell>
+                                <TableHeaderCell>LAST DATE</TableHeaderCell>
+                                <TableHeaderCell>TIMINIGS</TableHeaderCell>
+                                <TableHeaderCell>TOTAL MARKS</TableHeaderCell>
+                            </TableRow>
+                            </TableHeader>
+                            {completed.map((u)=>{
                                     var FROM = u.from;
                                     var TO = u.to;
                                     var d2 = TO.split("-");
                                     var d1 = FROM.split("-");
-                                    var f = false;
                                     return(
-                                    <tbody>
-                                        <tr>
-                                            <td>{u.subject}</td>
-                                            <td>{u.topic}</td>
-                                            <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
-                                            <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
-                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                            <td>{u.total}</td>
-                                        </tr>
-                                    </tbody>
+                                        <TableBody>
+                                        <TableRow>
+                                            <TableCell>
+                                            <Label ribbon color="red">{u.subject}</Label>
+                                            </TableCell>
+                                            <TableCell>{u.topic}</TableCell>
+                                            <TableCell>{d1[2]+"-"+d1[1]+"-"+d1[0]}</TableCell>
+                                            <TableCell>{d2[2]+"-"+d2[1]+"-"+d2[0]}</TableCell>
+                                            <TableCell>{u.starttime }{" to "}{ u.endtime}</TableCell>
+                                            <TableCell>{u.total}</TableCell>
+                                        </TableRow>
+                                        </TableBody>
                                     )
                                 })}
-                            </Table>
+                        </Table>
                         </Card>
                     </Collapse>
             </div>

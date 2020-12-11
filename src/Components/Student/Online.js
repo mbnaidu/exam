@@ -52,7 +52,6 @@ function Online() {
     setTestId(a.testId)
   })}
 },[]);
-var [rend,setRend] = useState(questionsArray.length);
 
     const [selectedValue, setSelectedValue] = React.useState('a');
     const [score, setScore] = useState(0);
@@ -124,7 +123,7 @@ var [rend,setRend] = useState(questionsArray.length);
         <div>
           <Jumbotron>
           <Progress multi>
-            <Progress animated bar color={col} value={Math.floor(100/currentQuestion)} >{Math.floor(100/currentQuestion)}</Progress>
+            <Progress animated bar color={col} value={Math.floor(100/currentQuestion)} >{questionsArray.length - currentQuestion} left</Progress>
           </Progress>
             <Fragment>
               <Button className="questions" color="primary" style={{color:"white"}}><strong>QUESTIONS </strong> <Badge color="badge badge-light" pill>{counter}</Badge></Button>

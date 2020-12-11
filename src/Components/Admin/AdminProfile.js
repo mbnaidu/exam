@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Table,Badge, Jumbotron } from 'reactstrap'
-import {Menu,Segment,Sidebar, TableBody,} from 'semantic-ui-react'
+import {Menu,Segment,Sidebar, TableBody,Button} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
@@ -8,10 +8,10 @@ import CreateIcon from '@material-ui/icons/Create';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useStateValue } from '../../redux/StateProvider';
 import axios from 'axios';
-import { Modal, ModalHeader, ModalBody, ModalFooter,Button } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { TableHead } from '@material-ui/core';
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 
 function exampleReducer(state, action) {
@@ -38,6 +38,7 @@ const [smodal, setsModal] = useState(false);
 const [bmodal, setBModal] = useState(false);
 const btoggle = () => setBModal(!bmodal);
 const stoggle = () => setsModal(!smodal);
+const [LISTLENGTH,setLISTLENGHT] = useState([])
 const show = () => {
     {students.map((s)=>{
         return(
@@ -54,7 +55,7 @@ const show = () => {
                     } else {
                         {res.data.map((r)=>{
                             if(r.testId == s.id){
-                                SAMPLEARRAY.push(s.id+"-"+j+"-"+r.marks+"-"+r.isSubmitted)
+                                SAMPLEARRAY.push(s.id+"-"+j+"-"+r.marks+"-"+r.isSubmitted);
                             }
                         })}
                     }
@@ -65,7 +66,8 @@ const show = () => {
             </div>
         )
     })}
-    console.log(SAMPLEARRAY)
+    LISTLENGTH.push(SAMPLEARRAY.length);
+    console.log(LISTLENGTH[1]);
 }
 useEffect(() => {
     axios.post('http://localhost:3001/allTests').then(
@@ -128,9 +130,7 @@ useEffect(() => {
             width='thin'
         >
         <Menu.Item as='a' 
-            onClick={() =>
-            dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })
-        }>
+            onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });show()}}>
         <HomeIcon  fontSize="large" 
         />
         <h6>HOME</h6>
@@ -148,12 +148,16 @@ useEffect(() => {
         <Menu.Item as='a' >
             <NavLink to="/adminexam">
             <CreateIcon  fontSize="large" />
-            <h6>TESTS</h6>
+            <h6>ADD TEST</h6>
             </NavLink>
         </Menu.Item>
         <Menu.Item as='a' onClick={()=>{stoggle();show()}}>
             <CheckCircleIcon />
-            <h6>TESTS</h6>
+            <h6>CHECK TESTS</h6>
+        </Menu.Item>
+        <Menu.Item as='a' >
+            <LiveHelpIcon  fontSize="large" />
+            <h6>HELP</h6>
         </Menu.Item>
         <Menu.Item as='a' >
             <NavLink to="/">
@@ -213,17 +217,19 @@ useEffect(() => {
                                                     {students.map((s)=>{
                                                         return(
                                                             <div>
-                                                                <Button block color={selectedButton === s.id ? "success" : "primary"} outline={s.id === selectedButton ? false : true}>
+                                                                <Button fluid color={selectedButton === s.id ? "green" : "blue"} outline={s.id === selectedButton ? false : true}>
                                                                     TEST ID : {s.id}
                                                                 </Button>
                                                                 <Jumbotron>
                                                             {s.students.map((j)=>{
+                                                                var babu = 0;
                                                                 return(
                                                                     <div>
                                                                         {SAMPLEARRAY.map((mb)=>{
+                                                                            babu++;
                                                                             var check =mb;
                                                                             var d1 = check.split("-");
-                                                                            if(d1[1] == j && d1[0]==s.id){
+                                                                            if(d1[1] == j && d1[0]==s.id && babu <= LISTLENGTH[1]){
                                                                                 return(
                                                                                     <Table hover bordered responsive>
                                                                                         <thead>
@@ -238,7 +244,7 @@ useEffect(() => {
                                                                                                 <td>{j}</td>
                                                                                                 <td>{d1[2]}</td>
                                                                                                 <td>
-                                                                                                    <Button color={d1[3]==="true" ? "success" : "danger"}>{d1[3] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</Button>
+                                                                                                    <Button color={d1[3]==="true" ? "green" : "red"}>{d1[3] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</Button>
                                                                                                 </td>
                                                                                             </tr>
                                                                                         </tbody>

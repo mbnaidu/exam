@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import {Menu,Segment,Sidebar,} from 'semantic-ui-react'
+import {Menu,Segment,Sidebar,Button} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import CreateIcon from '@material-ui/icons/Create';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { useStateValue } from '../../redux/StateProvider';
-import { Modal, ModalHeader, ModalBody, ModalFooter,Button } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { Card,Table, Collapse } from 'reactstrap';
 import axios from 'axios';
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 
 let ID = 0;
 
@@ -58,8 +59,8 @@ function StudentProfile() {
                         setContactNumber(i.contact);
                         setId(i.id);
                     })}
-                    // ID="18pa1a1240"
-                    ID = res.data[0].id;
+                    ID="18pa1a1240"
+                    // ID = res.data[0].id;
                 }
             }
         )
@@ -155,6 +156,10 @@ function StudentProfile() {
             <h6>TESTS</h6>
         </Menu.Item>
         <Menu.Item as='a' >
+            <LiveHelpIcon  fontSize="large" />
+            <h6>HELP</h6>
+        </Menu.Item>
+        <Menu.Item as='a' >
             <NavLink to="/">
             <ExitToAppIcon  fontSize="large" />
             <h6>SIGN OUT</h6>
@@ -206,7 +211,7 @@ function StudentProfile() {
             </div>
             <div>
                         <Modal isOpen={isOpen} size="lg" toggle={toggle} >
-                            <ModalHeader ><strong>USERS</strong></ModalHeader>
+                            <ModalHeader ><strong>COMPLETED TESTS</strong></ModalHeader>
                                 <ModalBody>
                                         <div>
                                         <Card>

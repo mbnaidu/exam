@@ -9,7 +9,7 @@ import axios from 'axios';
 import { Modal, ModalHeader, ModalBody, ModalFooter,Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import UpdateIcon from '@material-ui/icons/Update';
-import NextWeekIcon from '@material-ui/icons/NextWeek';
+import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import LooksOneIcon from '@material-ui/icons/LooksOne';
@@ -133,6 +133,10 @@ function AdminExam() {
         }>
             <CreateIcon  fontSize="large" />
             <h6>TESTS</h6>
+        </Menu.Item>
+        <Menu.Item as='a' >
+            <LiveHelpIcon  fontSize="large" />
+            <h6>HELP</h6>
         </Menu.Item>
         <Menu.Item as='a' >
             <NavLink to="/">
