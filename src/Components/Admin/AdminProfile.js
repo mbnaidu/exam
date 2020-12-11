@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Table,Badge, Jumbotron } from 'reactstrap'
-import {Menu,Segment,Sidebar,} from 'semantic-ui-react'
+import {Menu,Segment,Sidebar, TableBody,} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
@@ -11,6 +11,7 @@ import axios from 'axios';
 import { Modal, ModalHeader, ModalBody, ModalFooter,Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { TableHead } from '@material-ui/core';
 
 
 function exampleReducer(state, action) {
@@ -24,7 +25,10 @@ function exampleReducer(state, action) {
     }
 }
 function AdminProfile() {
+const [selectedButton,setSelectedButton] = useState("");
 const [{user}] = useStateValue();
+const [FINALARRAY,SETFINALARRAY] = useState([])
+const [SAMPLEARRAY,SETSAMPLEARRAY] = useState([])
 const [adminName, setAdminName] = useState("");
 const [email, setEmail] = useState("");
 const [contactNumber, setContactNumber] = useState("");
@@ -34,6 +38,35 @@ const [smodal, setsModal] = useState(false);
 const [bmodal, setBModal] = useState(false);
 const btoggle = () => setBModal(!bmodal);
 const stoggle = () => setsModal(!smodal);
+const show = () => {
+    {students.map((s)=>{
+        return(
+            <div>
+                {s.students.map((j)=>{
+            if(j !== ""){
+                let data = {
+                    "id":j,
+                }
+            axios.post('http://localhost:3001/getReportCard', {data}).then(
+                function(res) {
+                    if(res.data.msg) {
+                        alert(res.data.msg);
+                    } else {
+                        {res.data.map((r)=>{
+                            if(r.testId == s.id){
+                                SAMPLEARRAY.push(s.id+"-"+j+"-"+r.marks+"-"+r.isSubmitted)
+                            }
+                        })}
+                    }
+                }
+            )
+            }
+        })}
+            </div>
+        )
+    })}
+    console.log(SAMPLEARRAY)
+}
 useEffect(() => {
     axios.post('http://localhost:3001/allTests').then(
         function(res) {
@@ -118,7 +151,7 @@ useEffect(() => {
             <h6>TESTS</h6>
             </NavLink>
         </Menu.Item>
-        <Menu.Item as='a' onClick={stoggle}>
+        <Menu.Item as='a' onClick={()=>{stoggle();show()}}>
             <CheckCircleIcon />
             <h6>TESTS</h6>
         </Menu.Item>
@@ -180,21 +213,43 @@ useEffect(() => {
                                                     {students.map((s)=>{
                                                         return(
                                                             <div>
-                                                                <div>
+                                                                <Button block color={selectedButton === s.id ? "success" : "primary"} outline={s.id === selectedButton ? false : true}>
                                                                     TEST ID : {s.id}
-                                                                </div>
+                                                                </Button>
                                                                 <Jumbotron>
                                                             {s.students.map((j)=>{
-                                                                if(j !== ""){
-                                                                    return(
-                                                                        <div>
-                                                                            {j}
-                                                                        </div>
-                                                                    )
-                                                                }
+                                                                return(
+                                                                    <div>
+                                                                        {SAMPLEARRAY.map((mb)=>{
+                                                                            var check =mb;
+                                                                            var d1 = check.split("-");
+                                                                            if(d1[1] == j && d1[0]==s.id){
+                                                                                return(
+                                                                                    <Table hover bordered responsive>
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>ID</th>
+                                                                                                <th>MARKS</th>
+                                                                                                <th>STATUS</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            <tr>
+                                                                                                <td>{j}</td>
+                                                                                                <td>{d1[2]}</td>
+                                                                                                <td>
+                                                                                                    <Button color={d1[3]==="true" ? "success" : "danger"}>{d1[3] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</Button>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </tbody>
+                                                                                    </Table>
+                                                                                )
+                                                                            }
+                                                                        })}
+                                                                    </div>
+                                                                )
                                                             })}
                                                                 </Jumbotron>
-                                                        
                                                             </div>
                                                         )
                                                     })}
@@ -245,7 +300,7 @@ useEffect(() => {
                     </div>
                     <div>
                         <Modal isOpen={smodal} size="lg" toggle={stoggle}>
-                            <ModalHeader ><strong>QUIZES</strong></ModalHeader>
+                            <ModalHeader ><strong>Assigned Tests</strong></ModalHeader>
                                 <ModalBody>
                                         <div>
                                             <Card>
@@ -271,8 +326,8 @@ useEffect(() => {
                                                                 <td>{s.subject}</td>
                                                                 <td>{s.topic}</td>
                                                                 <td>
-                                                                    <Button color="primary" outline onClick={()=>{btoggle()}}>
-                                                                        STUDENTS <Badge color="primary" >{s.students.length}</Badge>
+                                                                    <Button color="success" outline onClick={()=>{btoggle();setSelectedButton(s.id);show()}}>
+                                                                        STUDENTS <Badge color="success" >{s.students.length}</Badge>
                                                                     </Button></td>
                                                                 <td>{s.total}</td>
                                                             </tr>

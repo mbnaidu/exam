@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Button, Form, Jumbotron,FormGroup, Input, Label, FormFeedback } from 'reactstrap'
+import { Button, Form, Jumbotron,FormGroup, Input, Label, FormFeedback, InputGroupAddon } from 'reactstrap'
 import '../styles/SignUp.css'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
