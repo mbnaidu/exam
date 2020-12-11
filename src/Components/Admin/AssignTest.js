@@ -4,6 +4,7 @@ import '../../styles/Test.css'
 import {  FormControl } from '@material-ui/core';
 import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 var kp;
 
@@ -31,7 +32,8 @@ function AssignTest(props) {
     var currentDay = today.getDate();
     var currentMonth = today.getMonth()+1;
     var currentYear = today.getFullYear();
-
+    const [viewModal, setViewModal] = useState(false);
+    const viewModalToggle = () => setViewModal(!viewModal);
     const [SUBJECT, SETSUBJECT] = useState("");
     const [TOPIC, SETTOPIC] = useState("");
     const [FROM, SETFROM] = useState("");
@@ -42,6 +44,7 @@ function AssignTest(props) {
     const [QUESTIONS, SETQUESIONS] = useState([]);
     const [TOTALMARKS, SETTOTALMARKS] = useState();
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
+    
     const FINALSUBMIT = () => {
 
         // console.log(SUBJECT);
@@ -58,6 +61,7 @@ function AssignTest(props) {
         
         if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" && STARTTIME!="" && ENDTIME!="" ){
             setAssign("ASSIGNED");
+            viewModalToggle();
             const data = {
                 "subject":SUBJECT,
                 "topic":TOPIC,
@@ -158,13 +162,6 @@ function AssignTest(props) {
                                         <Input placeholder="OPTION 2" type="text" value={input2}   onChange={event=> calling2(event.target.value)}/>
                                         <Input placeholder="OPTION 3" type="text" value={input3}   onChange={event=> calling3(event.target.value)}/>
                                         <Input placeholder="OPTION 4" type="text" value={input4}   onChange={event=> calling4(event.target.value)}/>
-                                        <select class="form-select" aria-label=".form-select-lg example">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1" onChange={event=> calling5(event.target.value)}>ONE</option>
-                                            <option value="2" onChange={event=> calling5(event.target.value)}>TWO</option>
-                                            <option value="3" onChange={event=> calling5(event.target.value)}>THREE</option>
-                                            <option value="1" onChange={event=> calling5(event.target.value)}>FOUT</option>
-                                        </select>
                                         <Input placeholder="SELECT CORRECT OPTION" min={0} max={4} type="number" step="1" value={answer} onChange={event=> calling5(event.target.value)}/>
                                         <Button onClick={()=>{adding();handleQuestions(full,i)}} color="success"><strong>ADD THIS QUESTION</strong></Button>
                                     </div>
@@ -220,6 +217,18 @@ function AssignTest(props) {
     }
     return (
         <div>
+            <div>
+                <Modal isOpen={viewModal} size="lg" toggle={viewModalToggle} >
+                    <ModalHeader ><strong>SUCCESSFULLY ASSIGNED</strong></ModalHeader>
+                        <ModalBody>
+                                Want to add another...?
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="success" onClick={()=>{viewModalToggle();setAssign("ASSIGN");SETSUBJECT("");SETTOPIC("");SETFROM("");SETTO("");SETSTARTTIME("");SETENDTIME("");SETSTUDENTS([]);SETQUESIONS([]);SETTOTALMARKS(0)}} ><strong>YES</strong></Button>{' '}
+                            <NavLink to="/"><Button color="danger"><strong>NO</strong></Button>{' '}</NavLink>
+                        </ModalFooter>
+                        </Modal>
+                    </div>
             <Jumbotron className="set">
                 <Container >
                     <FormControl >
@@ -353,7 +362,7 @@ function AssignTest(props) {
                         </div>
                         <br />
                         <InputGroup className="box5">
-                            <Input placeholder={QUESTIONS.length>0 ? "TOTAL QUESTIONS  " + QUESTIONS.length : ""} disabled/>
+                            <Input placeholder={QUESTIONS.length>0 ? "TOTAL QUESTIONS  " + QUESTIONS.length/6 : ""} disabled/>
                             <InputGroupAddon addonType="append">
                                 <div>
                                     <Button className="btn5" color={QUESTIONS.length>0 ? "success" : "danger"} outline onClick={()=>{toggle();}}>SET QUESTIONS</Button>

@@ -82,8 +82,8 @@ function StudentExam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    // id = res.data[0].id;
-                    id="18pa1a1240"
+                    id = res.data[0].id;
+                    // id="18pa1a1240"
                 }
             }
         )
@@ -220,18 +220,18 @@ function StudentExam() {
             <CheckCircleIcon />
             <h6>TESTS</h6>
         </Menu.Item>
-        <Menu.Item as='a' onClick={()=>{onToggle()}}>
+        <Menu.Item as='a'  onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });onToggle()}}>
             <NavLink to="/exam" >
             <LooksOneIcon  fontSize="large" />
             <LooksOneIcon  fontSize="large" />
             <h6>TODAY EXAMS</h6>
             </NavLink>
         </Menu.Item>
-        <Menu.Item as='a' onClick={()=>{coToggle()}}>
+        <Menu.Item as='a' onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });coToggle()}}>
             <EventNoteIcon  fontSize="large" />
             <h6>UP COMING</h6>
         </Menu.Item>
-        <Menu.Item as='a' onClick={()=>{upToggle()}}>
+        <Menu.Item as='a' onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });upToggle()}}>
             <EventAvailableIcon  fontSize="large" />
             <h6>COMPLETED</h6>
         </Menu.Item>
@@ -387,7 +387,7 @@ function StudentExam() {
                             <MenuItem as='a'>
                             <Button color="red" onClick={()=>{upToggle()}}><Header >COMPLETED EXAMS</Header></Button>
                             <Label color='red' floating>
-                                {upcoming.length}
+                                {completed.length}
                             </Label>
                             </MenuItem>
                         </Menu>

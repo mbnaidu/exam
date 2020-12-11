@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Jumbotron, Collapse,Table,Badge,Container,Row, Col, Nav } from 'reactstrap'
-import {Checkbox,Grid,Header,Icon,Image,Menu,Segment,Sidebar,} from 'semantic-ui-react'
+import { Card, Jumbotron, Collapse,Badge,Container,Row, Col, Nav } from 'reactstrap'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import CreateIcon from '@material-ui/icons/Create';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import axios from 'axios';
-import { Modal, ModalHeader, ModalBody, ModalFooter,Button } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import UpdateIcon from '@material-ui/icons/Update';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import LooksOneIcon from '@material-ui/icons/LooksOne';
+
+import {ButtonContent, Header, Menu,Segment,Sidebar,Button,Table,TableHeader,TableBody, TableRow, TableHeaderCell, TableCell, Label, Icon, MenuItem} from 'semantic-ui-react'
+
 function exampleReducer(state, action) {
     switch (action.type) {
         case 'CHANGE_ANIMATION':
@@ -115,16 +117,16 @@ function AdminExam() {
             <h6>PROFILE</h6>
             </NavLink>
         </Menu.Item>
-        <Menu.Item as='a' onClick={onToggle}>
+        <Menu.Item as='a' onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });onToggle()}}>
             <LooksOneIcon fontSize="large"/>
             <LooksOneIcon fontSize="large"/>
             <h6>ON GOING EXAMS </h6>
         </Menu.Item>
-        <Menu.Item as='a' onClick={coToggle}>
+        <Menu.Item as='a' onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });coToggle()}}>
             <EventNoteIcon fontSize="large" />
             <h6>UPCOMING EXAMS </h6>
         </Menu.Item>
-        <Menu.Item as='a' onClick={upToggle}>
+        <Menu.Item as='a' onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });upToggle()}}>
             <EventAvailableIcon fontSize="large"/>
             <h6>COMPLETED EXAMS </h6>
         </Menu.Item>
@@ -153,7 +155,7 @@ function AdminExam() {
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
                 <MenuIcon />
             </Button>
-            <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:900}} >
+            <Sidebar.Pushable as={Segment} style={{ overflow: 'show' ,height:700}} >
                 {!vertical && (
                     <VerticalSidebar
                         animation={animation}
@@ -164,146 +166,149 @@ function AdminExam() {
             <Sidebar.Pusher >
                 <Segment basic>
                     <div>
-                        <Button color="success" href="/test" style={{ marginBottom: '1rem'}}>ASSIGN TEST</Button>
+                        <Button color="green" href="/test" style={{ marginBottom: '1rem'}}>ASSIGN TEST</Button>
                     </div>
                     <div>
-                        <Modal isOpen={isOpen} size="lg" toggle={onToggle} >
-                            <ModalHeader ><strong>USERS</strong></ModalHeader>
-                                <ModalBody>
-                                        <div>
-                                            <Card>
-                                                <Table hover>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID </th>
-                                                            <th>SUBJECT</th>
-                                                            <th>TOPIC</th>
-                                                            <th>START DATE</th>
-                                                            <th>LAST DATE</th>
-                                                            <th>TIMINIGS</th>
-                                                            <th>TOTAL MARKS</th>
-                                                        </tr>
-                                                    </thead>
-                                                    {present.map((u)=>{
-                                                        var FROM = u.from;
-                                                        var TO = u.to;
-                                                        var d2 = TO.split("-");
-                                                        var d1 = FROM.split("-");
-                                                        return(
-                                                        <tbody>
-                                                            <tr>
-                                                            <td>{u.id}</td>
-                                                                <td>{u.subject}</td>
-                                                                <td>{u.topic}</td>
-                                                                <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
-                                                                <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
-                                                                <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                                                <td>{u.total}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                        )
-                                                    })}
-                                                </Table>
-                                            </Card>
-                                        </div>
-                                    </ModalBody>
-                            <ModalFooter>
-                                <Button color="black" onClick={()=>{onToggle();}}><strong>CANCEL</strong></Button>{' '}
-                            </ModalFooter>
-                        </Modal>
-                    </div>
-                    <div>
-                        <Modal isOpen={upOpen} size="lg" toggle={upToggle} >
-                            <ModalHeader ><strong>USERS</strong></ModalHeader>
-                                <ModalBody>
-                                        <div>
-                                            <Card>
-                                                <Table hover>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID </th>
-                                                            <th>SUBJECT</th>
-                                                            <th>TOPIC</th>
-                                                            <th>START DATE</th>
-                                                            <th>LAST DATE</th>
-                                                            <th>TIMINIGS</th>
-                                                            <th>TOTAL MARKS</th>
-                                                        </tr>
-                                                    </thead>
-                                                    {completed.map((u)=>{
-                                                        var FROM = u.from;
-                                                        var TO = u.to;
-                                                        var d2 = TO.split("-");
-                                                        var d1 = FROM.split("-");
-                                                        return(
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>{u.id}</td>
-                                                                <td>{u.subject}</td>
-                                                                <td>{u.topic}</td>
-                                                                <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
-                                                                <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
-                                                                <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                                                <td>{u.total}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                        )
-                                                    })}
-                                                </Table>
-                                            </Card>
-                                        </div>
-                                    </ModalBody>
-                            <ModalFooter>
-                                <Button color="black" onClick={()=>{upToggle();}}><strong>CANCEL</strong></Button>{' '}
-                            </ModalFooter>
-                        </Modal>
-                    </div>
-                    <div>
-                        <Modal isOpen={coOpen} size="lg" toggle={coToggle} >
-                            <ModalHeader ><strong>USERS</strong></ModalHeader>
-                                <ModalBody>
-                                        <div>
-                                        <Card>
-                                            <Table hover>
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID </th>
-                                                        <th>SUBJECT</th>
-                                                        <th>TOPIC</th>
-                                                        <th>START DATE</th>
-                                                        <th>LAST DATE</th>
-                                                        <th>TIMINIGS</th>
-                                                        <th>TOTAL MARKS</th>
-                                                    </tr>
-                                                </thead>
-                                                {upcoming.map((u)=>{
-                                                    var FROM = u.from;
-                                                    var TO = u.to;
-                                                    var d2 = TO.split("-");
-                                                    var d1 = FROM.split("-");
-                                                    return(
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>{u.id}</td>
-                                                            <td>{u.subject}</td>
-                                                            <td>{u.topic}</td>
-                                                            <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
-                                                            <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
-                                                            <td>{u.starttime }{" to "}{ u.endtime}</td>
-                                                            <td>{u.total}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                    )
-                                                })}
-                                            </Table>
-                                        </Card>
-                                        </div>
-                                    </ModalBody>
-                            <ModalFooter>
-                                <Button color="black" onClick={()=>{coToggle();}}><strong>CANCEL</strong></Button>{' '}
-                            </ModalFooter>
-                        </Modal>
-                    </div>
+                    <Collapse isOpen={isOpen}>
+                        <Card>
+                        <Menu compact>
+                            <MenuItem as='a'>
+                            <Button color="green" onClick={()=>{onToggle()}}><Header>TODAY EXAMS</Header></Button>
+                            <Label color='green' floating>
+                                {present.length}
+                            </Label>
+                            </MenuItem>
+                        </Menu>
+                            <Table celled color="green">
+                                <TableHeader>
+                                <TableRow>
+                                    <TableHeaderCell>TEST ID</TableHeaderCell>
+                                    <TableHeaderCell>SUBJECT</TableHeaderCell>
+                                    <TableHeaderCell>TOPIC</TableHeaderCell>
+                                    <TableHeaderCell>START DATE</TableHeaderCell>
+                                    <TableHeaderCell>LAST DATE</TableHeaderCell>
+                                    <TableHeaderCell>TIMINIGS</TableHeaderCell>
+                                    <TableHeaderCell>TOTAL MARKS</TableHeaderCell>
+                                </TableRow>
+                                </TableHeader>
+                                {present.map((u)=>{
+                                    var FROM = u.from;
+                                    var TO = u.to;
+                                    var d2 = TO.split("-");
+                                    var d1 = FROM.split("-");
+                                        return(
+                                            <TableBody>
+                                        <TableRow>
+                                            <TableCell>
+                                            <Label ribbon color="green">{u.id}</Label>
+                                            </TableCell>
+                                            <TableCell>{u.subject}</TableCell>
+                                            <TableCell>{u.topic}</TableCell>
+                                            <TableCell>{d1[2]+"-"+d1[1]+"-"+d1[0]}</TableCell>
+                                            <TableCell>{d2[2]+"-"+d2[1]+"-"+d2[0]}</TableCell>
+                                            <TableCell>{u.starttime }{" to "}{ u.endtime}</TableCell>
+                                            <TableCell>{u.total}</TableCell>
+                                        </TableRow>
+                                        </TableBody>
+                                        )
+                                })}
+                            </Table>
+                        </Card>
+                    </Collapse>
+            </div>
+            <div>
+                    <Collapse isOpen={coOpen}>
+                        <Card>
+                        <Menu compact>
+                            <MenuItem as='a'>
+                            <Button color="orange" onClick={()=>{coToggle()}}><Header>UPCOMING EXAMS</Header></Button>
+                            <Label color='orange' floating>
+                                {upcoming.length}
+                            </Label>
+                            </MenuItem>
+                        </Menu>
+                        <Table celled color="orange">
+                            <TableHeader>
+                            <TableRow>
+                                <TableHeaderCell>SUBJECT</TableHeaderCell>
+                                <TableHeaderCell>TOPIC</TableHeaderCell>
+                                <TableHeaderCell>START DATE</TableHeaderCell>
+                                <TableHeaderCell>LAST DATE</TableHeaderCell>
+                                <TableHeaderCell>TIMINIGS</TableHeaderCell>
+                                <TableHeaderCell>TOTAL MARKS</TableHeaderCell>
+                            </TableRow>
+                            </TableHeader>
+                                {upcoming.map((u)=>{
+                                    var FROM = u.from;
+                                    var TO = u.to;
+                                    var d2 = TO.split("-");
+                                    var d1 = FROM.split("-");
+                                    var f = false;
+                                    return (
+                                        <TableBody>
+                                        <TableRow>
+                                            <TableCell>
+                                            <Label ribbon color="orange">{u.subject}</Label>
+                                            </TableCell>
+                                            <TableCell>{u.topic}</TableCell>
+                                            <TableCell>{d1[2]+"-"+d1[1]+"-"+d1[0]}</TableCell>
+                                            <TableCell>{d2[2]+"-"+d2[1]+"-"+d2[0]}</TableCell>
+                                            <TableCell>{u.starttime }{" to "}{ u.endtime}</TableCell>
+                                            <TableCell>{u.total}</TableCell>
+                                        </TableRow>
+                                        </TableBody>
+                                    )
+                                })}
+                            </Table>
+                        </Card>
+                    </Collapse>
+            </div>
+            <div>
+                    <Collapse isOpen={upOpen}>
+                        <Card>
+                        <Menu compact>
+                            <MenuItem as='a'>
+                            <Button color="red" onClick={()=>{upToggle()}}><Header >COMPLETED EXAMS</Header></Button>
+                            <Label color='red' floating>
+                                {completed.length}
+                            </Label>
+                            </MenuItem>
+                        </Menu>
+                        <Table celled color="red" >
+                            <TableHeader>
+                            <TableRow>
+                                <TableHeaderCell>SUBJECT</TableHeaderCell>
+                                <TableHeaderCell>TOPIC</TableHeaderCell>
+                                <TableHeaderCell>START DATE</TableHeaderCell>
+                                <TableHeaderCell>LAST DATE</TableHeaderCell>
+                                <TableHeaderCell>TIMINIGS</TableHeaderCell>
+                                <TableHeaderCell>TOTAL MARKS</TableHeaderCell>
+                            </TableRow>
+                            </TableHeader>
+                            {completed.map((u)=>{
+                                    var FROM = u.from;
+                                    var TO = u.to;
+                                    var d2 = TO.split("-");
+                                    var d1 = FROM.split("-");
+                                    return(
+                                        <TableBody>
+                                        <TableRow>
+                                            <TableCell>
+                                            <Label ribbon color="red">{u.subject}</Label>
+                                            </TableCell>
+                                            <TableCell>{u.topic}</TableCell>
+                                            <TableCell>{d1[2]+"-"+d1[1]+"-"+d1[0]}</TableCell>
+                                            <TableCell>{d2[2]+"-"+d2[1]+"-"+d2[0]}</TableCell>
+                                            <TableCell>{u.starttime }{" to "}{ u.endtime}</TableCell>
+                                            <TableCell>{u.total}</TableCell>
+                                        </TableRow>
+                                        </TableBody>
+                                    )
+                                })}
+                        </Table>
+                        </Card>
+                    </Collapse>
+            </div>
                 </Segment>
             </Sidebar.Pusher>
         </Sidebar.Pushable>

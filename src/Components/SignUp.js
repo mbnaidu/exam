@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import { Button, Form, Jumbotron,FormGroup, Input, Label, FormFeedback, InputGroupAddon } from 'reactstrap'
+import { Button, Form, Jumbotron,FormGroup, Input, Label, FormFeedback, InputGroupAddon, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 import '../styles/SignUp.css'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -58,9 +58,13 @@ function SignUp() {
             if(contactNumber.length===9 ){setCD(true);setC(false)};
             if(contactNumber.length>9 || contactNumber.length<9){setC(true);setCD(false)};
         }
+        
+const [viewModal, setViewModal] = useState(false);
+const viewModalToggle = () => setViewModal(true);
     // checking input 
         function onSignupclickHandler() {
             if(id!="" && username!="" && password1!="" && password2!="" && email!="" && contactNumber!=""){
+                viewModalToggle();
                 const data = {
                     "id":id,
                     "username":username,
@@ -72,13 +76,24 @@ function SignUp() {
                 axios.post('http://localhost:3001/signup', {data}).then(
                     function(res) {
                         if(res.data) {
-                            history.push("/");
                         }
                     }
                 )
             }
         };
     return (
+        <div>
+            <div>
+                <Modal isOpen={viewModal} size="lg" toggle={viewModalToggle} >
+                    <ModalHeader ><strong>Sign Up Details....</strong></ModalHeader>
+                        <ModalBody>
+                                SUCCESSFULLY REGISTERED
+                                </ModalBody>
+                            <ModalFooter>
+                            <Button color="success" href="/"><strong>Continue...</strong></Button>{' '}
+                            </ModalFooter>
+                        </Modal>
+                    </div>
         <div className="hero-image"> 
             <div className="signup">
                 <a href="/">
@@ -141,6 +156,7 @@ function SignUp() {
                         <Button className="signup_Button "  onClick={()=>{onSignupclickHandler();}}><strong>Sign Up</strong></Button>
                 </div>
             </div>
+        </div>
         </div>
     )
 }

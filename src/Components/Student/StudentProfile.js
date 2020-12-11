@@ -59,8 +59,8 @@ function StudentProfile() {
                         setContactNumber(i.contact);
                         setId(i.id);
                     })}
-                    ID="18pa1a1240"
-                    // ID = res.data[0].id;
+                    // ID="18pa1a1240"
+                    ID = res.data[0].id;
                 }
             }
         )
@@ -153,7 +153,7 @@ function StudentProfile() {
         </Menu.Item>
         <Menu.Item as='a' onClick={()=>{toggle();ReportCard()}}>
             <CheckCircleIcon />
-            <h6>TESTS</h6>
+            <h6>PERFORMANCE</h6>
         </Menu.Item>
         <Menu.Item as='a' >
             <LiveHelpIcon  fontSize="large" />

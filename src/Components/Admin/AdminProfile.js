@@ -25,6 +25,7 @@ function exampleReducer(state, action) {
     }
 }
 function AdminProfile() {
+    let madhu = 0;
 const [selectedButton,setSelectedButton] = useState("");
 const [{user}] = useStateValue();
 const [FINALARRAY,SETFINALARRAY] = useState([])
@@ -38,8 +39,29 @@ const [smodal, setsModal] = useState(false);
 const [bmodal, setBModal] = useState(false);
 const btoggle = () => setBModal(!bmodal);
 const stoggle = () => setsModal(!smodal);
-const [LISTLENGTH,setLISTLENGHT] = useState([])
+const [viewModal, setViewModal] = useState(false);
+const viewModalToggle = () => setViewModal(!viewModal);
+const [LISTLENGTH,setLISTLENGHT] = useState([]);
+const [questionRender,setQuestionRender] = useState([]);
+const [SINGLEQUESTIONS,SETSINGLEQUESTIONS] = useState([]);
+const [singlequestions,setsinglequesions] = useState([]);
+const [ID,SETID] = useState(0);
 const show = () => {
+    {students.map((d)=>{
+        const data = {
+            "id":d.id,
+        }
+        axios.post('http://localhost:3001/getQuestions', {data}).then(
+            function(res) {
+                if(res.data){
+                    {res.data.map((r)=>{
+                        SINGLEQUESTIONS.push(r.testId+"-"+r.questId+"-"+r.question+"-"+r.option1+"-"+r.option2+"-"+r.option3+"-"+r.option4+"-"+r.answer )
+                        singlequestions[r.testId]=r.questId;
+                    })}
+                }
+            }
+        )
+    })}
     {students.map((s)=>{
         return(
             <div>
@@ -67,7 +89,6 @@ const show = () => {
         )
     })}
     LISTLENGTH.push(SAMPLEARRAY.length);
-    console.log(LISTLENGTH[1]);
 }
 useEffect(() => {
     axios.post('http://localhost:3001/allTests').then(
@@ -75,6 +96,7 @@ useEffect(() => {
             if(res.data.msg) {
                 alert(res.data.msg);
             } else {
+                questionRender.push(res.data)
                 {res.data.map((k)=>{
                     students.push(k);
                 })}
@@ -82,7 +104,7 @@ useEffect(() => {
         }
     )
     const data = {
-        "username": user.username,
+        "username":user.username,
     }
     axios.post('http://localhost:3001/studentDetails',{data}).then(
         function(res) {
@@ -174,7 +196,7 @@ useEffect(() => {
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
                 <MenuIcon />
             </Button>
-        <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:800}} >
+        <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:700}} >
             {!vertical && (
                 <VerticalSidebar
                     animation={animation}
@@ -206,6 +228,36 @@ useEffect(() => {
                         </Card>
                     </div>
                     <div>
+                        <Modal isOpen={viewModal} size="lg" toggle={viewModalToggle} >
+                            <ModalHeader ><strong>TEST DETAILS</strong></ModalHeader>
+                                <ModalBody>
+                                        <div>
+                                            <Card>
+                                                {SINGLEQUESTIONS.map((q)=>{
+                                                    var babu=0;
+                                                    console.log(singlequestions[ID])
+                                                    var Q = q;
+                                                    var d1 = Q.split("-");
+                                                    if(d1[0] == ID ){
+                                                        for(var i=0;i<=singlequestions[ID];i++){
+                                                            babu++;
+                                                            if(babu<singlequestions[ID]){
+                                                                return(
+                                                                    <div>
+                                                                        {d1[1]}
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        }
+                                                    }
+                                                })}
+                                            </Card>
+                                        </div>
+                                    </ModalBody>
+                            <ModalFooter>
+                            <Button color="black" onClick={()=>{viewModalToggle();}}><strong>CANCEL</strong></Button>{' '}
+                            </ModalFooter>
+                        </Modal>
                     </div>
                     <div>
                         <Modal isOpen={bmodal} size="lg" toggle={btoggle} >
@@ -217,7 +269,7 @@ useEffect(() => {
                                                     {students.map((s)=>{
                                                         return(
                                                             <div>
-                                                                <Button fluid color={selectedButton === s.id ? "green" : "blue"} outline={s.id === selectedButton ? false : true}>
+                                                                <Button fluid color={selectedButton === s.id ? "green" : "blue"} outline={s.id === selectedButton ? false : true} onClick={()=>{viewModalToggle();SETID(s.id)}}>
                                                                     TEST ID : {s.id}
                                                                 </Button>
                                                                 <Jumbotron>
@@ -323,12 +375,16 @@ useEffect(() => {
                                                         </tr>
                                                     </thead>
                                                     {students.map((s)=>{
+                                                        var FROM = s.from;
+                                                        var TO = s.to;
+                                                        var d1 = FROM.split("-");
+                                                        var d2 = TO.split("-");
                                                         return(
                                                         <tbody>
                                                             <tr>
                                                                 <td>{s.id}</td>
-                                                                <td>{s.from}</td>
-                                                                <td>{s.to}</td>
+                                                                <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
+                                                                <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
                                                                 <td>{s.subject}</td>
                                                                 <td>{s.topic}</td>
                                                                 <td>
