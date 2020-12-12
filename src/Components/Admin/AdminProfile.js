@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import {  Table,Badge, Jumbotron,Card } from 'reactstrap'
-import {Menu,Segment,Sidebar, TableBody,Button, Reveal, Image, CardContent,  Header, Placeholder, Message, ButtonContent,} from 'semantic-ui-react'
+import { Badge, Jumbotron,Card } from 'reactstrap'
+import {Menu,Segment,Sidebar,Table,TableHeader,TableHeaderCell, TableBody,Button, Reveal, Image, CardContent,  Header, Placeholder, Message, ButtonContent, TableCell, Label, TableRow,} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
@@ -26,8 +26,10 @@ function exampleReducer(state, action) {
 }
 function AdminProfile() {
     let madhu = 0;
+    let gaya = 0;
 const [selectedButton,setSelectedButton] = useState("");
 const [{user}] = useStateValue();
+const [subarray,setSubArray] = useState([])
 const [FINALARRAY,SETFINALARRAY] = useState([])
 const [SAMPLEARRAY,SETSAMPLEARRAY] = useState([])
 const [adminName, setAdminName] = useState("");
@@ -48,8 +50,10 @@ const [singlequestions,setsinglequesions] = useState([]);
 const [ID,SETID] = useState(0);
 const [TESTID,SETTESTID] = useState(0);
 const [length,setLength] = useState([]);
+const [LENGTH,SETLENGTH] = useState([])
 const show = () => {
     {students.map((s)=>{
+        LENGTH.push(s.students.length)
         return(
             <div>
                 {s.students.map((j)=>{
@@ -67,6 +71,15 @@ const show = () => {
                                 SAMPLEARRAY.push(s.id+"-"+j+"-"+r.marks+"-"+r.isSubmitted);
                             }
                         })}
+                    }
+                }
+            )
+            axios.post('http://localhost:3001/getReportCard', {data}).then(
+                function(res) {
+                    if(res.data.msg) {
+                        alert(res.data.msg);
+                    } else {
+                        subarray[gaya++] = res.data;
                     }
                 }
             )
@@ -93,7 +106,7 @@ const show = () => {
                 }
             )
         })}
-    })
+    },[])
 
 useEffect(() => {
     axios.post('http://localhost:3001/allTests').then(
@@ -109,7 +122,6 @@ useEffect(() => {
             }
         }
     )
-    console.log(length);
     const data = {
         "username":user.username,
     }
@@ -196,6 +208,11 @@ useEffect(() => {
         </Menu.Item>
     </Sidebar>
 )
+        const CALL = (a,b,c) =>{
+            for(var i=0;i<c[a];i++){
+                console.log(b[i])
+            }
+        }
     return (
         <div>
             <Button color="primary"
@@ -239,22 +256,7 @@ useEffect(() => {
                                 <ModalBody>
                                         <div>
                                             <Card>
-                                                {students.map((s)=>{
-                                                    var k=0;
-                                                    if(TESTID !=0){
-                                                        return(
-                                                            <div>
-                                                                {s.students.map((m)=>{
-                                                                    if(TESTID == s.id && k<=length[TESTID-1]){
-                                                                        k++;
-                                                                        console.log(m)
-                                                                    }
-                                                                })}
-                                                            </div>
-                                                        )
-                                                    
-                                                    }
-                                                    })}
+                                                {CALL(TESTID,subarray,LENGTH)}
                                             </Card>
                                         </div>
                                     </ModalBody>
@@ -273,7 +275,7 @@ useEffect(() => {
                                                     {students.map((s)=>{
                                                         return(
                                                             <div>
-                                                                <Button fluid color={selectedButton === s.id ? "green" : "blue"} outline={s.id === selectedButton ? false : true} onClick={()=>{viewModalToggle();SETID(s.id);SETTESTID(s.id);}}>
+                                                                <Button fluid color={selectedButton === s.id ? "green" : "blue"} outline={s.id === selectedButton ? false : true} onClick={()=>{viewModalToggle();SETID(s.id);SETTESTID(s.id);console.log(subarray);console.log(students);console.log(LENGTH)}}>
                                                                     TEST ID : {s.id}
                                                                 </Button>
                                                                 <Jumbotron>
@@ -338,30 +340,32 @@ useEffect(() => {
                         <Modal isOpen={mmodal} size="lg" toggle={mtoggle} >
                             <Header color="blue" className="pl-3 pt-5"><strong>STUDENT DETAILS</strong></Header>
                                 <ModalBody>
-                                        <Message color="blue">
+                                        <Message >
                                             <Card >
-                                                <Table  hover bordered responsive>
-                                                    <thead>
-                                                        <tr>
-                                                            <th>ID</th>
-                                                            <th>USERNAME</th>
-                                                            <th>E-MAIL</th>
-                                                            <th>CONTACT NUMBER</th>
-                                                        </tr>
-                                                    </thead>
-                                                    {array.map((s)=>{
+                                            <Table celled color="blue">
+                                                <TableHeader>
+                                                <TableRow>
+                                                    <TableHeaderCell>ID</TableHeaderCell>
+                                                    <TableHeaderCell>USERNAME</TableHeaderCell>
+                                                    <TableHeaderCell>E-MAIL</TableHeaderCell>
+                                                    <TableHeaderCell>CONTACT NUMBER</TableHeaderCell>
+                                                </TableRow>
+                                                </TableHeader>
+                                                {array.map((s)=>{
                                                         return(
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>{s.id}</td>
-                                                                <td>{s.username}</td>
-                                                                <td>{s.email}</td>
-                                                                <td>{s.contact}</td>
-                                                            </tr>
-                                                        </tbody>
+                                                            <TableBody>
+                                                        <TableRow>
+                                                            <TableCell>
+                                                            <Label ribbon color="blue" as="button">{s.id}</Label>
+                                                            </TableCell>
+                                                            <TableCell>{s.username}</TableCell>
+                                                            <TableCell>{s.email}</TableCell>
+                                                            <TableCell>{s.contact}</TableCell>
+                                                        </TableRow>
+                                                        </TableBody>
                                                         )
-                                                    })}
-                                                </Table>
+                                                })}
+                                            </Table>
                                             </Card>
                                         </Message>
                                     </ModalBody>
@@ -402,7 +406,7 @@ useEffect(() => {
                                                                 <td>{s.subject}</td>
                                                                 <td>{s.topic}</td>
                                                                 <td>
-                                                                    <Button color="success" outline onClick={()=>{btoggle();setSelectedButton(s.id);show()}}>
+                                                                    <Button color="success" outline onClick={()=>{btoggle();setSelectedButton(s.id);}}>
                                                                         STUDENTS <Badge color="success" >{s.students.length}</Badge>
                                                                     </Button></td>
                                                                 <td>{s.total}</td>
