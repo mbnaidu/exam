@@ -150,6 +150,7 @@ function AssignTest(props) {
         return(
             <div>
                 <ul>{Array.from(Array(10), (e, i) =>{
+                    var k=0;
                         return(
                             <li key={i}>
                                 <FormGroup row>
@@ -163,7 +164,7 @@ function AssignTest(props) {
                                         <Input placeholder="OPTION 3" type="text" value={input3}   onChange={event=> calling3(event.target.value)}/>
                                         <Input placeholder="OPTION 4" type="text" value={input4}   onChange={event=> calling4(event.target.value)}/>
                                         <Input placeholder="SELECT CORRECT OPTION" min={0} max={4} type="number" step="1" value={answer} onChange={event=> calling5(event.target.value)}/>
-                                        <Button onClick={()=>{adding();handleQuestions(full,i)}} color="success"><strong>ADD THIS QUESTION</strong></Button>
+                                        <Button onClick={()=>{adding();handleQuestions(full,i);}} color="success"><strong>ADD THIS QUESTION</strong></Button>
                                     </div>
                                 </Col>
                             </FormGroup>
@@ -392,7 +393,7 @@ function AssignTest(props) {
                         </InputGroup>
                         <br />
                         <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
-                            <Input value={TOTALMARKS} onChange={event=> SETTOTALMARKS(event.target.value)} type="number"/>
+                            <Input value={QUESTIONS.length>0 ? "TOTAL QUESTIONS  " + QUESTIONS.length/6 : 0} onChange={event=> SETTOTALMARKS(event.target.value)} disabled/>
                             <InputGroupAddon addonType="append">
                                 <Button className="btn6" color={TOTALMARKS > 0 ? "success" : "danger"} outline  >SET TOTAL MARKS</Button>
                             </InputGroupAddon>

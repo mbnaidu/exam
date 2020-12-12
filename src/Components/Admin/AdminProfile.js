@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {  Table,Badge, Jumbotron,Card } from 'reactstrap'
-import {Menu,Segment,Sidebar, TableBody,Button, Reveal, Image, CardContent, CardHeader, CardMeta, CardDescription, Header, Placeholder,} from 'semantic-ui-react'
+import {Menu,Segment,Sidebar, TableBody,Button, Reveal, Image, CardContent,  Header, Placeholder, Message, ButtonContent,} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
@@ -225,45 +225,13 @@ useEffect(() => {
                             </Reveal.Content>
                         </Reveal>
                         <CardContent>
-                                <Header className="m-5" color="blue">NAME : {adminName.toUpperCase()}</Header>
-                                <Header className="m-5" color="blue">E-MAIL : {email.toUpperCase()}</Header>
-                                <Header className="m-5 " color="blue">CONTACT NUMBER : {contactNumber}</Header>
+                                <Header className="m-5" color="blue">Admin : {adminName.toUpperCase()}</Header>
+                                <Header className="m-5" color="blue">E-Mail : {email.toUpperCase()}</Header>
+                                <Header className="m-5 " color="blue">Contact Number : {contactNumber}</Header>
                         </CardContent>
                         </Placeholder>
-
                         </Card>
                     <div>
-                        {/* <Card centered>
-                        
-                            <Table hover>
-                                <thead>
-                                    <tr>
-                                        <th>ADMINS</th>
-                                        <th>E-MAIL</th>
-                                        <th>CONTACT NUMBER</th>
-                                    </tr>
-                                </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{adminName}</td>
-                                            <td>{email}</td>
-                                            <td>{contactNumber}</td>
-                                        </tr>
-                                    </tbody>
-                            </Table>
-                                <Card.Content>
-                                <Card.Header>Matthew</Card.Header>
-                                <Card.Meta>
-                                    <span className='date'>Joined in 2015</span>
-                                </Card.Meta>
-                                <Card.Description>
-                                    Matthew is a musician living in Nashville.
-                                </Card.Description>
-                                </Card.Content>
-                                <Card.Content extra>
-                                
-                                </Card.Content>
-                        </Card> */}
                     </div>
                     <div>
                         <Modal isOpen={viewModal} size="lg" toggle={viewModalToggle} >
@@ -332,7 +300,17 @@ useEffect(() => {
                                                                                                 <td>{j}</td>
                                                                                                 <td>{d1[2]}</td>
                                                                                                 <td>
-                                                                                                    <Button color={d1[3]==="true" ? "green" : "red"}>{d1[3] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</Button>
+                                                                                                <Button animated="vertical" inverted color={d1[3]=== "true" ? "green" : "red"} >
+                                                                                                    { d1[3] == "true" ? (<div>
+                                                                                                        <ButtonContent visible>SUBMITTED</ButtonContent>
+                                                                                                        <ButtonContent hidden>12-02-2020</ButtonContent>
+                                                                                                    </div>) : (
+                                                                                                        <div>
+                                                                                                            <ButtonContent visible >NOT SUBMIITED</ButtonContent>
+                                                                                                            <ButtonContent hidden ><Button loading></Button></ButtonContent>
+                                                                                                        </div>
+                                                                                                    )}
+                                                                                                    </Button>
                                                                                                 </td>
                                                                                             </tr>
                                                                                         </tbody>
@@ -358,10 +336,10 @@ useEffect(() => {
                     </div>
                     <div>
                         <Modal isOpen={mmodal} size="lg" toggle={mtoggle} >
-                            <ModalHeader ><strong>STUDENT DETAILS</strong></ModalHeader>
+                            <Header color="blue" className="pl-3 pt-5"><strong>STUDENT DETAILS</strong></Header>
                                 <ModalBody>
-                                        <div>
-                                            <Card>
+                                        <Message color="blue">
+                                            <Card >
                                                 <Table  hover bordered responsive>
                                                     <thead>
                                                         <tr>
@@ -385,18 +363,18 @@ useEffect(() => {
                                                     })}
                                                 </Table>
                                             </Card>
-                                        </div>
+                                        </Message>
                                     </ModalBody>
                             <ModalFooter>
-                            <Button color="black" onClick={()=>{mtoggle();}}><strong>CANCEL</strong></Button>{' '}
+                            <Button color="blue" onClick={()=>{mtoggle();}}><strong>CANCEL</strong></Button>{' '}
                             </ModalFooter>
                         </Modal>
                     </div>
                     <div>
                         <Modal isOpen={smodal} size="lg" toggle={stoggle}>
-                            <ModalHeader ><strong>Assigned Tests</strong></ModalHeader>
+                            <Header color="green" className="pt-3 pl-3"><strong>Assigned Tests</strong></Header>
                                 <ModalBody>
-                                        <div>
+                                        <Message color="green">
                                             <Card>
                                                 <Table  hover bordered responsive>
                                                     <thead>
@@ -434,10 +412,10 @@ useEffect(() => {
                                                     })}
                                                 </Table>
                                             </Card>
-                                        </div>
+                                        </Message>
                                     </ModalBody>
                             <ModalFooter>
-                            <Button color="black" onClick={()=>{stoggle();}}><strong>CANCEL</strong></Button>{' '}
+                            <Button color="green" onClick={()=>{stoggle();}}><strong>CANCEL</strong></Button>{' '}
                             </ModalFooter>
                         </Modal>
                     </div>

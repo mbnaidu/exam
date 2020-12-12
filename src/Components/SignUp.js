@@ -63,7 +63,7 @@ const [viewModal, setViewModal] = useState(false);
 const viewModalToggle = () => setViewModal(true);
     // checking input 
         function onSignupclickHandler() {
-            if(id!="" && username!="" && password1!="" && password2!="" && email!="" && contactNumber!=""){
+            if(id!="" && username!="" && password1 == password2  && email!="" && contactNumber!=""){
                 viewModalToggle();
                 const data = {
                     "id":id,
@@ -106,7 +106,7 @@ const viewModalToggle = () => setViewModal(true);
                                 <Input type="email" className={ID ? "form-control is-invalid" : "signup_control"}  id="floatingInput" placeholder="name@example.com" valid={IDD} value={id}   onChange={event=> {setId(event.target.value);id_change()}} this required/>
                                 <Label >Register Id</Label>
                                 <div className={ID ? "invalid-tooltip" : ""}>
-                                    {ID ? "ID length should be greater than 8" : ""}
+                                    {ID ? "ID length should be equal to 8" : ""}
                                 </div>
                             </div>
                         </FormGroup>
