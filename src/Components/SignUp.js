@@ -103,7 +103,7 @@ const viewModalToggle = () => setViewModal(true);
                     <Form>
                         <FormGroup  >
                             <div class="form-floating ">
-                                <Input type="email" className={ID ? "form-control is-invalid" : "signup_control"}  id="floatingInput" placeholder="name@example.com" valid={IDD} value={id}   onChange={event=> {setId(event.target.value);id_change()}} this required/>
+                                <Input type="email" className={ID ? "form-control is-invalid" : "signup_control"}  id="rcorners3" placeholder="name@example.com" valid={IDD} value={id}   onChange={event=> {setId(event.target.value);id_change()}} this required/>
                                 <Label >Register Id</Label>
                                 <div className={ID ? "invalid-tooltip" : ""}>
                                     {ID ? "ID length should be equal to 8" : ""}
@@ -112,7 +112,7 @@ const viewModalToggle = () => setViewModal(true);
                         </FormGroup>
                         <FormGroup  >
                             <div class="form-floating">
-                                <Input type="password" className={EM ? "form-control is-invalid" : "signup_control"} id="floatingPassword" placeholder="Password" valid={EMD}  type="text" value={email}   onChange={event=> {setEmail(event.target.value);email_change()}}/>
+                                <Input type="password" className={EM ? "form-control is-invalid" : "signup_control"} id="rcorners3" placeholder="Password" valid={EMD}  type="text" value={email}   onChange={event=> {setEmail(event.target.value);email_change()}}/>
                                 <Label for="floatingPassword">E-Mail</Label>
                                 <div className={EM ? "invalid-tooltip" : ""}>
                                     {EM ? "length should be greater than 8" : ""}
@@ -121,7 +121,7 @@ const viewModalToggle = () => setViewModal(true);
                         </FormGroup>
                         <FormGroup  >
                             <div class="form-floating">
-                                <Input type="password" className={UN ? "form-control is-invalid" : "signup_control"} id="floatingPassword" placeholder="Password" valid={UND}   type="text" value={username }   onChange={event=> {setUsername(event.target.value);username_change()}}/>
+                                <Input type="password" className={UN ? "form-control is-invalid" : "signup_control"} id="rcorners3" placeholder="Password" valid={UND}   type="text" value={username }   onChange={event=> {setUsername(event.target.value);username_change()}}/>
                                 <Label for="floatingPassword">Username</Label>
                             <div className={UN ? "invalid-tooltip" : ""}>
                                     {UN ? "length should be greater than 5" : ""}
@@ -130,13 +130,13 @@ const viewModalToggle = () => setViewModal(true);
                         </FormGroup>
                         <FormGroup  >
                             <div class="form-floating">
-                                <Input type="password" className="form-control "  id="floatingPassword" placeholder="Password"  type="password" value={password1 }   onChange={event=> {setPassword1(event.target.value);}}/>
+                                <Input type="password" className="form-control "  id="rcorners3" placeholder="Password"  type="password" value={password1 }   onChange={event=> {setPassword1(event.target.value);}}/>
                                 <Label for="floatingPassword">Password</Label>
                             </div>
                         </FormGroup>
                         <FormGroup  >
                             <div class="form-floating">
-                                <Input type="password" className={PB ? "form-control is-invalid" : "signup_control"} id="floatingPassword" placeholder="Password" valid={PBD}   type="password" value={password2}   onChange={event=> {setPassword2(event.target.value);password_change(password1,event.target.value)}}/>
+                                <Input type="password" className={PB ? "form-control is-invalid" : "signup_control"} id="rcorners3" placeholder="Password" valid={PBD}   type="password" value={password2}   onChange={event=> {setPassword2(event.target.value);password_change(password1,event.target.value)}}/>
                                 <Label for="floatingPassword">Confirm password</Label>
                             <div className={PB ? "invalid-tooltip" : ""}>
                                     {PB ? "NOT MATCHED" : ""}
@@ -145,7 +145,7 @@ const viewModalToggle = () => setViewModal(true);
                             </FormGroup>
                         <FormGroup  >
                             <div class="form-floating">
-                                <Input type="password" className={C ? "form-control is-invalid" : "signup_control"} id="floatingPassword" placeholder="Password" valid={CD}  type="number" value={contactNumber}   onChange={event=> {setContactNumber(event.target.value);contactNumber_change(contactNumber)}}/>
+                                <Input type="password" className={C ? "form-control is-invalid" : "signup_control"} id="rcorners3" placeholder="Password" valid={CD}  type="number" value={contactNumber}   onChange={event=> {setContactNumber(event.target.value);contactNumber_change(contactNumber)}}/>
                                 <Label for="floatingPassword">Contact number</Label>
                             <div className={C ? "invalid-tooltip" : ""}>
                                     {C ? "Please enter correct number" : ""}

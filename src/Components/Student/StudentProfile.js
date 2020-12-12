@@ -198,10 +198,10 @@ function StudentProfile() {
                             </Reveal.Content>
                         </Reveal>
                         <CardContent>
-                                <Header className="m-5" color="blue">ID : {id.toUpperCase()}</Header>
-                                <Header className="m-5" color="blue">NAME : {adminName.toUpperCase()}</Header>
-                                <Header className="m-5" color="blue">E-MAIL : {email.toUpperCase()}</Header>
-                                <Header className="m-5 " color="blue">CONTACT NUMBER : {contactNumber}</Header>
+                                <Header className="m-5" color="blue">Id : {id.toUpperCase()}</Header>
+                                <Header className="m-5" color="blue">Name : {adminName.toUpperCase()}</Header>
+                                <Header className="m-5" color="blue">E-Mail : {email.toUpperCase()}</Header>
+                                <Header className="m-5 " color="blue">Contact number : {contactNumber}</Header>
                         </CardContent>
                         </Placeholder>
                         </Card>

@@ -372,7 +372,7 @@ useEffect(() => {
                     </div>
                     <div>
                         <Modal isOpen={smodal} size="lg" toggle={stoggle}>
-                            <Header color="green" className="pt-3 pl-3"><strong>Assigned Tests</strong></Header>
+                            <Header color="green" className="pt-3 pl-3" ><strong>Assigned Tests</strong></Header>
                                 <ModalBody>
                                         <Message color="green">
                                             <Card>
