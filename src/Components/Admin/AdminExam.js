@@ -12,6 +12,7 @@ import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import LooksOneIcon from '@material-ui/icons/LooksOne';
+import LooksTwoIcon from '@material-ui/icons/LooksTwo';
 
 import {ButtonContent, Header, Menu,Segment,Sidebar,Button,Table,TableHeader,TableBody, TableRow, TableHeaderCell, TableCell, Label, Icon, MenuItem} from 'semantic-ui-react'
 
@@ -119,7 +120,7 @@ function AdminExam() {
         </Menu.Item>
         <Menu.Item as='a' onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });onToggle()}}>
             <LooksOneIcon fontSize="large"/>
-            <LooksOneIcon fontSize="large"/>
+            <LooksTwoIcon fontSize="large"/>
             <h6>ON GOING EXAMS </h6>
         </Menu.Item>
         <Menu.Item as='a' onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });coToggle()}}>

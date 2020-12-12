@@ -60,7 +60,6 @@ function Login() {
     return (
         <div className="hero-image">
             <div className="hero-text" >
-                <Form>
                     <div className="logincard ">
                             <img  top height="120" className="loginlogo" src={require('../Shared/vit.ico')} alt="" />
                         <CardBody>
@@ -85,7 +84,6 @@ function Login() {
                             <CardText><strong> NEW HERE . . .? </strong><NavLink to="/register"  ><strong>Sign Up</strong></NavLink></CardText>
                         </div>
                     </div>
-                </Form>
             </div>
         </div>
     )

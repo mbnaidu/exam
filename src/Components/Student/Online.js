@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import {Badge, Button,Container, CardBody, Jumbotron, Card, CardHeader, Progress } from 'reactstrap'
+import {Badge,Container, CardBody, Jumbotron, Card, CardHeader, Progress,  } from 'reactstrap'
 import { FormControl, RadioGroup } from '@material-ui/core';
 import '../../styles/Exam.css'
 import { blue } from '@material-ui/core/colors';
@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import { useStateValue } from '../../redux/StateProvider';
 import axios from 'axios';
+import { Modal, ModalActions, ModalContent, Button,ModalHeader, ModalBody, ModalFooter, ModalDimmer } from 'semantic-ui-react';
 
 
 const BlueRadio = withStyles({
@@ -71,7 +72,7 @@ function Online() {
     setArray([]);
   }
     const [currentQuestion,setCurrentQuestion]=useState(1)
-    const [counter, setCounter] = React.useState(3);
+    const [counter, setCounter] = React.useState(10);
     React.useEffect(() => {
       if(Math.floor(100/currentQuestion) >= 25){setCol("success");}
     if(Math.floor(100/currentQuestion) >= 50){setCol("info");}
@@ -87,7 +88,7 @@ function Online() {
           }
             setCurrentQuestion(currentQuestion+1);
             setArray([]);
-            setCounter(3);
+            setCounter(10);
         }
         else if( counter===0 && questionsArray.length === currentQuestion){
           finalArray.push(array[array.length-1]);
@@ -126,7 +127,7 @@ function Online() {
             <Progress animated bar color={col} value={Math.floor(100/currentQuestion)} >{questionsArray.length - currentQuestion} left</Progress>
           </Progress>
             <Fragment>
-              <Button className="questions" color="primary" style={{color:"white"}}><strong>QUESTIONS </strong> <Badge color="badge badge-light" pill>{counter}</Badge></Button>
+              <Button className="questions" color="primary" style={{color:"white"}}><strong>Next Question in ...</strong> <Badge color="badge badge-light" pill>{counter}</Badge></Button>
                 </Fragment>
                   {questionsArray.map((q)=>{
                     let option ;
@@ -157,26 +158,25 @@ function Online() {
             {!submit ? ( currentQuestion!=questionsArray.length ? (
               <div>
               {questionRender(currentQuestion)}
-                  <Button onClick={()=>{setCurrentQuestion(currentQuestion+1);setCounter(3);Save();setArray([])}}><strong>NEXT</strong></Button>
+                  <Button onClick={()=>{setCurrentQuestion(currentQuestion+1);setCounter(10);Save();setArray([])}}><strong>NEXT</strong></Button>
             </div>
             ) : (
               <div>
               {questionRender(currentQuestion)}
             </div>
             ))
-             : (
-              <div>
-                <Jumbotron style={{width:"50%", height:"60%"}}>
-                  <Card style={{width:"50%", height:"60%"}}>
-                    <CardHeader>
-                        <strong>MARKS</strong>
-                    </CardHeader>
-                    <CardBody>
-                      {marks}
-                    </CardBody>
-                  </Card>
-                </Jumbotron>
-              </div>
+            : (
+              <ModalDimmer centered >
+                  <ModalContent>
+                  <ModalHeader >MARKS</ModalHeader>
+                    <p>{marks}</p>
+                  </ModalContent>
+                  <ModalActions>
+                    <Button positive href="/">
+                      Done
+                    </Button>
+                  </ModalActions>
+              </ModalDimmer>
             ) }
         </div>
       </div>

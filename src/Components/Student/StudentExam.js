@@ -20,8 +20,7 @@ import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import LooksOneIcon from '@material-ui/icons/LooksOne';
-
-
+import LooksTwoIcon from '@material-ui/icons/LooksTwo';
 
 let id = 0;
 
@@ -82,8 +81,8 @@ function StudentExam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    id = res.data[0].id;
-                    // id="18pa1a1240"
+                    // id = res.data[0].id;
+                    id="18pa1a1240"
                 }
             }
         )
@@ -223,7 +222,7 @@ function StudentExam() {
         <Menu.Item as='a'  onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });onToggle()}}>
             <NavLink to="/exam" >
             <LooksOneIcon  fontSize="large" />
-            <LooksOneIcon  fontSize="large" />
+            <LooksTwoIcon  fontSize="large" />
             <h6>TODAY EXAMS</h6>
             </NavLink>
         </Menu.Item>
