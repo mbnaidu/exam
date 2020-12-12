@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Card, Table,Badge, Jumbotron } from 'reactstrap'
-import {Menu,Segment,Sidebar, TableBody,Button} from 'semantic-ui-react'
+import {  Table,Badge, Jumbotron,Card } from 'reactstrap'
+import {Menu,Segment,Sidebar, TableBody,Button, Reveal, Image, CardContent, CardHeader, CardMeta, CardDescription, Header, Placeholder,} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
@@ -12,7 +12,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
-
+import "../../styles/AdminProfile.css"
 
 function exampleReducer(state, action) {
     switch (action.type) {
@@ -46,22 +46,9 @@ const [questionRender,setQuestionRender] = useState([]);
 const [SINGLEQUESTIONS,SETSINGLEQUESTIONS] = useState([]);
 const [singlequestions,setsinglequesions] = useState([]);
 const [ID,SETID] = useState(0);
+const [TESTID,SETTESTID] = useState(0);
+const [length,setLength] = useState([]);
 const show = () => {
-    {students.map((d)=>{
-        const data = {
-            "id":d.id,
-        }
-        axios.post('http://localhost:3001/getQuestions', {data}).then(
-            function(res) {
-                if(res.data){
-                    {res.data.map((r)=>{
-                        SINGLEQUESTIONS.push(r.testId+"-"+r.questId+"-"+r.question+"-"+r.option1+"-"+r.option2+"-"+r.option3+"-"+r.option4+"-"+r.answer )
-                        singlequestions[r.testId]=r.questId;
-                    })}
-                }
-            }
-        )
-    })}
     {students.map((s)=>{
         return(
             <div>
@@ -90,6 +77,24 @@ const show = () => {
     })}
     LISTLENGTH.push(SAMPLEARRAY.length);
 }
+    useEffect(()=>{
+        {students.map((d)=>{
+            const data = {
+                "id":d.id,
+            }
+            axios.post('http://localhost:3001/getQuestions', {data}).then(
+                function(res) {
+                    if(res.data){
+                        {res.data.map((r)=>{
+                            SINGLEQUESTIONS.push(r.testId+"-"+r.questId+"-"+r.question+"-"+r.option1+"-"+r.option2+"-"+r.option3+"-"+r.option4+"-"+r.answer )
+                            singlequestions[r.testId]=r.questId;
+                        })}
+                    }
+                }
+            )
+        })}
+    })
+
 useEffect(() => {
     axios.post('http://localhost:3001/allTests').then(
         function(res) {
@@ -99,10 +104,12 @@ useEffect(() => {
                 questionRender.push(res.data)
                 {res.data.map((k)=>{
                     students.push(k);
+                    length.push(k.students.length)
                 })}
             }
         }
     )
+    console.log(length);
     const data = {
         "username":user.username,
     }
@@ -173,7 +180,7 @@ useEffect(() => {
             <h6>ADD TEST</h6>
             </NavLink>
         </Menu.Item>
-        <Menu.Item as='a' onClick={()=>{stoggle();show()}}>
+        <Menu.Item as='a' onClick={()=>{stoggle();show();}}>
             <CheckCircleIcon />
             <h6>CHECK TESTS</h6>
         </Menu.Item>
@@ -207,8 +214,27 @@ useEffect(() => {
         <Sidebar.Pusher >
             <Segment basic>
                 <div>
+                <Card className="admin_card" color="pink">
+                <Placeholder fluid > 
+                    <Reveal animated='rotate' className="m-5">
+                            <Reveal.Content visible>
+                            <Image circular size='small' src='https://react.semantic-ui.com/images/wireframe/square-image.png' centered/>
+                            </Reveal.Content>
+                            <Reveal.Content hidden>
+                            <Image circular size='small' src='https://react.semantic-ui.com/images/avatar/large/stevie.jpg' />
+                            </Reveal.Content>
+                        </Reveal>
+                        <CardContent>
+                                <Header className="m-5" color="blue">NAME : {adminName.toUpperCase()}</Header>
+                                <Header className="m-5" color="blue">E-MAIL : {email.toUpperCase()}</Header>
+                                <Header className="m-5 " color="blue">CONTACT NUMBER : {contactNumber}</Header>
+                        </CardContent>
+                        </Placeholder>
+
+                        </Card>
                     <div>
-                        <Card>
+                        {/* <Card centered>
+                        
                             <Table hover>
                                 <thead>
                                     <tr>
@@ -225,7 +251,19 @@ useEffect(() => {
                                         </tr>
                                     </tbody>
                             </Table>
-                        </Card>
+                                <Card.Content>
+                                <Card.Header>Matthew</Card.Header>
+                                <Card.Meta>
+                                    <span className='date'>Joined in 2015</span>
+                                </Card.Meta>
+                                <Card.Description>
+                                    Matthew is a musician living in Nashville.
+                                </Card.Description>
+                                </Card.Content>
+                                <Card.Content extra>
+                                
+                                </Card.Content>
+                        </Card> */}
                     </div>
                     <div>
                         <Modal isOpen={viewModal} size="lg" toggle={viewModalToggle} >
@@ -233,24 +271,22 @@ useEffect(() => {
                                 <ModalBody>
                                         <div>
                                             <Card>
-                                                {SINGLEQUESTIONS.map((q)=>{
-                                                    var babu=0;
-                                                    console.log(singlequestions[ID])
-                                                    var Q = q;
-                                                    var d1 = Q.split("-");
-                                                    if(d1[0] == ID ){
-                                                        for(var i=0;i<=singlequestions[ID];i++){
-                                                            babu++;
-                                                            if(babu<singlequestions[ID]){
-                                                                return(
-                                                                    <div>
-                                                                        {d1[1]}
-                                                                    </div>
-                                                                )
-                                                            }
-                                                        }
+                                                {students.map((s)=>{
+                                                    var k=0;
+                                                    if(TESTID !=0){
+                                                        return(
+                                                            <div>
+                                                                {s.students.map((m)=>{
+                                                                    if(TESTID == s.id && k<=length[TESTID-1]){
+                                                                        k++;
+                                                                        console.log(m)
+                                                                    }
+                                                                })}
+                                                            </div>
+                                                        )
+                                                    
                                                     }
-                                                })}
+                                                    })}
                                             </Card>
                                         </div>
                                     </ModalBody>
@@ -269,7 +305,7 @@ useEffect(() => {
                                                     {students.map((s)=>{
                                                         return(
                                                             <div>
-                                                                <Button fluid color={selectedButton === s.id ? "green" : "blue"} outline={s.id === selectedButton ? false : true} onClick={()=>{viewModalToggle();SETID(s.id)}}>
+                                                                <Button fluid color={selectedButton === s.id ? "green" : "blue"} outline={s.id === selectedButton ? false : true} onClick={()=>{viewModalToggle();SETID(s.id);SETTESTID(s.id);}}>
                                                                     TEST ID : {s.id}
                                                                 </Button>
                                                                 <Jumbotron>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {Menu,Segment,Sidebar,Button} from 'semantic-ui-react'
+import {Menu,Segment,Sidebar,Button, Reveal, Image, CardContent, Header, Placeholder} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import CreateIcon from '@material-ui/icons/Create';
@@ -59,8 +59,8 @@ function StudentProfile() {
                         setContactNumber(i.contact);
                         setId(i.id);
                     })}
-                    ID="18pa1a1240"
-                    // ID = res.data[0].id;
+                    // ID="18pa1a1240"
+                    ID = res.data[0].id;
                 }
             }
         )
@@ -187,26 +187,24 @@ function StudentProfile() {
             <div>
             <div>
                 <div>
-                    <Card>
-                        <Table hover>
-                            <thead>
-                                <tr>
-                                    <th>ID : </th>
-                                    <th>USER NAME</th>
-                                    <th>E-MAIL</th>
-                                    <th>CONTACT NUMBER</th>
-                                </tr>
-                            </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{id}</td>
-                                        <td>{adminName}</td>
-                                        <td>{email}</td>
-                                        <td>{contactNumber}</td>
-                                    </tr>
-                                </tbody>
-                        </Table>
-                    </Card>
+                <Card className="admin_card" color="pink">
+                <Placeholder fluid > 
+                    <Reveal animated='rotate' className="m-5">
+                            <Reveal.Content visible>
+                            <Image circular size='small' src='https://react.semantic-ui.com/images/wireframe/square-image.png' centered/>
+                            </Reveal.Content>
+                            <Reveal.Content hidden>
+                            <Image circular size='small' src='https://react.semantic-ui.com/images/avatar/large/stevie.jpg' />
+                            </Reveal.Content>
+                        </Reveal>
+                        <CardContent>
+                                <Header className="m-5" color="blue">ID : {id.toUpperCase()}</Header>
+                                <Header className="m-5" color="blue">NAME : {adminName.toUpperCase()}</Header>
+                                <Header className="m-5" color="blue">E-MAIL : {email.toUpperCase()}</Header>
+                                <Header className="m-5 " color="blue">CONTACT NUMBER : {contactNumber}</Header>
+                        </CardContent>
+                        </Placeholder>
+                        </Card>
                 </div>
             </div>
             <div>
