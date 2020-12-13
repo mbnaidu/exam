@@ -28,11 +28,10 @@ function AdminProfile() {
     let madhu = 0;
     let gaya = 0;
     const [trail,setTrail] = useState([]);
-    const [checking,setChecking] = useState([])
 const [selectedButton,setSelectedButton] = useState("");
 const [{user}] = useStateValue();
 const [subarray,setSubArray] = useState([])
-const [FINALARRAY,SETFINALARRAY] = useState([])
+    const [FINAL, SETFINAL] = useState([])
 const [SAMPLEARRAY,SETSAMPLEARRAY] = useState([])
 const [adminName, setAdminName] = useState("");
 const [email, setEmail] = useState("");
@@ -185,17 +184,17 @@ useEffect(() => {
             <PersonIcon  fontSize="large" />
             <h6>PROFILE</h6>
         </Menu.Item>
-        <Menu.Item as='a' onClick={mtoggle}>
+            <Menu.Item as='a' onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });mtoggle()}}>
             <GroupIcon  fontSize="large" />
             <h6>STUDENTS </h6>
         </Menu.Item>
-        <Menu.Item as='a' >
+            <Menu.Item as='a' onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });}}>
             <NavLink to="/adminexam">
             <CreateIcon  fontSize="large" />
             <h6>ADD TEST</h6>
             </NavLink>
         </Menu.Item>
-        <Menu.Item as='a' onClick={()=>{stoggle();show();}}>
+            <Menu.Item as='a' onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });stoggle();show();}}>
             <CheckCircleIcon />
             <h6>CHECK TESTS</h6>
         </Menu.Item>
@@ -212,7 +211,27 @@ useEffect(() => {
     </Sidebar>
 )
         const CALL = () =>{
-            console.log(trail[TESTID])
+            FINAL[madhu++] = trail[TESTID];
+            {FINAL.map((f)=>{
+                return(
+                    <Table>
+                        <thead>
+                            <tr>
+                                <th>hi</th>
+                                <th>bye</th>
+                                <th>ok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{f}</td>
+                                <td>{f}</td>
+                                <td>{f}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                )
+            })}
         }
     return (
         <div>
@@ -232,7 +251,7 @@ useEffect(() => {
             <Segment basic>
                 <div>
                 <Card className="admin_card" color="blue">
-                <Placeholder fluid inverted> 
+                <Placeholder fluid > 
                     <Reveal animated='rotate' className="m-5">
                             <Reveal.Content visible>
                             <Image circular size='small' src='https://react.semantic-ui.com/images/wireframe/square-image.png' centered/>
@@ -328,7 +347,7 @@ useEffect(() => {
                                         </div>
                                     </ModalBody>
                             <ModalFooter>
-                                <Button color="blue" onClick={()=>{btoggle();}}><strong>CANCEL</strong></Button>{' '}
+                                        <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });btoggle();}}><strong>CANCEL</strong></Button>{' '}
                             </ModalFooter>
                         </Modal>
                     </div>
@@ -366,7 +385,7 @@ useEffect(() => {
                                         </Message>
                                     </ModalBody>
                             <ModalFooter>
-                            <Button color="blue" onClick={()=>{mtoggle();}}><strong>CANCEL</strong></Button>{' '}
+                                        <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });mtoggle();}}><strong>CANCEL</strong></Button>{' '}
                             </ModalFooter>
                         </Modal>
                     </div>
@@ -415,7 +434,7 @@ useEffect(() => {
                                         </Message>
                                     </ModalBody>
                             <ModalFooter>
-                            <Button color="green" onClick={()=>{stoggle();}}><strong>CANCEL</strong></Button>{' '}
+                                        <Button color="green" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });stoggle();}}><strong>CANCEL</strong></Button>{' '}
                             </ModalFooter>
                         </Modal>
                     </div>

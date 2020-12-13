@@ -393,7 +393,7 @@ function AssignTest(props) {
                         </InputGroup>
                         <br />
                         <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
-                            <Input value={QUESTIONS.length>0 ? "TOTAL QUESTIONS  " + QUESTIONS.length/6 : 0} onChange={event=> SETTOTALMARKS(event.target.value)} disabled/>
+                            <Input value={QUESTIONS.length>0 ? "TOTAL MARKS  " + QUESTIONS.length/6 : 0} onChange={event=> SETTOTALMARKS(event.target.value)} disabled/>
                             <InputGroupAddon addonType="append">
                                 <Button className="btn6" color={TOTALMARKS > 0 ? "success" : "danger"} outline  >SET TOTAL MARKS</Button>
                             </InputGroupAddon>
