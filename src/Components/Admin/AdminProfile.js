@@ -228,10 +228,10 @@ useEffect(() => {
                     visible={visible}
                 />
             )}
-        <Sidebar.Pusher >
+        <Sidebar.Pusher>
             <Segment basic>
                 <div>
-                <Card className="admin_card" color="pink">
+                <Card className="admin_card" color="blue">
                 <Placeholder fluid inverted> 
                     <Reveal animated='rotate' className="m-5">
                             <Reveal.Content visible>
@@ -242,14 +242,12 @@ useEffect(() => {
                             </Reveal.Content>
                         </Reveal>
                         <CardContent>
-                                <Header className="m-5" id="admin">Admin : {adminName.toUpperCase()}</Header>
-                                <Header className="m-5" id="email">E-Mail : {email.toUpperCase()}</Header>
-                                <Header className="m-5" id="contact">Contact Number : {contactNumber}</Header>
+                                <Header className="m-5" color="grey" id="admin">Admin : {adminName.toUpperCase()}</Header>
+                                <Header className="m-5" color="grey" id="email">E-Mail : {email.toUpperCase()}</Header>
+                                <Header className="m-5" color="grey" id="contact">Contact Number : {contactNumber}</Header>
                         </CardContent>
                         </Placeholder>
                         </Card>
-                    <div>
-                    </div>
                     <div>
                         <Modal isOpen={viewModal} size="lg" toggle={viewModalToggle} >
                             <ModalHeader ><strong>TEST DETAILS</strong></ModalHeader>
@@ -279,6 +277,13 @@ useEffect(() => {
                                                                     TEST ID : {s.id}
                                                                 </Button>
                                                                 <Jumbotron>
+                                                                    <Table hover bordered responsive>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>DEATILS</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
                                                             {s.students.map((j)=>{
                                                                 var babu = 0;
                                                                 return(
@@ -289,18 +294,9 @@ useEffect(() => {
                                                                             var d1 = check.split("-");
                                                                             if(d1[1] == j && d1[0]==s.id && babu <= LISTLENGTH[1]){
                                                                                 return(
-                                                                                    <Table hover bordered responsive>
-                                                                                        <thead>
                                                                                             <tr>
-                                                                                                <th>ID</th>
-                                                                                                <th>MARKS</th>
-                                                                                                <th>STATUS</th>
-                                                                                            </tr>
-                                                                                        </thead>
-                                                                                        <tbody>
-                                                                                            <tr>
-                                                                                                <td>{j}</td>
-                                                                                                <td>{d1[2]}</td>
+                                                                                                <td>{"ID : "+j}</td>
+                                                                                                <td>{"MARKS : "+d1[2]}</td>
                                                                                                 <td>
                                                                                                 <Button animated="vertical" inverted color={d1[3]=== "true" ? "green" : "red"} >
                                                                                                     { d1[3] == "true" ? (<div>
@@ -315,14 +311,14 @@ useEffect(() => {
                                                                                                     </Button>
                                                                                                 </td>
                                                                                             </tr>
-                                                                                        </tbody>
-                                                                                    </Table>
                                                                                 )
                                                                             }
                                                                         })}
                                                                     </div>
                                                                 )
                                                             })}
+                                                                        </tbody>
+                                                                    </Table>
                                                                 </Jumbotron>
                                                             </div>
                                                         )
@@ -332,7 +328,7 @@ useEffect(() => {
                                         </div>
                                     </ModalBody>
                             <ModalFooter>
-                                <Button color="black" onClick={()=>{btoggle();}}><strong>CANCEL</strong></Button>{' '}
+                                <Button color="blue" onClick={()=>{btoggle();}}><strong>CANCEL</strong></Button>{' '}
                             </ModalFooter>
                         </Modal>
                     </div>
@@ -401,8 +397,8 @@ useEffect(() => {
                                                         <tbody>
                                                             <tr>
                                                                 <td>{s.id}</td>
-                                                                <td>{d1[2]+"-"+d1[1]+"-"+d1[0]}</td>
-                                                                <td>{d2[2]+"-"+d2[1]+"-"+d2[0]}</td>
+                                                                <td>{d1[2]+"/"+d1[1]+"/"+d1[0]}</td>
+                                                                <td>{d2[2]+"/"+d2[1]+"/"+d2[0]}</td>
                                                                 <td>{s.subject}</td>
                                                                 <td>{s.topic}</td>
                                                                 <td>
