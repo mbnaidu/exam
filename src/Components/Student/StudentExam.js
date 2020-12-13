@@ -21,7 +21,7 @@ import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import LooksOneIcon from '@material-ui/icons/LooksOne';
 import LooksTwoIcon from '@material-ui/icons/LooksTwo';
-
+import Looks3Icon from '@material-ui/icons/Looks3';
 let id = 0;
 
 function exampleReducer(state, action) {
@@ -222,7 +222,7 @@ function StudentExam() {
         <Menu.Item as='a'  onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });onToggle()}}>
             <NavLink to="/exam" >
             <LooksOneIcon  fontSize="large" />
-            <LooksTwoIcon  fontSize="large" />
+            <Looks3Icon  fontSize="large" />
             <h6>TODAY EXAMS</h6>
             </NavLink>
         </Menu.Item>

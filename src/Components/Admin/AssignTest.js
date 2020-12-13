@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, FormGroup, Col, Table, Card, Label } from 'reactstrap';
+import { Button,Input, InputGroup, InputGroupAddon, Container, Jumbotron, Col, Table, Label } from 'reactstrap';
 import '../../styles/Test.css'
 import {  FormControl } from '@material-ui/core';
-import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {  Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import { FormGroup, Card } from 'semantic-ui-react';
 
 var kp;
 
@@ -393,8 +394,8 @@ function AssignTest(props) {
                         </InputGroup>
                         <br />
                         <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
-                            <Input value={QUESTIONS.length>0 ? "TOTAL MARKS  " + QUESTIONS.length/6 : 0} onChange={event=> SETTOTALMARKS(event.target.value)} disabled/>
-                            <InputGroupAddon addonType="append">
+                            <Input value={TOTALMARKS} onChange={event => SETTOTALMARKS(event.target.value)} type="number" />  
+                                <InputGroupAddon addonType="append">
                                 <Button className="btn6" color={TOTALMARKS > 0 ? "success" : "danger"} outline  >SET TOTAL MARKS</Button>
                             </InputGroupAddon>
                         </InputGroup>

@@ -158,6 +158,7 @@ useEffect(() => {
         animation: 'overlay',
         visible: false,
     })
+    const [sample,setSample] = useState([])
     const { animation,direction, visible } = state
     const vertical = direction === 'bottom' || direction === 'top'
     const VerticalSidebar = ({ animation, direction, visible }) => (
@@ -211,27 +212,36 @@ useEffect(() => {
     </Sidebar>
 )
         const CALL = () =>{
+            // return(
+            //     <div>
+            //         hi
+            //     </div>
+            // )
             FINAL[madhu++] = trail[TESTID];
-            {FINAL.map((f)=>{
-                return(
-                    <Table>
-                        <thead>
-                            <tr>
-                                <th>hi</th>
-                                <th>bye</th>
-                                <th>ok</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{f}</td>
-                                <td>{f}</td>
-                                <td>{f}</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                )
-            })}
+            console.log(FINAL)
+            // {FINAL.map((f)=>{
+            //     return(
+            //         <div>
+            //             hi
+            //         </div>
+            //     )
+            // })}
+            // return(
+            //     <div>
+            //         {FINAL[0]}
+            //     </div>
+            // )
+            // sample.push(FINAL[0]);
+            // s.map((m)=>{
+            //     console.log(m)
+            // })
+            // const s = FINAL.map((f)=>{
+            //     {f.map((m)=>{
+            //         <div>
+            //             <p>{m.marks}</p>
+            //         </div>
+            //     })}
+            // });
         }
     return (
         <div>
