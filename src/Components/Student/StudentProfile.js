@@ -209,7 +209,7 @@ function StudentProfile() {
             </div>
             <div>
                         <Modal isOpen={isOpen} size="lg" toggle={toggle} >
-                            <ModalHeader ><strong>COMPLETED TESTS</strong></ModalHeader>
+                            <ModalHeader ><strong>ALL TESTS</strong></ModalHeader>
                                 <ModalBody>
                                         <div>
                                         <Card>

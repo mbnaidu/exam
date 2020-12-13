@@ -1,4 +1,12 @@
 .admin_card{
-    padding:10px;
     margin: 0px 700px 0px 400px;
+}
+#admin{
+    color: white;
+}
+#email{
+    color: white;
+}
+#contact{
+    color: white;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Badge, Jumbotron,Card } from 'reactstrap'
-import {Menu,Segment,Sidebar,Table,TableHeader,TableHeaderCell, TableBody,Button, Reveal, Image, CardContent,  Header, Placeholder, Message, ButtonContent, TableCell, Label, TableRow,} from 'semantic-ui-react'
+import { Badge, Jumbotron,Card, Col } from 'reactstrap'
+import {Menu,Segment,Sidebar,Table,TableHeader,TableHeaderCell, TableBody,Button, Reveal, Image, CardContent,  Header, Placeholder, Message, ButtonContent, TableCell, Label, TableRow, FormGroup, Input,} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
@@ -27,6 +27,8 @@ function exampleReducer(state, action) {
 function AdminProfile() {
     let madhu = 0;
     let gaya = 0;
+    const [trail,setTrail] = useState([]);
+    const [checking,setChecking] = useState([])
 const [selectedButton,setSelectedButton] = useState("");
 const [{user}] = useStateValue();
 const [subarray,setSubArray] = useState([])
@@ -66,6 +68,7 @@ const show = () => {
                     if(res.data.msg) {
                         alert(res.data.msg);
                     } else {
+                        trail[j]=res.data;
                         {res.data.map((r)=>{
                             if(r.testId == s.id){
                                 SAMPLEARRAY.push(s.id+"-"+j+"-"+r.marks+"-"+r.isSubmitted);
@@ -208,16 +211,13 @@ useEffect(() => {
         </Menu.Item>
     </Sidebar>
 )
-        const CALL = (a,b,c) =>{
-            for(var i=0;i<c[a];i++){
-                console.log(b[i])
-            }
+        const CALL = () =>{
+            console.log(trail[TESTID])
         }
     return (
         <div>
             <Button color="primary"
-                onClick={() =>
-                dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
+                onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });show()}}>
                 <MenuIcon />
             </Button>
         <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:700}} >
@@ -232,19 +232,19 @@ useEffect(() => {
             <Segment basic>
                 <div>
                 <Card className="admin_card" color="pink">
-                <Placeholder fluid > 
+                <Placeholder fluid inverted> 
                     <Reveal animated='rotate' className="m-5">
                             <Reveal.Content visible>
                             <Image circular size='small' src='https://react.semantic-ui.com/images/wireframe/square-image.png' centered/>
                             </Reveal.Content>
                             <Reveal.Content hidden>
-                            <Image circular size='small' src='https://react.semantic-ui.com/images/avatar/large/stevie.jpg' />
+                            <Image circular size='small'  src='https://react.semantic-ui.com/images/avatar/large/stevie.jpg' />
                             </Reveal.Content>
                         </Reveal>
                         <CardContent>
-                                <Header className="m-5" color="blue">Admin : {adminName.toUpperCase()}</Header>
-                                <Header className="m-5" color="blue">E-Mail : {email.toUpperCase()}</Header>
-                                <Header className="m-5 " color="blue">Contact Number : {contactNumber}</Header>
+                                <Header className="m-5" id="admin">Admin : {adminName.toUpperCase()}</Header>
+                                <Header className="m-5" id="email">E-Mail : {email.toUpperCase()}</Header>
+                                <Header className="m-5" id="contact">Contact Number : {contactNumber}</Header>
                         </CardContent>
                         </Placeholder>
                         </Card>
@@ -256,7 +256,7 @@ useEffect(() => {
                                 <ModalBody>
                                         <div>
                                             <Card>
-                                                {CALL(TESTID,subarray,LENGTH)}
+                                                {CALL()}
                                             </Card>
                                         </div>
                                     </ModalBody>
@@ -275,7 +275,7 @@ useEffect(() => {
                                                     {students.map((s)=>{
                                                         return(
                                                             <div>
-                                                                <Button fluid color={selectedButton === s.id ? "green" : "blue"} outline={s.id === selectedButton ? false : true} onClick={()=>{viewModalToggle();SETID(s.id);SETTESTID(s.id);console.log(subarray);console.log(students);console.log(LENGTH)}}>
+                                                                <Button fluid color={selectedButton === s.id ? "green" : "blue"} outline={s.id === selectedButton ? false : true} onClick={()=>{SETID(s.id);}}>
                                                                     TEST ID : {s.id}
                                                                 </Button>
                                                                 <Jumbotron>
@@ -356,7 +356,7 @@ useEffect(() => {
                                                             <TableBody>
                                                         <TableRow>
                                                             <TableCell>
-                                                            <Label ribbon color="blue" as="button">{s.id}</Label>
+                                                            <Label ribbon color="blue" as="button" onClick={()=>{viewModalToggle();SETTESTID(s.id);console.log(trail)}}>{s.id}</Label>
                                                             </TableCell>
                                                             <TableCell>{s.username}</TableCell>
                                                             <TableCell>{s.email}</TableCell>
@@ -406,7 +406,7 @@ useEffect(() => {
                                                                 <td>{s.subject}</td>
                                                                 <td>{s.topic}</td>
                                                                 <td>
-                                                                    <Button color="success" outline onClick={()=>{btoggle();setSelectedButton(s.id);}}>
+                                                                    <Button color="success" outline onClick={()=>{btoggle();setSelectedButton(s.id);show()}}>
                                                                         STUDENTS <Badge color="success" >{s.students.length}</Badge>
                                                                     </Button></td>
                                                                 <td>{s.total}</td>
