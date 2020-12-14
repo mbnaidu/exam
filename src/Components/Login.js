@@ -81,7 +81,7 @@ function Login() {
                             </InputGroup>
                         </CardBody>
                         <div className="card_footer">
-                            <CardText><strong> NEW HERE . . .? </strong><NavLink to="/register"  ><strong>Sign Up</strong></NavLink></CardText>
+                            <CardText><strong> NEW HERE . . .? </strong><NavLink to="/register"  ><strong className="login_signup">Sign Up</strong></NavLink></CardText>
                         </div>
                     </div>
             </div>
