@@ -74,10 +74,10 @@ function Online() {
     const [currentQuestion,setCurrentQuestion]=useState(1)
     const [counter, setCounter] = React.useState(10);
     React.useEffect(() => {
-      if(Math.floor(100/currentQuestion) >= 25){setCol("success");}
+      if(Math.floor(100/currentQuestion) >= 25){setCol("danger");}
     if(Math.floor(100/currentQuestion) >= 50){setCol("info");}
-    if(Math.floor(100/currentQuestion) >= 75){setCol("danger");}
-    if(Math.floor(100/currentQuestion) >= 100){setCol("danger");}
+    if(Math.floor(100/currentQuestion) >= 75){setCol("primary");}
+    if(Math.floor(100/currentQuestion) >= 100){setCol("success");}
 
         if(counter===0 && currentQuestion<questionsArray.length){
           if((array[array.length-1])>0){
@@ -124,7 +124,7 @@ function Online() {
         <div>
           <Jumbotron>
           <Progress multi>
-            <Progress animated bar color={col} value={Math.floor(100/currentQuestion)} >{questionsArray.length - currentQuestion} left</Progress>
+            <Progress animated bar color={col} value={Math.floor(100/currentQuestion)} >{questionsArray.length - currentQuestion} questions left</Progress>
           </Progress>
             <Fragment>
               <Button className="questions" color="primary" style={{color:"white"}}><strong>Next Question in ...</strong> <Badge color="badge badge-light" pill>{counter}</Badge></Button>

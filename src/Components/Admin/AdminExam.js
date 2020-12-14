@@ -176,7 +176,7 @@ function AdminExam() {
                         <Card>
                         <Menu compact>
                             <MenuItem as='a'>
-                            <Button color="green" onClick={()=>{onToggle()}}><Header>TODAY EXAMS</Header></Button>
+                                            <Button color="green" onClick={() => { onToggle(); dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}}><Header>TODAY EXAMS</Header></Button>
                             <Label color='green' floating>
                                 {present.length}
                             </Label>
@@ -224,7 +224,7 @@ function AdminExam() {
                         <Card>
                         <Menu compact>
                             <MenuItem as='a'>
-                            <Button color="orange" onClick={()=>{coToggle()}}><Header>UPCOMING EXAMS</Header></Button>
+                                            <Button color="orange" onClick={() => { coToggle(); dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}}><Header>UPCOMING EXAMS</Header></Button>
                             <Label color='orange' floating>
                                 {upcoming.length}
                             </Label>
@@ -271,7 +271,7 @@ function AdminExam() {
                         <Card>
                         <Menu compact>
                             <MenuItem as='a'>
-                            <Button color="red" onClick={()=>{upToggle()}}><Header >COMPLETED EXAMS</Header></Button>
+                                            <Button color="red" onClick={() => { upToggle(); dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}}><Header >COMPLETED EXAMS</Header></Button>
                             <Label color='red' floating>
                                 {completed.length}
                             </Label>
