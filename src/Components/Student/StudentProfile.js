@@ -59,8 +59,8 @@ function StudentProfile() {
                         setContactNumber(i.contact);
                         setId(i.id);
                     })}
-                    // ID="18pa1a1240"
-                    ID = res.data[0].id;
+                    ID="18pa1a1240"
+                    // ID = res.data[0].id;
                 }
             }
         )
@@ -233,7 +233,7 @@ function StudentProfile() {
                                                             <td>{d1[1]}</td>
                                                             <td>{d1[2]}</td>
                                                             <td>{d1[3]}</td>
-                                                            <td>{d1[4] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</td>
+                                                                <td><Button  color={d1[4] === "true" ? "green" : "red"}>{d1[4] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</Button></td>
                                                         </tr>
                                                     </tbody>
                                                     )

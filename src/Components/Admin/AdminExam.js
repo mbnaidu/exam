@@ -61,36 +61,40 @@ function AdminExam() {
         })
     const MENU = (a,b,d)=> {
         var from = a;
+        var to = b;
+        var d2 = to.split("-");
         var d1 = from.split("-");
         var givenDay = d1[2];
         var givenMonth = d1[1];
         var givenYear = d1[0];
-        
-        if(currentYear == givenYear){
-            if(currentMonth == givenMonth){
-                if(currentDay == givenDay){
-                    present.push(d);
-                }
-                else if(currentDay > givenDay){
+        var GivenDay = d2[2];
+        var GivenMonth = d2[1];
+        var GivenYear = d2[0];
+            if (currentYear >= givenYear && currentYear <= GivenYear) {
+                if (currentMonth > givenMonth && currentMonth > GivenMonth) {
                     completed.push(d);
                 }
-                else if(currentDay < givenDay){
+                else if (currentMonth < givenMonth && currentMonth < GivenMonth) {
                     upcoming.push(d);
                 }
+                else if (currentMonth >= givenMonth && currentMonth <= GivenMonth) {
+                    if (currentDay >= givenDay && currentDay <= GivenDay) {
+                        present.push(d);
+                    }
+                    else if (currentDay > givenDay && currentDay > GivenDay) {
+                        completed.push(d);
+                    }
+                    else if (currentDay < givenDay && currentDay < GivenDay) {
+                        upcoming.push(d);
+                    }
+                }
             }
-            else if(currentMonth > givenMonth){
+            if (currentYear > givenYear && currentYear > GivenYear) {
                 completed.push(d);
             }
-            else if(currentMonth < givenMonth){
+            if (currentYear < givenYear && currentYear < GivenYear) {
                 upcoming.push(d);
             }
-        }
-        if(currentYear > givenYear){
-            completed.push(d);
-        }
-        if(currentYear < givenYear){
-            upcoming.push(d);
-        }
     }
     const { animation,direction, visible } = state
     const vertical = direction === 'bottom' || direction === 'top'
@@ -173,7 +177,7 @@ function AdminExam() {
                     </div>
                     <div>
                     <Collapse isOpen={isOpen}>
-                        <Card>
+                        <Card >
                         <Menu compact>
                             <MenuItem as='a'>
                                             <Button color="green" onClick={() => { onToggle(); dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}}><Header>TODAY EXAMS</Header></Button>
@@ -182,7 +186,7 @@ function AdminExam() {
                             </Label>
                             </MenuItem>
                         </Menu>
-                            <Table celled color="green">
+                            <Table celled color="green" striped>
                                 <TableHeader>
                                 <TableRow>
                                     <TableHeaderCell>TEST ID</TableHeaderCell>
@@ -230,7 +234,7 @@ function AdminExam() {
                             </Label>
                             </MenuItem>
                         </Menu>
-                        <Table celled color="orange">
+                        <Table celled color="orange" >
                             <TableHeader>
                             <TableRow>
                                 <TableHeaderCell>SUBJECT</TableHeaderCell>
