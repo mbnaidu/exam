@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Badge, Jumbotron,Card, Col } from 'reactstrap'
-import {Menu,Segment,Sidebar,Table,TableHeader,TableHeaderCell, TableBody,Button, Reveal, Image, CardContent,  Header, Placeholder, Message, ButtonContent, TableCell, Label, TableRow, FormGroup, Input,} from 'semantic-ui-react'
+import { Badge, Jumbotron,Card } from 'reactstrap'
+import {Menu,Segment,Sidebar,Table,TableHeader,TableHeaderCell, TableBody,Button, Reveal, Image, CardContent,  Header, Placeholder, Message, ButtonContent, TableCell, Label, TableRow,} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import GroupIcon from '@material-ui/icons/Group';
@@ -25,7 +25,6 @@ function exampleReducer(state, action) {
     }
 }
 function AdminProfile() {
-    let madhu = 0;
     let gaya = 0;
     const [trail,setTrail] = useState([]);
 const [selectedButton,setSelectedButton] = useState("");
@@ -211,42 +210,12 @@ useEffect(() => {
         </Menu.Item>
     </Sidebar>
 )
-        const CALL = () =>{
-            // return(
-            //     <div>
-            //         hi
-            //     </div>
-            // )
-            FINAL[madhu++] = trail[TESTID];
-            let x = '';
-            for(let a in trail[TESTID]) {
-                let t = trail[TESTID][a]
-                x += `${t.testId}, ${t.marks}, ${t.isSubmitted}`
+        const [singleStudent,SetSingleStudent] = useState([])
+        const CALL = (id) =>{
+            for(let a in trail[id]) {
+                let t = trail[id][a]
+                singleStudent.push(`${t.testId}, ${t.marks}, ${t.isSubmitted}`);
             }
-            return x
-            // {FINAL.map((f)=>{
-            //     return(
-            //         <div>
-            //             hi
-            //         </div>
-            //     )
-            // })}
-            // return(
-            //     <div>
-            //         {FINAL[0]}
-            //     </div>
-            // )
-            // sample.push(FINAL[0]);
-            // s.map((m)=>{
-            //     console.log(m)
-            // })
-            // const s = FINAL.map((f)=>{
-            //     {f.map((m)=>{
-            //         <div>
-            //             <p>{m.marks}</p>
-            //         </div>
-            //     })}
-            // });
         }
     return (
         <div>
@@ -283,17 +252,43 @@ useEffect(() => {
                         </Placeholder>
                         </Card>
                     <div>
-                        <Modal isOpen={viewModal} size="lg" toggle={viewModalToggle} >
-                            <ModalHeader ><strong>TEST DETAILS</strong></ModalHeader>
+                        <Modal isOpen={viewModal} size="lg">
+                            <ModalHeader ><strong>{TESTID}</strong></ModalHeader>
                                 <ModalBody>
                                         <div>
                                             <Card>
-                                                {CALL()}
+                                                <Table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                TEST ID'S
+                                                            </th>
+                                                            <th>
+                                                                MARKS
+                                                            </th>
+                                                            <th>
+                                                                STATUS
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                {singleStudent.map((m)=>{
+                                                    let d = m.split(",")
+                                                    return(
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>{d[0]}</td>
+                                                                <td>{d[1]}</td>
+                                                                <td>{d[2]}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    )
+                                                })}
+                                                </Table>
                                             </Card>
                                         </div>
                                     </ModalBody>
                             <ModalFooter>
-                            <Button color="black" onClick={()=>{viewModalToggle();}}><strong>CANCEL</strong></Button>{' '}
+                            <Button color="black" onClick={()=>{viewModalToggle();SetSingleStudent([])}}><strong>CANCEL</strong></Button>{' '}
                             </ModalFooter>
                         </Modal>
                     </div>
@@ -386,7 +381,7 @@ useEffect(() => {
                                                             <TableBody>
                                                         <TableRow>
                                                             <TableCell>
-                                                            <Label ribbon color="blue" as="button" onClick={()=>{viewModalToggle();SETTESTID(s.id);console.log(trail)}}>{s.id}</Label>
+                                                            <Label ribbon color="blue" as="button" onClick={()=>{viewModalToggle();SETTESTID(s.id);CALL(s.id)}}>{s.id}</Label>
                                                             </TableCell>
                                                             <TableCell>{s.username}</TableCell>
                                                             <TableCell>{s.email}</TableCell>
