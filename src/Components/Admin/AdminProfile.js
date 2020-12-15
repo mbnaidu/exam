@@ -4,7 +4,6 @@ import {Menu,Segment,Sidebar,Table,TableHeader,TableHeaderCell, TableBody,Button
 import { useStateValue } from '../../redux/StateProvider';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-
 // CSS
     import "../../styles/AdminProfile.css"
 // ICONS 
@@ -414,5 +413,4 @@ useEffect(() => {
         </div>
 )
 }
-
 export default AdminProfile
