@@ -218,7 +218,12 @@ useEffect(() => {
             //     </div>
             // )
             FINAL[madhu++] = trail[TESTID];
-            console.log(FINAL)
+            let x = '';
+            for(let a in trail[TESTID]) {
+                let t = trail[TESTID][a]
+                x += `${t.testId}, ${t.marks}, ${t.isSubmitted}`
+            }
+            return x
             // {FINAL.map((f)=>{
             //     return(
             //         <div>

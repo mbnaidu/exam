@@ -1,21 +1,17 @@
 import React, { useState,useEffect } from 'react'
-import {  Collapse,Container, Card } from 'reactstrap';
+import {  Collapse, Card } from 'reactstrap';
 import axios from 'axios';
 import { useStateValue } from '../../redux/StateProvider';
 import { withStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
-import { blue, green } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
 import { useHistory } from 'react-router-dom';
 import {ButtonContent, Header, Menu,Segment,Sidebar,Button,Table,TableHeader,TableBody, TableRow, TableHeaderCell, TableCell, Label, Icon, MenuItem} from 'semantic-ui-react'
 import MenuIcon from '@material-ui/icons/Menu';import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
-import GroupIcon from '@material-ui/icons/Group';
-import CreateIcon from '@material-ui/icons/Create';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import UpdateIcon from '@material-ui/icons/Update';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import EventNoteIcon from '@material-ui/icons/EventNote';
@@ -49,7 +45,6 @@ function exampleReducer(state, action) {
     }
 }
 function StudentExam() {
-    const [start,setStart] =useState("START");
     const [subarray,setSubArray] = useState([])
     const history = useHistory();
     const BlueRadio = withStyles({
