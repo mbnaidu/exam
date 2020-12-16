@@ -44,6 +44,7 @@ function AssignTest(props) {
     const [STUDENTS, SETSTUDENTS] = useState([]);
     const [QUESTIONS, SETQUESIONS] = useState([]);
     const [TOTALMARKS, SETTOTALMARKS] = useState();
+    const [SUBTOPICS, SETSUBTOPICS] = useState([]);
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     
     const FINALSUBMIT = () => {
@@ -55,7 +56,7 @@ function AssignTest(props) {
         // console.log(STARTTIME);
         // console.log(ENDTIME);
         // console.log(STUDENTS);
-        // console.log(QUESTIONS);
+        console.log(QUESTIONS);
         // console.log(TOTALMARKS);
         
         if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" && STARTTIME!="" && ENDTIME!="" ){
@@ -71,7 +72,7 @@ function AssignTest(props) {
                 "students": STUDENTS,
                 "questions":QUESTIONS,
                 "total":TOTALMARKS,
-                "submittedDate":submittedDate,
+                "subtopic":SUBTOPICS,
             }
             axios.post('http://localhost:3001/addTest', {data}).then(
                 function(res) {
@@ -122,20 +123,24 @@ function AssignTest(props) {
         let input3;
         let input4 ;
         let answer ;
+        let input5;
         let store0 = [];
         let store1 = [];
         let store2 = [];
         let store3 = [];
         let store4 = [];
         let full = [];
+        let store5 = [];
         const adding=()=>{
-            if(store3!="" && store2!="" && store1!="" && store4!="" && store0!="" && answer!=""){
+            if(store3!="" && store2!="" && store1!="" && store4!="" && store0!="" && answer!="" && store5!=""){
                 full.push(store0[store0.length-1]);
                 full.push(store1[store1.length-1]);
                 full.push(store2[store2.length-1]);
                 full.push(store3[store3.length-1]);
                 full.push(store4[store4.length-1]);
+                full.push(store5[store5.length-1]);
                 full.push(answer);
+                full.push()
             }
         }
         const calling0 = (z)=>{if(z!="" && z!="undefined"){store0.push(z);}}
@@ -144,6 +149,7 @@ function AssignTest(props) {
         const calling3 = (u)=>{if(u!="" && u!="undefined"){store3.push(u);}}
         const calling4 = (v)=>{if(v!="" && v!="undefined"){store4.push(v);}}
         const calling5 = (w)=>{if(w!="" && w!="undefined"){answer=w;}}
+        const calling6 = (t)=>{if(t!="" && t!="undefined"){store5.push(t);}}
         const [visible, setVisible] = useState(true);
         const onDismiss = () => setVisible(false);
         return(
@@ -155,6 +161,9 @@ function AssignTest(props) {
                                 <FormGroup row>
                                 <Col sm={12}>
                                     {i+1}<Input placeholder="QUESTION" value={input0} onChange={event=> calling0(event.target.value)}/>
+                                </Col>
+                                <Col sm={5}>
+                                    <Input placeholder="SELECT TOPIC" type="text" value={input5} onChange={event=>calling6(event.target.value)}/>
                                 </Col>
                                 <Col sm={6}>
                                     <div>

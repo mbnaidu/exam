@@ -39,8 +39,8 @@ function Online() {
           if(res.data.msg) {
               alert(res.data.msg);
           } else {
-              setUsername(res.data[0].id)
-              // setUsername(12043)
+              // setUsername(res.data[0].id)
+              setUsername(12344778)
           }
       }
   )
@@ -49,8 +49,15 @@ function Online() {
   }
   setQuestionsArray(dataList.questionslist);
   {dataList.questionslist.map((a)=>{
-    answers.push(a.answer);
-    setTestId(a.testId)
+    let d = a.question.split(",");
+    if(a.answer>0){
+      answers.push(d[7]);
+      }
+    if(a.answer>0){
+      answers.push(a.answer);
+    }
+    setTestId(a.testId);
+    console.log(answers)
   })}
 },[]);
 
@@ -94,7 +101,8 @@ function Online() {
           finalArray.push(array[array.length-1]);
           var finalMarks=0;
             for(var i=0;i<finalArray.length;i++){
-              if(finalArray[i] === answers[i]){
+              console.log(answers[i])
+              if(finalArray[i] == answers[i]){
                 finalMarks++;
               }
             }
@@ -119,7 +127,6 @@ function Online() {
     const [col,setCol] = useState("warning")
     
     const questionRender = (que) =>{
-      
       return(
         <div>
           <Jumbotron>
@@ -130,18 +137,18 @@ function Online() {
               <Button className="questions" color="primary" style={{color:"white"}}><strong>Next Question in ...</strong> <Badge color="badge badge-light" pill>{counter}</Badge></Button>
                 </Fragment>
                   {questionsArray.map((q)=>{
-                    let option ;
+                    let d1 = q.question.split(",");
                     if(que==q.questId){
                       return(
                         <div key={q.questId}>
-                          <Container className="ques__" fluid="md">{q.questId}.  {q.question}</Container>
+                          <Container className="ques__" fluid="md">{q.questId}.{q.questId}  {d1[1]}</Container>
                           <CardBody>
                             <FormControl>
                               <RadioGroup>
-                                <label><BlueRadio onChange={()=>{handleChange(1,q.answer)}} value="1" size="small" />{q.option1}</label>
-                                <label><BlueRadio onChange={()=>{handleChange(2,q.answer)}}  value="2" size="small"/>{q.option2}</label>
-                                <label><BlueRadio onChange={()=>{handleChange(3,q.answer)}}  value="3" size="small"/>{q.option3}</label>
-                                <label><BlueRadio onChange={()=>{handleChange(4,q.answer)}}  value="4" size="small"/>{q.option4}</label>
+                                <label><BlueRadio onChange={()=>{handleChange(1,d1[7],q.answer)}} value="1" size="small" />{d1[3]}{q.option1}</label>
+                                <label><BlueRadio onChange={()=>{handleChange(2,d1[7],q.answer)}}  value="2" size="small"/>{d1[4]}{q.option2}</label>
+                                <label><BlueRadio onChange={()=>{handleChange(3,d1[7],q.answer)}}  value="3" size="small"/>{d1[5]}{q.option3}</label>
+                                <label><BlueRadio onChange={()=>{handleChange(4,d1[7],q.answer)}}  value="4" size="small"/>{d1[6]}{q.option4}</label>
                               </RadioGroup>
                             </FormControl>
                           </CardBody>

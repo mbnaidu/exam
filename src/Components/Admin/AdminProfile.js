@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Badge, Jumbotron,Card,Modal, ModalHeader, ModalBody, ModalFooter,Input, FormGroup,Label, InputGroup, InputGroupAddon, Container, Col} from 'reactstrap'
-import {Menu,Segment,Sidebar,Table,TableHeader,TableHeaderCell, TableBody,Button, Reveal, Image, CardContent,  Header, Placeholder, Message, ButtonContent, TableCell, TableRow,} from 'semantic-ui-react'
+import { Badge, Jumbotron,Card,Modal, ModalHeader, ModalBody, ModalFooter,Input, FormGroup, InputGroup, InputGroupAddon, Container, Col} from 'reactstrap'
+import {Menu,Segment,Sidebar,Table,TableHeader,TableHeaderCell, TableBody,Button, Reveal, Label,Image, CardContent,  Header, Placeholder, Message, ButtonContent, TableCell, TableRow,} from 'semantic-ui-react'
 import { useStateValue } from '../../redux/StateProvider';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
@@ -166,7 +166,7 @@ function AdminProfile() {
         const ques = (id) =>{
             for(let a in allQuestions[id]){
                 let t = allQuestions[id][a]
-                singleQuestion.push(`${t.questId}, ${t.question}, ${t.option1}, ${t.option2}, ${t.option3}, ${t.option4}, ${t.answer}`);
+                singleQuestion.push(`${t.questId}, ${t.question}, ${t.subtopic} ,${t.option1}, ${t.option2}, ${t.option3}, ${t.option4}, ${t.answer}`);
             }
         }
     // ALL TEST DETAILS AND GETTING REPORT CARD FOR EVERY STUDENT
@@ -178,6 +178,7 @@ function AdminProfile() {
         axios.post('http://localhost:3001/getQuestions', {data}).then(
                     function(res) {
                         if(res.data){
+                            console.log(res.data)
                             {res.data.map((m)=>{
                                 allQuestions[m.testId] = res.data
                             })}
@@ -546,16 +547,20 @@ useEffect(() => {
                                                                         </div>
                                                                         <Input value={d1[1]}/>
                                                                         <Label>
-                                                                            Options
+                                                                            Topic
                                                                         </Label>
                                                                         <Input value={d1[2]}/>
+                                                                        <Label>
+                                                                            Options
+                                                                        </Label>
                                                                         <Input value={d1[3]}/>
                                                                         <Input value={d1[4]}/>
                                                                         <Input value={d1[5]}/>
+                                                                        <Input value={d1[6]}/>
                                                                         <Label>
                                                                             Answer
                                                                         </Label>
-                                                                        <Input value={d1[6]}/>
+                                                                        <Input value={d1[7]}/>
                                                                     </Jumbotron>
                                                                     </div>
                                                                     )
@@ -724,25 +729,28 @@ useEffect(() => {
                                             <ModalHeader size="lg">Question Paper</ModalHeader>
                                             <ModalBody size="lg">
                                                 {NEWQUESTION.map((m)=>{
-                                                    let d = m.split(",");
+                                                    let d1 = m.split(",");
                                                     return(
                                                         <div>
-                                                                <FormGroup row>
-                                                                    <Col sm={12}>
-                                                                        <Input placeholder="QUESTION" value={d[1]} />
-                                                                    </Col>
-                                                                    <Col sm={6}>
-                                                                        <div>
-                                                                            <Input  value={d[2]}  />
-                                                                            <Input  value={d[3]}  />
-                                                                            <Input  value={d[4]}  />
-                                                                            <Input  value={d[5]}  />
-                                                                        </div>
-                                                                    </Col>
-                                                                    <Col sm={12}>
-                                                                        <Input placeholder="QUESTION" value={d[6]} />
-                                                                    </Col>
-                                                                </FormGroup>
+                                                            <Jumbotron>
+                                                                            <Label>{count} Question</Label>
+                                                                        <Input value={d1[1]}/>
+                                                                        <Label>
+                                                                            Topic
+                                                                        </Label>
+                                                                        <Input value={d1[2]}/>
+                                                                        <Label>
+                                                                            Options
+                                                                        </Label>
+                                                                        <Input value={d1[3]}/>
+                                                                        <Input value={d1[4]}/>
+                                                                        <Input value={d1[5]}/>
+                                                                        <Input value={d1[6]}/>
+                                                                        <Label>
+                                                                            Answer
+                                                                        </Label>
+                                                                        <Input value={d1[7]}/>
+                                                                    </Jumbotron>
                                                         </div>
                                                     )
                                                 })}

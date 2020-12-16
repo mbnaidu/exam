@@ -91,7 +91,7 @@ function StudentExam() {
                     alert(res.data.msg);
                 } else {
                     id = res.data[0].id;
-                    // id="18pa1a1240"
+                    // id="12344778"
                 }
             }
         )
