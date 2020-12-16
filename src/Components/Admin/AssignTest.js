@@ -47,12 +47,10 @@ function AssignTest(props) {
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     
     const FINALSUBMIT = () => {
-
         // console.log(SUBJECT);
         // console.log(TOPIC);
         let submittedDate = currentDay+"-"+currentMonth+"-"+currentYear;
         
-
         // console.log(TO);
         // console.log(STARTTIME);
         // console.log(ENDTIME);

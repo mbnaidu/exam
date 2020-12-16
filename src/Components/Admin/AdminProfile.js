@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Badge, Jumbotron,Card,Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import {Menu,Segment,Sidebar,Table,TableHeader,TableHeaderCell, TableBody,Button, Reveal, Image, CardContent,  Header, Placeholder, Message, ButtonContent, TableCell, Label, TableRow,} from 'semantic-ui-react'
+import { Badge, Jumbotron,Card,Modal, ModalHeader, ModalBody, ModalFooter,Input, FormGroup,Label, InputGroup, InputGroupAddon, Container, Col} from 'reactstrap'
+import {Menu,Segment,Sidebar,Table,TableHeader,TableHeaderCell, TableBody,Button, Reveal, Image, CardContent,  Header, Placeholder, Message, ButtonContent, TableCell, TableRow,} from 'semantic-ui-react'
 import { useStateValue } from '../../redux/StateProvider';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
@@ -15,6 +15,7 @@ import { NavLink } from 'react-router-dom';
     import ExitToAppIcon from '@material-ui/icons/ExitToApp';
     import CheckCircleIcon from '@material-ui/icons/CheckCircle';
     import LiveHelpIcon from '@material-ui/icons/LiveHelp';
+import { FormControl } from '@material-ui/core';
 // SIDEBAR ANIMATION
     function exampleReducer(state, action) {
         switch (action.type) {
@@ -55,6 +56,105 @@ function AdminProfile() {
             //----- ALL TESTS -------
                 const [bmodal, setBModal] = useState(false);
                 const btoggle = () => setBModal(!bmodal);
+                // ------- ALL QUESTIONS -------
+                    const [allQuestions,setAllQuestions] = useState([]);
+                    const [questionId,setQuestionId] = useState(1);
+                    const [singleQuestionmodal, setSingleQuestionModal] = useState(false);
+                    const singleQuestionToggle = () => setSingleQuestionModal(!singleQuestionmodal);
+                    const [singleQuestion,setSingleQuestion] = useState([]);
+                    let count = 0;
+        // ASSIGN TEST
+            const [assign,setAssign] = useState("assign");
+            const [NEWQUESTION,SETNEWQUESTION] = useState([]);
+            const [assignModel, setAssignModel] = useState(false);
+            const assignModelToggle = () => setAssignModel(!assignModel);
+            const [SUBJECT, SETSUBJECT] = useState("");
+            const [TOPIC, SETTOPIC] = useState("");
+            const [FROM, SETFROM] = useState("");
+            const [TO, SETTO] = useState("");
+            const [STARTTIME,SETSTARTTIME] = useState("");
+            const [ENDTIME,SETENDTIME] = useState("");
+            const [NEWSTUDENTS, SETNEWSTUDENTS] = useState([]);
+            const [QUESTIONS, SETQUESIONS] = useState([]);
+            const [TOTALMARKS, SETTOTALMARKS] = useState();
+            const [studentmodal, setStudentModal] = useState(false);
+                const studenttoggle = () => setStudentModal(!studentmodal);
+
+                const [timemodal, setTimeModal] = useState(false);
+                const timetoggle = () => setTimeModal(!timemodal);
+
+                const [datemodal, setDateModal] = useState(false);
+                const datetoggle = () => setDateModal(!datemodal);
+
+                const [studentArray,setStudentArray] = useState([""]);
+            const [finalStudents,setfinalStudents] = useState([]);
+            
+            const [modal, setModal] = useState(false);
+            const [nestedModal, setNestedModal] = useState(false);
+            const [closeAll, setCloseAll] = useState(false);
+            const toggle = () => setModal(!modal);
+            const toggleNested = () => {
+                setNestedModal(!nestedModal);
+                setCloseAll(false);
+            }
+            const toggleAll = () => {
+                setNestedModal(!nestedModal);
+                setCloseAll(true);
+            }
+            const checked = (id) => {
+                var c=0;
+                for(var i=0;i<studentArray.length;i++){
+                    if(studentArray[i]===id){
+                        c=c+1;
+                    }
+                }
+                if(c===0){
+                    studentArray.push(id);
+                }
+                else{
+                    var index = studentArray.indexOf(id)
+                    if (index !== -1) {
+                        studentArray.splice(index, 1);
+                    }
+                }
+            }
+            const selectAll = () => {
+                {allStudentDetails.map((a)=>{
+                    NEWSTUDENTS.push(a.id);
+                })}
+            }
+            const handleStudents = () => {
+                for(var i=0;i<studentArray.length;i++){
+                    if(studentArray[i]!=""){
+                        finalStudents.push(studentArray[i]);
+                        NEWSTUDENTS.push(studentArray[i]);
+                    }
+                }
+            }
+            const FINALSUBMIT = () => {        
+            if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && NEWSTUDENTS!="" && NEWQUESTION!="" && TOTALMARKS!="" && STARTTIME!="" && ENDTIME!="" ){
+            viewModalToggle();
+            setAssign("ASSIGNED")
+            const data = {
+                "subject":SUBJECT,
+                "topic":TOPIC,
+                "from":FROM,
+                "to":TO,
+                "starttime":STARTTIME,
+                "endtime":ENDTIME,
+                "students": NEWSTUDENTS,
+                "questions":NEWQUESTION,
+                "total":TOTALMARKS,
+            }
+            axios.post('http://localhost:3001/addTest', {data}).then(
+                function(res) {
+                    if(res.data) {
+                    }
+                }
+            )
+        }
+    }
+
     // SETTING INDIVIDUAL REPORT CARD
         const CALL = (id) =>{
             for(let a in allReportCards[id]) {
@@ -62,8 +162,29 @@ function AdminProfile() {
                 singleStudent.push(`${t.testId}, ${t.marks}, ${t.isSubmitted}`);
             }
         }
+    // SETTING INDIVIDUAL QUESTION PAPER
+        const ques = (id) =>{
+            for(let a in allQuestions[id]){
+                let t = allQuestions[id][a]
+                singleQuestion.push(`${t.questId}, ${t.question}, ${t.option1}, ${t.option2}, ${t.option3}, ${t.option4}, ${t.answer}`);
+            }
+        }
     // ALL TEST DETAILS AND GETTING REPORT CARD FOR EVERY STUDENT
         const show = () => {
+    for(var i=1;i<=students.length;i++){
+    const data = {
+        "id" : i,
+    }
+        axios.post('http://localhost:3001/getQuestions', {data}).then(
+                    function(res) {
+                        if(res.data){
+                            {res.data.map((m)=>{
+                                allQuestions[m.testId] = res.data
+                            })}
+                        }
+                    }
+                )
+    }
             {students.map((s)=>{
                 return(
                     <div>
@@ -141,7 +262,7 @@ useEffect(() => {
         const VerticalSidebar = ({ animation, direction, visible }) => (
             <Sidebar  color = "blue" as={Menu} animation={animation} direction= "left" icon='labeled' inverted vertical visible={visible} width='thin'>
             {/* HOME */}
-                <Menu.Item as='a' onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });show();console.log(students);console.log(allTests)}}><HomeIcon  fontSize="large" />
+                <Menu.Item as='a' onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });show();}}><HomeIcon  fontSize="large" />
                     <h6>HOME</h6>
                 </Menu.Item>
             {/* PROFILE */}
@@ -347,7 +468,7 @@ useEffect(() => {
                                                                     {students.map((s)=>{
                                                                         return(
                                                                             <div>
-                                                                                <Button fluid color="blue" >
+                                                                                <Button fluid color="blue" onClick={()=>{setQuestionId(s.id);singleQuestionToggle();ques(s.id)}}>
                                                                                     TEST ID : {s.id}
                                                                                 </Button>
                                                                                 <Jumbotron>
@@ -368,23 +489,23 @@ useEffect(() => {
                                                                                             var d1 = check.split("-");
                                                                                             if(d1[1] == j && d1[0]==s.id && babu <= LISTLENGTH[1]){
                                                                                                 return(
-                                                                                                            <tr>
-                                                                                                                <td>{"ID : "+j}</td>
-                                                                                                                <td>{"MARKS : "+d1[2]}</td>
-                                                                                                                <td>
-                                                                                                                <Button animated="vertical" inverted color={d1[3]=== "true" ? "green" : "red"} >
-                                                                                                                    { d1[3] == "true" ? (<div>
-                                                                                                                        <ButtonContent visible>SUBMITTED</ButtonContent>
-                                                                                                                        <ButtonContent hidden>12-02-2020</ButtonContent>
-                                                                                                                    </div>) : (
-                                                                                                                        <div>
-                                                                                                                            <ButtonContent visible >NOT SUBMIITED</ButtonContent>
-                                                                                                                            <ButtonContent hidden ><Button loading></Button></ButtonContent>
-                                                                                                                        </div>
-                                                                                                                    )}
-                                                                                                                    </Button>
-                                                                                                                </td>
-                                                                                                            </tr>
+                                                                                                    <tr>
+                                                                                                        <td>{"ID : "+j}</td>
+                                                                                                        <td>{"MARKS : "+d1[2]}</td>
+                                                                                                        <td>
+                                                                                                            <Button animated="vertical" inverted color={d1[3]=== "true" ? "green" : "red"} >
+                                                                                                                { d1[3] == "true" ? (<div>
+                                                                                                                    <ButtonContent visible>SUBMITTED</ButtonContent>
+                                                                                                                    <ButtonContent hidden>12-02-2020</ButtonContent>
+                                                                                                                </div>) : (
+                                                                                                                    <div>
+                                                                                                                        <ButtonContent visible >NOT SUBMIITED</ButtonContent>
+                                                                                                                        <ButtonContent hidden ><Button loading></Button></ButtonContent>
+                                                                                                                    </div>
+                                                                                                                )}
+                                                                                                            </Button>
+                                                                                                        </td>
+                                                                                                    </tr>
                                                                                                 )
                                                                                             }
                                                                                         })}
@@ -403,6 +524,259 @@ useEffect(() => {
                                                     </ModalBody>
                                             <ModalFooter>
                                                         <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });btoggle();}}><strong>CANCEL</strong></Button>{' '}
+                                            </ModalFooter>
+                                        </Modal>
+                                </div>
+                                {/* SINGLE TEST QUESTION PAPER */}
+                                <div>
+                                    <Modal isOpen={singleQuestionmodal} size="lg"  >
+                                            <ModalHeader ><strong>{questionId}</strong></ModalHeader>
+                                                <ModalBody>
+                                                        <div>
+                                                            <Card>
+                                                                {singleQuestion.map((m)=>{
+                                                                    count = count+1;
+                                                                    let d1 = m.split(",");
+                                                                    return(
+                                                                    <div>
+                                                                        <Jumbotron>
+                                                                        <div class="ui checkbox">
+                                                                            <input type="checkbox" name="example" onClick={()=>{NEWQUESTION.push(m)}}/>
+                                                                            <label>{count} Question</label>
+                                                                        </div>
+                                                                        <Input value={d1[1]}/>
+                                                                        <Label>
+                                                                            Options
+                                                                        </Label>
+                                                                        <Input value={d1[2]}/>
+                                                                        <Input value={d1[3]}/>
+                                                                        <Input value={d1[4]}/>
+                                                                        <Input value={d1[5]}/>
+                                                                        <Label>
+                                                                            Answer
+                                                                        </Label>
+                                                                        <Input value={d1[6]}/>
+                                                                    </Jumbotron>
+                                                                    </div>
+                                                                    )
+                                                                })}
+                                                            </Card>
+                                                        </div>
+                                                    </ModalBody>
+                                            <ModalFooter>
+                                                        <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });assignModelToggle()}}><strong>ASSIGN</strong></Button>{' '}
+                                                        <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });singleQuestionToggle();setSingleQuestion([])}}><strong>CANCEL</strong></Button>{' '}
+                                            </ModalFooter>
+                                        </Modal>
+                                </div>
+                                {/* ASSIGN TEST */}
+                                <div>
+                                    <Modal isOpen={assignModel} size="lg"  >
+                                            <ModalHeader ><strong>ASSIGNING TEST</strong></ModalHeader>
+                                                <ModalBody>
+                                                        <div>
+                                                            <Jumbotron >
+                <Container >
+                    <FormControl >
+                        <InputGroup className="box1">
+                            <Input  value={SUBJECT} onChange={event=> SETSUBJECT(event.target.value)}/>
+                            <InputGroupAddon addonType="append">
+                                    <Button className="btn1 "  color={SUBJECT.length>0 ? "success" : "danger"} outline >SET SUBJECT</Button>
+                            </InputGroupAddon>
+                        </InputGroup>
+                        <br />
+                        <InputGroup className="box2">
+                            <Input value={TOPIC} onChange={event=> SETTOPIC(event.target.value)}/>
+                            <InputGroupAddon addonType="append">
+                                <Button className="btn2" color={TOPIC.length>0 ? "success" : "danger"} outline  >SET TOPIC </Button>
+                            </InputGroupAddon>
+                        </InputGroup>
+                        <br />
+                        <div>
+                            <InputGroup className="box3">
+                                <Input placeholder={FROM.length>0 || TO.length >0 ? FROM+"      TO      "+TO : ""} disabled/>
+                                <InputGroupAddon addonType="append">
+                                    <Button className="btn3" color={FROM.length>0 && TO.length>0 ? "success" : "danger"} outline onClick={()=>{datetoggle();}} >SET DATE</Button>
+                                    <Modal isOpen={datemodal}  >
+                                        <ModalHeader ><strong>D A T E</strong></ModalHeader>
+                                        <ModalBody  size="lg">
+                                        <div>
+                                            <FormGroup>
+                                                <Label> START DATE</Label>
+                                                <Input
+                                                type="date"
+                                                value={FROM}
+                                                onChange={event=>{SETFROM(event.target.value)}}
+                                                placeholder="START DATE  DD-MM-YYYY"
+                                                />
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Label >END DATE</Label>
+                                                <Input
+                                                type="date"
+                                                value={TO}
+                                                onChange={event=>{SETTO(event.target.value)}}
+                                                placeholder="LAST DATE  DD-MM-YYYY"
+                                                />
+                                            </FormGroup>
+                                        </div>
+                                        </ModalBody>
+                                        <ModalFooter>
+                                        <Button color="primary" onClick={()=>{datetoggle();}}>SET DATE</Button>{' '}
+                                        <Button color="secondary" onClick={datetoggle}>CANCEL</Button>
+                                        </ModalFooter>
+                                    </Modal>
+                                </InputGroupAddon>
+                            </InputGroup>
+                        </div>
+                        <br />
+                        <div>
+                            <InputGroup className="box6">
+                                <Input placeholder={STARTTIME.length>0 || ENDTIME.length>0 ? STARTTIME+"     TO    "+ENDTIME : ""} disabled/>
+                                <InputGroupAddon addonType="append">
+                                    <Button className="btn3" color={STARTTIME.length>0 && ENDTIME.length>0 ? "success" : "danger"} outline onClick={()=>{timetoggle();}} >SET TIME</Button>
+                                    <Modal isOpen={timemodal} >
+                                        <ModalHeader ><strong>D A T E</strong></ModalHeader>
+                                        <ModalBody  size="lg">
+                                        <div>
+                                            <FormGroup>
+                                                <Label> START TIME</Label>
+                                                <Input
+                                                type="time"
+                                                value={STARTTIME}
+                                                onChange={event=>{SETSTARTTIME(event.target.value)}}
+                                                />
+                                            </FormGroup>
+                                            <FormGroup>
+                                                <Label >END TIME</Label>
+                                                <Input
+                                                type="time"
+                                                value={ENDTIME}
+                                                onChange={event=>{SETENDTIME(event.target.value)}}
+                                                />
+                                            </FormGroup>
+                                        </div>
+                                        </ModalBody>
+                                        <ModalFooter>
+                                        <Button color="primary" onClick={()=>{timetoggle();}}>SET TIME</Button>{' '}
+                                        <Button color="secondary" onClick={timetoggle}>CANCEL</Button>
+                                        </ModalFooter>
+                                    </Modal>
+                                </InputGroupAddon>
+                            </InputGroup>
+                        </div>
+                        <br/>
+                        <div>
+                            <InputGroup className="box4">
+                                <Input placeholder={NEWSTUDENTS.length>0 ? NEWSTUDENTS.length : ""} disabled/>
+                                <InputGroupAddon addonType="append">
+                                    <Button className="btn4" color={NEWSTUDENTS.length>0 ? "success" : "danger"} outline onClick={()=>{studenttoggle();}}>SELECT STUDENTS</Button>
+                                    <Modal isOpen={studentmodal}  >
+                                        <ModalHeader ><strong>S T U D E N T S</strong></ModalHeader>
+                                        <ModalBody>
+                                            {allStudentDetails.map((s)=>{  
+                                                return(
+                                                    <div>
+                                                        <Card>
+                                                            <FormGroup check>
+                                                            <Label>
+                                                            <Input type="checkbox"
+                                                                onClick={()=>{checked(s.id);}}
+                                                                value={s.id}
+                                                            />
+                                                            {s.id}{' '}{s.username}
+                                                            </Label>
+                                                            </FormGroup>
+                                                        </Card>
+                                                    </div>
+                                                )
+                                            })}
+                                        </ModalBody>
+                                        <ModalFooter>
+                                            <label>
+                                                <input type="checkbox"
+                                                    onClick={()=>{selectAll(allStudentDetails)}}
+                                                />
+                                                SELECT ALL STUDENTS
+                                            </label>
+                                        <Button color="success" onClick={()=>{studenttoggle();handleStudents()}}>SUBMIT</Button>{' '}
+                                        <Button color="danger" onClick={()=>{studenttoggle();}}>Cancel</Button>
+                                        </ModalFooter>
+                                    </Modal>                            
+                                </InputGroupAddon>
+                            </InputGroup>
+                        </div>
+                        <br />
+                        <InputGroup className="box5">
+                            <Input  disabled/>
+                            <InputGroupAddon addonType="append">
+                                <div>
+                                    <Button className="btn5"  onClick={()=>{toggle();}}>SET QUESTIONS</Button>
+                                    <Modal isOpen={modal}   >
+                                        <ModalHeader toggle={toggle}><strong>Q U E S T I O N S</strong></ModalHeader>
+                                        <ModalBody>
+                                        <InputGroup>
+                                            <Input placeholder="NUMBER OF QUESTIONS" type="text"/>
+                                        </InputGroup>
+                                        <br />
+                                        <Button color="success" outline onClick={()=>{toggleNested();}}>SET QUESTIONS</Button>
+                                        <Modal isOpen={nestedModal}  onClosed={closeAll ? toggle : undefined} size="lg">
+                                            <ModalHeader size="lg">Question Paper</ModalHeader>
+                                            <ModalBody size="lg">
+                                                {NEWQUESTION.map((m)=>{
+                                                    let d = m.split(",");
+                                                    return(
+                                                        <div>
+                                                                <FormGroup row>
+                                                                    <Col sm={12}>
+                                                                        <Input placeholder="QUESTION" value={d[1]} />
+                                                                    </Col>
+                                                                    <Col sm={6}>
+                                                                        <div>
+                                                                            <Input  value={d[2]}  />
+                                                                            <Input  value={d[3]}  />
+                                                                            <Input  value={d[4]}  />
+                                                                            <Input  value={d[5]}  />
+                                                                        </div>
+                                                                    </Col>
+                                                                    <Col sm={12}>
+                                                                        <Input placeholder="QUESTION" value={d[6]} />
+                                                                    </Col>
+                                                                </FormGroup>
+                                                        </div>
+                                                    )
+                                                })}
+                                            </ModalBody>
+                                            <ModalFooter>
+                                            <Button color="success" onClick={()=>{toggleAll();}}>SUBMIT</Button>
+                                            <Button color="danger" onClick={toggleAll}>CANCEL</Button>
+                                            </ModalFooter>
+                                        </Modal>
+                                        </ModalBody>
+                                        <ModalFooter>
+                                        <Button color="danger" onClick={toggle}>Cancel</Button>
+                                        </ModalFooter>
+                                    </Modal>
+                                </div>
+                            </InputGroupAddon>
+                        </InputGroup>
+                        <br />
+                        <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
+                            <Input value={TOTALMARKS} onChange={event => SETTOTALMARKS(event.target.value)} type="number" />  
+                                <InputGroupAddon addonType="append">
+                                <Button className="btn6" color={TOTALMARKS > 0 ? "success" : "danger"} outline  >SET TOTAL MARKS</Button>
+                            </InputGroupAddon>
+                        </InputGroup>
+                        <br />
+                        <Button className="btn7"  ><strong>ASSIGN</strong></Button>
+                    </FormControl>
+                </Container>
+            </Jumbotron>
+                                                        </div>
+                                                    </ModalBody>
+                                            <ModalFooter>
+                                                    <Button onClick={()=>{FINALSUBMIT()}} color={assign == assign ? "red" : "green"}>{assign}</Button>
+                                                        <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });assignModelToggle();}}><strong>CANCEL</strong></Button>{' '}
                                             </ModalFooter>
                                         </Modal>
                                 </div>
