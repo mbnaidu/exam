@@ -150,7 +150,7 @@ function AssignTest(props) {
         const onDismiss = () => setVisible(false);
         return(
             <div>
-                <ul>{Array.from(Array(), (e, i) =>{
+                <ul>{Array.from(Array(10), (e, i) =>{
                     var k=0;
                         return(
                             <li key={i}>
