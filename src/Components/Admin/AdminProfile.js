@@ -132,7 +132,7 @@ function AdminProfile() {
                 }
             }
             const FINALSUBMIT = () => {        
-            if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && NEWSTUDENTS!="" && NEWQUESTION!="" && TOTALMARKS!="" && STARTTIME!="" && ENDTIME!="" ){
+            if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && NEWSTUDENTS!="" && NEWQUESTION!="" && TOTALMARKS>0 && STARTTIME!="" && ENDTIME!="" ){
             viewModalToggle();
             setAssign("ASSIGNED")
             const data = {
@@ -178,7 +178,6 @@ function AdminProfile() {
         axios.post('http://localhost:3001/getQuestions', {data}).then(
                     function(res) {
                         if(res.data){
-                            console.log(res.data)
                             {res.data.map((m)=>{
                                 allQuestions[m.testId] = res.data
                             })}
@@ -441,8 +440,8 @@ useEffect(() => {
                                                                                 <td>{s.subject}</td>
                                                                                 <td>{s.topic}</td>
                                                                                 <td>
-                                                                                    <Button color="success" outline onClick={()=>{btoggle();show()}}>
-                                                                                        STUDENTS <Badge color="success" >{s.students.length}</Badge>
+                                                                                    <Button color="green" outline onClick={()=>{btoggle();show()}}>
+                                                                                        STUDENTS <Badge color="green" >{s.students.length}</Badge>
                                                                                     </Button></td>
                                                                                 <td>{s.total}</td>
                                                                             </tr>
@@ -586,14 +585,14 @@ useEffect(() => {
                         <InputGroup className="box1">
                             <Input  value={SUBJECT} onChange={event=> SETSUBJECT(event.target.value)}/>
                             <InputGroupAddon addonType="append">
-                                    <Button className="btn1 "  color={SUBJECT.length>0 ? "success" : "danger"} outline >SET SUBJECT</Button>
+                                    <Button className="btn1 "  color={SUBJECT.length>0 ? "green" : "red"} outline >SET SUBJECT</Button>
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
                         <InputGroup className="box2">
                             <Input value={TOPIC} onChange={event=> SETTOPIC(event.target.value)}/>
                             <InputGroupAddon addonType="append">
-                                <Button className="btn2" color={TOPIC.length>0 ? "success" : "danger"} outline  >SET TOPIC </Button>
+                                <Button className="btn2" color={TOPIC.length>0 ? "green" : "red"} outline  >SET TOPIC </Button>
                             </InputGroupAddon>
                         </InputGroup>
                         <br />
@@ -601,7 +600,7 @@ useEffect(() => {
                             <InputGroup className="box3">
                                 <Input placeholder={FROM.length>0 || TO.length >0 ? FROM+"      TO      "+TO : ""} disabled/>
                                 <InputGroupAddon addonType="append">
-                                    <Button className="btn3" color={FROM.length>0 && TO.length>0 ? "success" : "danger"} outline onClick={()=>{datetoggle();}} >SET DATE</Button>
+                                    <Button className="btn3" color={FROM.length>0 && TO.length>0 ? "green" : "red"} outline onClick={()=>{datetoggle();}} >SET DATE</Button>
                                     <Modal isOpen={datemodal}  >
                                         <ModalHeader ><strong>D A T E</strong></ModalHeader>
                                         <ModalBody  size="lg">
@@ -639,7 +638,7 @@ useEffect(() => {
                             <InputGroup className="box6">
                                 <Input placeholder={STARTTIME.length>0 || ENDTIME.length>0 ? STARTTIME+"     TO    "+ENDTIME : ""} disabled/>
                                 <InputGroupAddon addonType="append">
-                                    <Button className="btn3" color={STARTTIME.length>0 && ENDTIME.length>0 ? "success" : "danger"} outline onClick={()=>{timetoggle();}} >SET TIME</Button>
+                                    <Button className="btn3" color={STARTTIME.length>0 && ENDTIME.length>0 ? "green" : "red"} outline onClick={()=>{timetoggle();}} >SET TIME</Button>
                                     <Modal isOpen={timemodal} >
                                         <ModalHeader ><strong>D A T E</strong></ModalHeader>
                                         <ModalBody  size="lg">
@@ -675,7 +674,7 @@ useEffect(() => {
                             <InputGroup className="box4">
                                 <Input placeholder={NEWSTUDENTS.length>0 ? NEWSTUDENTS.length : ""} disabled/>
                                 <InputGroupAddon addonType="append">
-                                    <Button className="btn4" color={NEWSTUDENTS.length>0 ? "success" : "danger"} outline onClick={()=>{studenttoggle();}}>SELECT STUDENTS</Button>
+                                    <Button className="btn4" color={NEWSTUDENTS.length>0 ? "green" : "red"} outline onClick={()=>{studenttoggle();}}>SELECT STUDENTS</Button>
                                     <Modal isOpen={studentmodal}  >
                                         <ModalHeader ><strong>S T U D E N T S</strong></ModalHeader>
                                         <ModalBody>
@@ -704,8 +703,8 @@ useEffect(() => {
                                                 />
                                                 SELECT ALL STUDENTS
                                             </label>
-                                        <Button color="success" onClick={()=>{studenttoggle();handleStudents()}}>SUBMIT</Button>{' '}
-                                        <Button color="danger" onClick={()=>{studenttoggle();}}>Cancel</Button>
+                                        <Button color="green" onClick={()=>{studenttoggle();handleStudents()}}>SUBMIT</Button>{' '}
+                                        <Button color="red" onClick={()=>{studenttoggle();}}>Cancel</Button>
                                         </ModalFooter>
                                     </Modal>                            
                                 </InputGroupAddon>
@@ -724,7 +723,7 @@ useEffect(() => {
                                             <Input placeholder="NUMBER OF QUESTIONS" type="text"/>
                                         </InputGroup>
                                         <br />
-                                        <Button color="success" outline onClick={()=>{toggleNested();}}>SET QUESTIONS</Button>
+                                        <Button color="green" outline onClick={()=>{toggleNested();}}>SET QUESTIONS</Button>
                                         <Modal isOpen={nestedModal}  onClosed={closeAll ? toggle : undefined} size="lg">
                                             <ModalHeader size="lg">Question Paper</ModalHeader>
                                             <ModalBody size="lg">
@@ -756,13 +755,13 @@ useEffect(() => {
                                                 })}
                                             </ModalBody>
                                             <ModalFooter>
-                                            <Button color="success" onClick={()=>{toggleAll();}}>SUBMIT</Button>
-                                            <Button color="danger" onClick={toggleAll}>CANCEL</Button>
+                                            <Button color="green" onClick={()=>{toggleAll();}}>SUBMIT</Button>
+                                            <Button color="red" onClick={toggleAll}>CANCEL</Button>
                                             </ModalFooter>
                                         </Modal>
                                         </ModalBody>
                                         <ModalFooter>
-                                        <Button color="danger" onClick={toggle}>Cancel</Button>
+                                        <Button color="red" onClick={toggle}>Cancel</Button>
                                         </ModalFooter>
                                     </Modal>
                                 </div>
@@ -772,7 +771,7 @@ useEffect(() => {
                         <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
                             <Input value={TOTALMARKS} onChange={event => SETTOTALMARKS(event.target.value)} type="number" />  
                                 <InputGroupAddon addonType="append">
-                                <Button className="btn6" color={TOTALMARKS > 0 ? "success" : "danger"} outline  >SET TOTAL MARKS</Button>
+                                <Button className="btn6" color={TOTALMARKS > 0 ? "green" : "red"} outline  >SET TOTAL MARKS</Button>
                             </InputGroupAddon>
                         </InputGroup>
                         <br />

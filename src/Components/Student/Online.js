@@ -39,8 +39,8 @@ function Online() {
           if(res.data.msg) {
               alert(res.data.msg);
           } else {
-              // setUsername(res.data[0].id)
-              setUsername(12344778)
+              setUsername(res.data[0].id)
+              // setUsername(12344778)
           }
       }
   )
@@ -57,7 +57,6 @@ function Online() {
       answers.push(a.answer);
     }
     setTestId(a.testId);
-    console.log(answers)
   })}
 },[]);
 
@@ -101,7 +100,6 @@ function Online() {
           finalArray.push(array[array.length-1]);
           var finalMarks=0;
             for(var i=0;i<finalArray.length;i++){
-              console.log(answers[i])
               if(finalArray[i] == answers[i]){
                 finalMarks++;
               }

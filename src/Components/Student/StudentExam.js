@@ -162,7 +162,6 @@ function StudentExam() {
         
     }
     function startTest(testId,starttime,endtime,isSubmitted) {
-        console.log(isSubmitted)
 
         var s = starttime.split(":");
         var e = endtime.split(":");

@@ -56,10 +56,10 @@ function AssignTest(props) {
         // console.log(STARTTIME);
         // console.log(ENDTIME);
         // console.log(STUDENTS);
-        console.log(QUESTIONS);
+        // console.log(QUESTIONS);
         // console.log(TOTALMARKS);
         
-        if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" && STARTTIME!="" && ENDTIME!="" ){
+        if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS>0 && STARTTIME!="" && ENDTIME!="" ){
             setAssign("ASSIGNED");
             viewModalToggle();
             const data = {
@@ -217,7 +217,6 @@ function AssignTest(props) {
         setStudents(20);
     }
     const handleQuestions= (full,k) => {
-        console.log(k+1)
         for(var i=0;i<full.length;i++){
             if(full[i]!=""){
                     QUESTIONS.push(full[i]);
