@@ -138,6 +138,8 @@ function AdminProfile() {
                 const [NEWSTUDENTS, SETNEWSTUDENTS] = useState([]);
                 const [studentArray,setStudentArray] = useState([""]);
                 const [finalStudents,setfinalStudents] = useState([]);
+                const [studentmodal, setStudentModal] = useState(false);
+                const studenttoggle = () => setStudentModal(!studentmodal);
                 const checked = (id) => {
                     var c=0;
                     for(var i=0;i<studentArray.length;i++){
@@ -290,10 +292,10 @@ function AdminProfile() {
     return (
         <div>
             {/* MENU BOTTON */}
-                <Button color="primary"
+                <button className="ui inverted primary button lg"
                     onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });show()}}>
                     <MenuIcon />
-                </Button>
+                </button>
             {/* SIDE BAR */}
                 <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:700}} >
                     {!vertical && (<VerticalSidebar animation={animation} direction={direction} visible={visible}/>)}
@@ -393,7 +395,7 @@ function AdminProfile() {
                                                                 </div>
                                                             </ModalBody>
                                                     <ModalFooter>
-                                                    <Button color="black" onClick={()=>{viewModalToggle();SetSingleStudent([])}}><strong>CANCEL</strong></Button>{' '}
+                                                    <button className="ui inverted black button lg"  onClick={()=>{viewModalToggle();SetSingleStudent([])}}><strong>CANCEL</strong></button>{' '}
                                                     </ModalFooter>
                                                 </Modal>
                             {/* 3 (--CHECK TESTS--) */}
@@ -429,9 +431,8 @@ function AdminProfile() {
                                                                                 <td>{s.subject}</td>
                                                                                 <td>{s.topic}</td>
                                                                                 <td>
-                                                                                    <Button color="green" inverted onClick={()=>{btoggle();show()}}>
-                                                                                        STUDENTS <Badge inverted color="green" >{s.students.length}</Badge>
-                                                                                    </Button></td>
+                                                                                    <button classMame="ui inverted green button lg" onClick={()=>{btoggle();show()}}>STUDENTS<Badge inverted color="grey" >{s.students.length}</Badge></button>
+                                                                                </td>
                                                                                 <td>{s.total}</td>
                                                                             </tr>
                                                                         </tbody>
