@@ -14,6 +14,16 @@
     padding-top: 20px;
     margin-left: 110px;
 }
+@media only screen and (max-width:800px) {
+  /* For tablets: */
+}
+@media only screen and (max-width:500px) {
+  /* For mobile phones: */
+  .signup{
+    padding-left: 10px;
+    margin: auto;
+}
+}
 .signup_Button {
     display: inline-block;
     margin-top: 30px;
