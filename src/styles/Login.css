@@ -40,16 +40,20 @@
     padding-left: 135px;
   }
   .card_footer{
+    padding-top: 70px;
     width: 80%;
+  }
+  .new_here{
+    padding-left: 45px;
   }
   .login_signup{
     width: 100%;
-    padding-left: 50px;
+    padding-left: 59px;
     color: rgb(92, 25, 119);
   }
   .loginlogo{
     float: left;
-    margin-top: 30%;
+    margin-top: 20%;
     padding-right: 70px;
     margin-bottom: 30px;
   }
