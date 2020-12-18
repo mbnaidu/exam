@@ -35,7 +35,7 @@
 }
 @media only screen and (max-width:800px) {
   /* For tablets: */
-  .login_forgotpassword {
+  /* .login_forgotpassword {
     width: 80%;
     padding-left: 135px;
   }
@@ -62,13 +62,38 @@
   background-color:rgb(166, 113, 202);
   margin-top: 30px;
   margin-left: 10px;
-}
+} */
 }
 @media only screen and (max-width:500px) {
   /* For mobile phones: */
-  .login_forgotpassword {
-    width: 100%;
+    .login_forgotpassword {
+    width: 80%;
+    padding-left: 92px;
   }
+  .card_footer{
+    padding-top: 70px;
+    width: 80%;
+  }
+  .new_here{
+    padding-left: 45px;
+  }
+  .login_signup{
+    width: 100%;
+    padding-left: 59px;
+    color: rgb(92, 25, 119);
+  }
+  .loginlogo{
+    float: left;
+    margin-top: 20%;
+    padding-right: 70px;
+    margin-bottom: 30px;
+  }
+  
+.login_Buttonb{
+  background-color:rgb(166, 113, 202);
+  margin-top: 30px;
+  margin-left: 10px;
+}
 }
 
 .login_Buttonb{
