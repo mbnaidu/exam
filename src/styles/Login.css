@@ -1,6 +1,6 @@
 .hero-image {
-  background-image: url(../Shared/5.png);
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  background-image: url(../Shared/background.png);
+  background-color: rgba(0,0,0,0.5); 
   height: 790px;
   background-position: center;
   background-repeat: no-repeat;
@@ -28,21 +28,55 @@
 }
 .login_forgotpassword{
   color: rgb(22, 4, 34);
-  margin-left: 167px;
+  float: right;
 }
 .login_signup{
   color: rgb(22, 4, 34);
 }
-.login_Button{
-  background-color: rgb(86, 139, 236);
+@media only screen and (max-width:800px) {
+  /* For tablets: */
+  .login_forgotpassword {
+    width: 80%;
+    padding-left: 135px;
+  }
+  .card_footer{
+    width: 80%;
+  }
+  .login_signup{
+    width: 100%;
+    padding-left: 50px;
+    color: rgb(92, 25, 119);
+  }
+  .loginlogo{
+    float: left;
+    margin-top: 30%;
+    padding-right: 70px;
+    margin-bottom: 30px;
+  }
+  
+.login_Buttonb{
+  background-color:rgb(166, 113, 202);
   margin-top: 30px;
   margin-left: 10px;
 }
-.login_Button:hover{
-  background-color: rgb(86, 139, 236);
 }
-.login_Button:active{
-  background-color: rgb(86, 139, 236);
+@media only screen and (max-width:500px) {
+  /* For mobile phones: */
+  .login_forgotpassword {
+    width: 100%;
+  }
+}
+
+.login_Buttonb{
+  background-color:rgb(82, 84, 163);
+  margin-top: 30px;
+  margin-left: 10px;
+}
+.login_Buttonb:hover{
+  background-color:rgb(166, 113, 202);
+}
+.login_Buttonb:active{
+  background-color:rgb(166, 113, 202);
 
 }
 .card_footer{

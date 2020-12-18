@@ -77,7 +77,7 @@ function Login() {
                                     <InputGroupText style={{borderColor:" rgb(171, 96, 221)"}}>{Visibile ? <VisibilityOffOutlinedIcon style={{color:" rgb(171, 96, 221)"}} onClick={()=>{onclick();}} /> : <VisibilityIcon style={{color:" rgb(171, 96, 221)"}} onClick={()=>{onclick();}}/>}</InputGroupText>                            </InputGroup>
                             <NavLink to="/" className="login_forgotpassword ">Forgot Password ?</NavLink>
                             <InputGroup  >
-                                <Button className="login_Button" size="md" block onClick={() => {handleInputChange();loginToApp(username);}}><strong>Login</strong></Button>
+                                <Button className="login_Buttonb" size="md" block onClick={() => {handleInputChange();loginToApp(username);}}><strong>Login</strong></Button>
                             </InputGroup>
                         </CardBody>
                         <div className="card_footer">

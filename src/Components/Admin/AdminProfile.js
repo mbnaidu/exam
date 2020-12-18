@@ -292,489 +292,489 @@ function AdminProfile() {
     return (
         <div>
             {/* MENU BOTTON */}
-                <button className="ui inverted primary button lg"
+                <Button color="primary"
                     onClick={() =>{dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });show()}}>
                     <MenuIcon />
-                </button>
+                </Button>
             {/* SIDE BAR */}
                 <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:700}} >
                     {!vertical && (<VerticalSidebar animation={animation} direction={direction} visible={visible}/>)}
-                <Sidebar.Pusher>
-                    <Segment basic>
-                        <div>
-                            {/* 1 (--PROFILE--)  */}
-                                    <Card className="admin_card" color="blue">
-                                            <Placeholder fluid > 
-                                                <Reveal animated='rotate' className="m-5">
-                                                    <Reveal.Content visible>
-                                                    <Image circular size='small' src='https://react.semantic-ui.com/images/wireframe/square-image.png' centered/>
-                                                    </Reveal.Content>
-                                                    <Reveal.Content hidden>
-                                                    <Image circular size='small'  src='https://react.semantic-ui.com/images/avatar/large/stevie.jpg' />
-                                                    </Reveal.Content>
-                                                </Reveal>
-                                                <CardContent>
-                                                    <Header className="m-5" color="grey" id="admin">Admin : {adminName.toUpperCase()}</Header>
-                                                    <Header className="m-5" color="grey" id="email">E-Mail : {email.toUpperCase()}</Header>
-                                                    <Header className="m-5" color="grey" id="contact">Contact Number : {contactNumber}</Header>
-                                                </CardContent>
-                                            </Placeholder>
-                                        </Card>
-                            {/* 2 (--STUDENTS--) */}
-                                {/* 2.1 (--STUDENT DETAILS--) */}
-                                    <Modal isOpen={mmodal} size="lg" toggle={mtoggle} >
-                                                <Header color="blue" className="pl-3 pt-5"><strong>STUDENT DETAILS</strong></Header>
+                    <Sidebar.Pusher>
+                        <Segment basic>
+                            <div>
+                                {/* 1 (--PROFILE--)  */}
+                                        <Card className="admin_card" color="blue">
+                                                <Placeholder fluid > 
+                                                    <Reveal animated='rotate' className="m-5">
+                                                        <Reveal.Content visible>
+                                                        <Image circular size='small' src='https://react.semantic-ui.com/images/wireframe/square-image.png' centered/>
+                                                        </Reveal.Content>
+                                                        <Reveal.Content hidden>
+                                                        <Image circular size='small'  src='https://react.semantic-ui.com/images/avatar/large/stevie.jpg' />
+                                                        </Reveal.Content>
+                                                    </Reveal>
+                                                    <CardContent>
+                                                        <Header className="m-5" color="grey" id="admin">Admin : {adminName.toUpperCase()}</Header>
+                                                        <Header className="m-5" color="grey" id="email">E-Mail : {email.toUpperCase()}</Header>
+                                                        <Header className="m-5" color="grey" id="contact">Contact Number : {contactNumber}</Header>
+                                                    </CardContent>
+                                                </Placeholder>
+                                            </Card>
+                                {/* 2 (--STUDENTS--) */}
+                                    {/* 2.1 (--STUDENT DETAILS--) */}
+                                        <Modal isOpen={mmodal} size="lg" toggle={mtoggle} >
+                                                    <Header color="blue" className="pl-3 pt-5"><strong>STUDENT DETAILS</strong></Header>
+                                                        <ModalBody>
+                                                                <Message >
+                                                                    <Card >
+                                                                    <Table celled color="blue">
+                                                                        <TableHeader>
+                                                                        <TableRow>
+                                                                            <TableHeaderCell>ID</TableHeaderCell>
+                                                                            <TableHeaderCell>USERNAME</TableHeaderCell>
+                                                                            <TableHeaderCell>E-MAIL</TableHeaderCell>
+                                                                            <TableHeaderCell>CONTACT NUMBER</TableHeaderCell>
+                                                                        </TableRow>
+                                                                        </TableHeader>
+                                                                        {allStudentDetails.map((s)=>{
+                                                                                return(
+                                                                                    <TableBody>
+                                                                                <TableRow>
+                                                                                    <TableCell>
+                                                                                    <Label ribbon color="blue" as="button" onClick={()=>{viewModalToggle();SETTESTID(s.id);CALL(s.id)}}>{s.id}</Label>
+                                                                                    </TableCell>
+                                                                                    <TableCell>{s.username}</TableCell>
+                                                                                    <TableCell>{s.email}</TableCell>
+                                                                                    <TableCell>{s.contact}</TableCell>
+                                                                                </TableRow>
+                                                                                </TableBody>
+                                                                                )
+                                                                        })}
+                                                                    </Table>
+                                                                    </Card>
+                                                                </Message>
+                                                            </ModalBody>
+                                                    <ModalFooter>
+                                                                <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });mtoggle();}}><strong>CANCEL</strong></Button>{' '}
+                                                    </ModalFooter>
+                                                </Modal>
+                                    {/* 2.2 (--REPORT CARD--) */}
+                                        <Modal isOpen={viewModal} size="lg">
+                                                        <ModalHeader ><strong>REPORT CARD --- {TESTID}</strong></ModalHeader>
+                                                            <ModalBody>
+                                                                    <div>
+                                                                        <Card>
+                                                                            <Table>
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>
+                                                                                            TEST ID'S
+                                                                                        </th>
+                                                                                        <th>
+                                                                                            MARKS
+                                                                                        </th>
+                                                                                        <th>
+                                                                                            STATUS
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                            {singleStudent.map((m)=>{
+                                                                                let d = m.split(",")
+                                                                                return(
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td>{d[0]}</td>
+                                                                                            <td>{d[1]}</td>
+                                                                                            <td>{d[2]}</td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                )
+                                                                            })}
+                                                                            </Table>
+                                                                        </Card>
+                                                                    </div>
+                                                                </ModalBody>
+                                                        <ModalFooter>
+                                                        <Button color="black"  onClick={()=>{viewModalToggle();SetSingleStudent([])}}><strong>CANCEL</strong></Button>{' '}
+                                                        </ModalFooter>
+                                                    </Modal>
+                                {/* 3 (--CHECK TESTS--) */}
+                                    {/* 3.1 (--ASSIGNED TESTS--) */}
+                                        <Modal isOpen={smodal} size="lg" toggle={stoggle}>
+                                                <Header color="green" className="pt-3 pl-3" ><strong>Assigned Tests</strong></Header>
                                                     <ModalBody>
-                                                            <Message >
-                                                                <Card >
-                                                                <Table celled color="blue">
-                                                                    <TableHeader>
-                                                                    <TableRow>
-                                                                        <TableHeaderCell>ID</TableHeaderCell>
-                                                                        <TableHeaderCell>USERNAME</TableHeaderCell>
-                                                                        <TableHeaderCell>E-MAIL</TableHeaderCell>
-                                                                        <TableHeaderCell>CONTACT NUMBER</TableHeaderCell>
-                                                                    </TableRow>
-                                                                    </TableHeader>
-                                                                    {allStudentDetails.map((s)=>{
+                                                            <Message color="green">
+                                                                <Card>
+                                                                    <Table  hover bordered responsive>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>TEST ID</th>
+                                                                                <th>START DATE</th>
+                                                                                <th>LAST DATE</th>
+                                                                                <th>SUBJECT</th>
+                                                                                <th>TOPIC</th>
+                                                                                <th>STUDENTS</th>
+                                                                                <th>TOTAL MARKS</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        {students.map((s)=>{
+                                                                            var FROM = s.from;
+                                                                            var TO = s.to;
+                                                                            var d1 = FROM.split("-");
+                                                                            var d2 = TO.split("-");
                                                                             return(
-                                                                                <TableBody>
-                                                                            <TableRow>
-                                                                                <TableCell>
-                                                                                <Label ribbon color="blue" as="button" onClick={()=>{viewModalToggle();SETTESTID(s.id);CALL(s.id)}}>{s.id}</Label>
-                                                                                </TableCell>
-                                                                                <TableCell>{s.username}</TableCell>
-                                                                                <TableCell>{s.email}</TableCell>
-                                                                                <TableCell>{s.contact}</TableCell>
-                                                                            </TableRow>
-                                                                            </TableBody>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>{s.id}</td>
+                                                                                    <td>{d1[2]+"/"+d1[1]+"/"+d1[0]}</td>
+                                                                                    <td>{d2[2]+"/"+d2[1]+"/"+d2[0]}</td>
+                                                                                    <td>{s.subject}</td>
+                                                                                    <td>{s.topic}</td>
+                                                                                    <td>
+                                                                                        <Button color="green" onClick={()=>{btoggle();show()}}>STUDENTS<Badge inverted color="grey" >{s.students.length}</Badge></Button>
+                                                                                    </td>
+                                                                                    <td>{s.total}</td>
+                                                                                </tr>
+                                                                            </tbody>
                                                                             )
-                                                                    })}
-                                                                </Table>
+                                                                        })}
+                                                                    </Table>
                                                                 </Card>
                                                             </Message>
                                                         </ModalBody>
                                                 <ModalFooter>
-                                                            <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });mtoggle();}}><strong>CANCEL</strong></Button>{' '}
+                                                            <Button color="green" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });stoggle();}}><strong>CANCEL</strong></Button>{' '}
                                                 </ModalFooter>
                                             </Modal>
-                                {/* 2.2 (--REPORT CARD--) */}
-                                    <Modal isOpen={viewModal} size="lg">
-                                                    <ModalHeader ><strong>REPORT CARD --- {TESTID}</strong></ModalHeader>
+                                    {/* 3.2 (--ALL TESTS DETAILS--) */}
+                                        <Modal isOpen={bmodal} size="lg" toggle={btoggle} >
+                                                    <ModalHeader ><strong>All Tests</strong></ModalHeader>
                                                         <ModalBody>
                                                                 <div>
                                                                     <Card>
-                                                                        <Table>
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th>
-                                                                                        TEST ID'S
-                                                                                    </th>
-                                                                                    <th>
-                                                                                        MARKS
-                                                                                    </th>
-                                                                                    <th>
-                                                                                        STATUS
-                                                                                    </th>
-                                                                                </tr>
-                                                                            </thead>
-                                                                        {singleStudent.map((m)=>{
-                                                                            let d = m.split(",")
-                                                                            return(
-                                                                                <tbody>
-                                                                                    <tr>
-                                                                                        <td>{d[0]}</td>
-                                                                                        <td>{d[1]}</td>
-                                                                                        <td>{d[2]}</td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            )
-                                                                        })}
+                                                                        <Table  hover bordered responsive>
+                                                                            {students.map((s)=>{
+                                                                                return(
+                                                                                    <div>
+                                                                                        <Button fluid color="blue" onClick={()=>{setQuestionId(s.id);singleQuestionToggle();ques(s.id)}}>
+                                                                                            TEST ID : {s.id}
+                                                                                        </Button>
+                                                                                        <Jumbotron>
+                                                                                            <Table hover bordered responsive>
+                                                                                                <thead>
+                                                                                                    <tr>
+                                                                                                        <th>DEATILS</th>
+                                                                                                    </tr>
+                                                                                                </thead>
+                                                                                                <tbody>
+                                                                                    {s.students.map((j)=>{
+                                                                                        var babu = 0;
+                                                                                        return(
+                                                                                            <div>
+                                                                                                {allTests.map((mb)=>{
+                                                                                                    babu++;
+                                                                                                    var check =mb;
+                                                                                                    var d1 = check.split("-");
+                                                                                                    if(d1[1] == j && d1[0]==s.id && babu <= LISTLENGTH[1]){
+                                                                                                        return(
+                                                                                                            <tr>
+                                                                                                                <td>{"ID : "+j}</td>
+                                                                                                                <td>{"MARKS : "+d1[2]}</td>
+                                                                                                                <td>
+                                                                                                                    <Button animated="vertical" inverted color={d1[3]=== "true" ? "green" : "red"} >
+                                                                                                                        { d1[3] == "true" ? (<div>
+                                                                                                                            <ButtonContent visible>SUBMITTED</ButtonContent>
+                                                                                                                            <ButtonContent hidden>12-02-2020</ButtonContent>
+                                                                                                                        </div>) : (
+                                                                                                                            <div>
+                                                                                                                                <ButtonContent visible >NOT SUBMIITED</ButtonContent>
+                                                                                                                                <ButtonContent hidden ><Button loading></Button></ButtonContent>
+                                                                                                                            </div>
+                                                                                                                        )}
+                                                                                                                    </Button>
+                                                                                                                </td>
+                                                                                                            </tr>
+                                                                                                        )
+                                                                                                    }
+                                                                                                })}
+                                                                                            </div>
+                                                                                        )
+                                                                                    })}
+                                                                                                </tbody>
+                                                                                            </Table>
+                                                                                        </Jumbotron>
+                                                                                    </div>
+                                                                                )
+                                                                            })}
                                                                         </Table>
                                                                     </Card>
                                                                 </div>
                                                             </ModalBody>
                                                     <ModalFooter>
-                                                    <button className="ui inverted black button lg"  onClick={()=>{viewModalToggle();SetSingleStudent([])}}><strong>CANCEL</strong></button>{' '}
+                                                                <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });btoggle();}}><strong>CANCEL</strong></Button>{' '}
                                                     </ModalFooter>
                                                 </Modal>
-                            {/* 3 (--CHECK TESTS--) */}
-                                {/* 3.1 (--ASSIGNED TESTS--) */}
-                                    <Modal isOpen={smodal} size="lg" toggle={stoggle}>
-                                            <Header color="green" className="pt-3 pl-3" ><strong>Assigned Tests</strong></Header>
-                                                <ModalBody>
-                                                        <Message color="green">
-                                                            <Card>
-                                                                <Table  hover bordered responsive>
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>TEST ID</th>
-                                                                            <th>START DATE</th>
-                                                                            <th>LAST DATE</th>
-                                                                            <th>SUBJECT</th>
-                                                                            <th>TOPIC</th>
-                                                                            <th>STUDENTS</th>
-                                                                            <th>TOTAL MARKS</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    {students.map((s)=>{
-                                                                        var FROM = s.from;
-                                                                        var TO = s.to;
-                                                                        var d1 = FROM.split("-");
-                                                                        var d2 = TO.split("-");
-                                                                        return(
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>{s.id}</td>
-                                                                                <td>{d1[2]+"/"+d1[1]+"/"+d1[0]}</td>
-                                                                                <td>{d2[2]+"/"+d2[1]+"/"+d2[0]}</td>
-                                                                                <td>{s.subject}</td>
-                                                                                <td>{s.topic}</td>
-                                                                                <td>
-                                                                                    <button classMame="ui inverted green button lg" onClick={()=>{btoggle();show()}}>STUDENTS<Badge inverted color="grey" >{s.students.length}</Badge></button>
-                                                                                </td>
-                                                                                <td>{s.total}</td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                        )
-                                                                    })}
-                                                                </Table>
-                                                            </Card>
-                                                        </Message>
-                                                    </ModalBody>
-                                            <ModalFooter>
-                                                        <Button color="green" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });stoggle();}}><strong>CANCEL</strong></Button>{' '}
-                                            </ModalFooter>
-                                        </Modal>
-                                {/* 3.2 (--ALL TESTS DETAILS--) */}
-                                    <Modal isOpen={bmodal} size="lg" toggle={btoggle} >
-                                                <ModalHeader ><strong>All Tests</strong></ModalHeader>
-                                                    <ModalBody>
-                                                            <div>
-                                                                <Card>
-                                                                    <Table  hover bordered responsive>
-                                                                        {students.map((s)=>{
-                                                                            return(
+                                    {/* 3.3 (--SINGLE TEST QUESTION PAPER--) */}
+                                        <Modal isOpen={singleQuestionmodal} size="lg"  >
+                                                        <ModalHeader ><strong>{questionId}</strong></ModalHeader>
+                                                            <ModalBody>
+                                                                    <div>
+                                                                        <Card>
+                                                                            {singleQuestion.map((m)=>{
+                                                                                count = count+1;
+                                                                                let d1 = m.split(",");
+                                                                                return(
                                                                                 <div>
-                                                                                    <Button fluid color="blue" onClick={()=>{setQuestionId(s.id);singleQuestionToggle();ques(s.id)}}>
-                                                                                        TEST ID : {s.id}
-                                                                                    </Button>
                                                                                     <Jumbotron>
-                                                                                        <Table hover bordered responsive>
-                                                                                            <thead>
-                                                                                                <tr>
-                                                                                                    <th>DEATILS</th>
-                                                                                                </tr>
-                                                                                            </thead>
-                                                                                            <tbody>
-                                                                                {s.students.map((j)=>{
-                                                                                    var babu = 0;
-                                                                                    return(
-                                                                                        <div>
-                                                                                            {allTests.map((mb)=>{
-                                                                                                babu++;
-                                                                                                var check =mb;
-                                                                                                var d1 = check.split("-");
-                                                                                                if(d1[1] == j && d1[0]==s.id && babu <= LISTLENGTH[1]){
-                                                                                                    return(
-                                                                                                        <tr>
-                                                                                                            <td>{"ID : "+j}</td>
-                                                                                                            <td>{"MARKS : "+d1[2]}</td>
-                                                                                                            <td>
-                                                                                                                <Button animated="vertical" inverted color={d1[3]=== "true" ? "green" : "red"} >
-                                                                                                                    { d1[3] == "true" ? (<div>
-                                                                                                                        <ButtonContent visible>SUBMITTED</ButtonContent>
-                                                                                                                        <ButtonContent hidden>12-02-2020</ButtonContent>
-                                                                                                                    </div>) : (
-                                                                                                                        <div>
-                                                                                                                            <ButtonContent visible >NOT SUBMIITED</ButtonContent>
-                                                                                                                            <ButtonContent hidden ><Button loading></Button></ButtonContent>
-                                                                                                                        </div>
-                                                                                                                    )}
-                                                                                                                </Button>
-                                                                                                            </td>
-                                                                                                        </tr>
-                                                                                                    )
-                                                                                                }
-                                                                                            })}
-                                                                                        </div>
-                                                                                    )
-                                                                                })}
-                                                                                            </tbody>
-                                                                                        </Table>
-                                                                                    </Jumbotron>
+                                                                                    <div class="ui checkbox">
+                                                                                        <input type="checkbox" name="example" onClick={()=>{NEWQUESTION.push(m)}}/>
+                                                                                        <label>{count} Question</label>
+                                                                                    </div>
+                                                                                    <Input value={d1[1]}/>
+                                                                                    <Label>
+                                                                                        Topic
+                                                                                    </Label>
+                                                                                    <Input value={d1[2]}/>
+                                                                                    <Label>
+                                                                                        Options
+                                                                                    </Label>
+                                                                                    <Input value={d1[3]}/>
+                                                                                    <Input value={d1[4]}/>
+                                                                                    <Input value={d1[5]}/>
+                                                                                    <Input value={d1[6]}/>
+                                                                                    <Label>
+                                                                                        Answer
+                                                                                    </Label>
+                                                                                    <Input value={d1[7]}/>
+                                                                                </Jumbotron>
                                                                                 </div>
-                                                                            )
-                                                                        })}
-                                                                    </Table>
-                                                                </Card>
-                                                            </div>
-                                                        </ModalBody>
-                                                <ModalFooter>
-                                                            <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });btoggle();}}><strong>CANCEL</strong></Button>{' '}
-                                                </ModalFooter>
-                                            </Modal>
-                                {/* 3.3 (--SINGLE TEST QUESTION PAPER--) */}
-                                    <Modal isOpen={singleQuestionmodal} size="lg"  >
-                                                    <ModalHeader ><strong>{questionId}</strong></ModalHeader>
+                                                                                )
+                                                                            })}
+                                                                        </Card>
+                                                                    </div>
+                                                                </ModalBody>
+                                                        <ModalFooter>
+                                                                    <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });assignModelToggle()}}><strong>ASSIGN</strong></Button>{' '}
+                                                                    <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });singleQuestionToggle();setSingleQuestion([])}}><strong>CANCEL</strong></Button>{' '}
+                                                        </ModalFooter>
+                                                    </Modal>
+                                    {/* 3.4 (--ASSIGN TEST--) */}
+                                        <Modal isOpen={assignModel} size="lg"  >
+                                                        <ModalHeader ><strong>ASSIGNING TEST</strong></ModalHeader>
                                                         <ModalBody>
                                                                 <div>
-                                                                    <Card>
-                                                                        {singleQuestion.map((m)=>{
-                                                                            count = count+1;
-                                                                            let d1 = m.split(",");
-                                                                            return(
-                                                                            <div>
-                                                                                <Jumbotron>
-                                                                                <div class="ui checkbox">
-                                                                                    <input type="checkbox" name="example" onClick={()=>{NEWQUESTION.push(m)}}/>
-                                                                                    <label>{count} Question</label>
-                                                                                </div>
-                                                                                <Input value={d1[1]}/>
-                                                                                <Label>
-                                                                                    Topic
-                                                                                </Label>
-                                                                                <Input value={d1[2]}/>
-                                                                                <Label>
-                                                                                    Options
-                                                                                </Label>
-                                                                                <Input value={d1[3]}/>
-                                                                                <Input value={d1[4]}/>
-                                                                                <Input value={d1[5]}/>
-                                                                                <Input value={d1[6]}/>
-                                                                                <Label>
-                                                                                    Answer
-                                                                                </Label>
-                                                                                <Input value={d1[7]}/>
-                                                                            </Jumbotron>
-                                                                            </div>
-                                                                            )
-                                                                        })}
-                                                                    </Card>
-                                                                </div>
-                                                            </ModalBody>
-                                                    <ModalFooter>
-                                                                <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });assignModelToggle()}}><strong>ASSIGN</strong></Button>{' '}
-                                                                <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });singleQuestionToggle();setSingleQuestion([])}}><strong>CANCEL</strong></Button>{' '}
-                                                    </ModalFooter>
-                                                </Modal>
-                                {/* 3.4 (--ASSIGN TEST--) */}
-                                    <Modal isOpen={assignModel} size="lg"  >
-                                                    <ModalHeader ><strong>ASSIGNING TEST</strong></ModalHeader>
-                                                    <ModalBody>
-                                                            <div>
-                                                                <Jumbotron >
-                                                                    <Container >
-                                                                        <FormControl >
-                                                                            {/* 3.4.1 (--SUBJECT--) */}
-                                                                                <InputGroup className="box1">
-                                                                                <Input  value={SUBJECT} onChange={event=> SETSUBJECT(event.target.value)}/>
-                                                                                <InputGroupAddon addonType="append">
-                                                                                        <Button className="btn1 "  color={SUBJECT.length>0 ? "green" : "red"} outline >SET SUBJECT</Button>
-                                                                                </InputGroupAddon>
-                                                                            </InputGroup>
-                                                                                <br />
-                                                                            {/* 3.4.2 (--TOPIC--) */}
-                                                                                <InputGroup className="box2">
-                                                                                <Input value={TOPIC} onChange={event=> SETTOPIC(event.target.value)}/>
-                                                                                <InputGroupAddon addonType="append">
-                                                                                    <Button className="btn2" color={TOPIC.length>0 ? "green" : "red"} outline  >SET TOPIC </Button>
-                                                                                </InputGroupAddon>
-                                                                            </InputGroup>
-                                                                                <br />
-                                                                            {/* 3.4.3 (--DATE--) */}
-                                                                                <InputGroup className="box3">
-                                                                                    <Input placeholder={FROM.length>0 || TO.length >0 ? FROM+"      TO      "+TO : ""} disabled/>
+                                                                    <Jumbotron >
+                                                                        <Container >
+                                                                            <FormControl >
+                                                                                {/* 3.4.1 (--SUBJECT--) */}
+                                                                                    <InputGroup className="box1">
+                                                                                    <Input  value={SUBJECT} onChange={event=> SETSUBJECT(event.target.value)}/>
                                                                                     <InputGroupAddon addonType="append">
-                                                                                        <Button className="btn3" color={FROM.length>0 && TO.length>0 ? "green" : "red"} outline onClick={()=>{datetoggle();}} >SET DATE</Button>
-                                                                                        <Modal isOpen={datemodal}  >
-                                                                                            <ModalHeader ><strong>D A T E</strong></ModalHeader>
-                                                                                            <ModalBody  size="lg">
-                                                                                            <div>
-                                                                                                <FormGroup>
-                                                                                                    <Label> START DATE</Label>
-                                                                                                    <Input
-                                                                                                    type="date"
-                                                                                                    value={FROM}
-                                                                                                    onChange={event=>{SETFROM(event.target.value)}}
-                                                                                                    placeholder="START DATE  DD-MM-YYYY"
-                                                                                                    />
-                                                                                                </FormGroup>
-                                                                                                <FormGroup>
-                                                                                                    <Label >END DATE</Label>
-                                                                                                    <Input
-                                                                                                    type="date"
-                                                                                                    value={TO}
-                                                                                                    onChange={event=>{SETTO(event.target.value)}}
-                                                                                                    placeholder="LAST DATE  DD-MM-YYYY"
-                                                                                                    />
-                                                                                                </FormGroup>
-                                                                                            </div>
-                                                                                            </ModalBody>
-                                                                                            <ModalFooter>
-                                                                                            <Button color="primary" onClick={()=>{datetoggle();}}>SET DATE</Button>{' '}
-                                                                                            <Button color="secondary" onClick={datetoggle}>CANCEL</Button>
-                                                                                            </ModalFooter>
-                                                                                        </Modal>
+                                                                                            <Button className="btn1 "  color={SUBJECT.length>0 ? "green" : "red"} outline >SET SUBJECT</Button>
                                                                                     </InputGroupAddon>
                                                                                 </InputGroup>
-                                                                                <br />
-                                                                            {/* 3.4.4 (--TIME--) */}
-                                                                                <InputGroup className="box6">
-                                                                                    <Input placeholder={STARTTIME.length>0 || ENDTIME.length>0 ? STARTTIME+"     TO    "+ENDTIME : ""} disabled/>
+                                                                                    <br />
+                                                                                {/* 3.4.2 (--TOPIC--) */}
+                                                                                    <InputGroup className="box2">
+                                                                                    <Input value={TOPIC} onChange={event=> SETTOPIC(event.target.value)}/>
                                                                                     <InputGroupAddon addonType="append">
-                                                                                        <Button className="btn3" color={STARTTIME.length>0 && ENDTIME.length>0 ? "green" : "red"} outline onClick={()=>{timetoggle();}} >SET TIME</Button>
-                                                                                        <Modal isOpen={timemodal} >
-                                                                                            <ModalHeader ><strong>D A T E</strong></ModalHeader>
-                                                                                            <ModalBody  size="lg">
-                                                                                            <div>
-                                                                                                <FormGroup>
-                                                                                                    <Label> START TIME</Label>
-                                                                                                    <Input
-                                                                                                    type="time"
-                                                                                                    value={STARTTIME}
-                                                                                                    onChange={event=>{SETSTARTTIME(event.target.value)}}
-                                                                                                    />
-                                                                                                </FormGroup>
-                                                                                                <FormGroup>
-                                                                                                    <Label >END TIME</Label>
-                                                                                                    <Input
-                                                                                                    type="time"
-                                                                                                    value={ENDTIME}
-                                                                                                    onChange={event=>{SETENDTIME(event.target.value)}}
-                                                                                                    />
-                                                                                                </FormGroup>
-                                                                                            </div>
-                                                                                            </ModalBody>
-                                                                                            <ModalFooter>
-                                                                                            <Button color="primary" onClick={()=>{timetoggle();}}>SET TIME</Button>{' '}
-                                                                                            <Button color="secondary" onClick={timetoggle}>CANCEL</Button>
-                                                                                            </ModalFooter>
-                                                                                        </Modal>
+                                                                                        <Button className="btn2" color={TOPIC.length>0 ? "green" : "red"} outline  >SET TOPIC </Button>
                                                                                     </InputGroupAddon>
                                                                                 </InputGroup>
-                                                                                <br/>
-                                                                            {/* 3.4.5 (--STUDENTS--) */}
-                                                                                <InputGroup className="box4">
-                                                                                    <Input placeholder={NEWSTUDENTS.length>0 ? NEWSTUDENTS.length : ""} disabled/>
-                                                                                    <InputGroupAddon addonType="append">
-                                                                                        <Button className="btn4" color={NEWSTUDENTS.length>0 ? "green" : "red"} outline onClick={()=>{studenttoggle();}}>SELECT STUDENTS</Button>
-                                                                                        <Modal isOpen={studentmodal}  >
-                                                                                            <ModalHeader ><strong>S T U D E N T S</strong></ModalHeader>
-                                                                                            <ModalBody>
-                                                                                                {allStudentDetails.map((s)=>{  
-                                                                                                    return(
-                                                                                                        <div>
-                                                                                                            <Card>
-                                                                                                                <FormGroup check>
-                                                                                                                <Label>
-                                                                                                                <Input type="checkbox"
-                                                                                                                    onClick={()=>{checked(s.id);}}
-                                                                                                                    value={s.id}
-                                                                                                                />
-                                                                                                                {s.id}{' '}{s.username}
-                                                                                                                </Label>
-                                                                                                                </FormGroup>
-                                                                                                            </Card>
-                                                                                                        </div>
-                                                                                                    )
-                                                                                                })}
-                                                                                            </ModalBody>
-                                                                                            <ModalFooter>
-                                                                                                <label>
-                                                                                                    <input type="checkbox"
-                                                                                                        onClick={()=>{selectAll(allStudentDetails)}}
-                                                                                                    />
-                                                                                                    SELECT ALL STUDENTS
-                                                                                                </label>
-                                                                                            <Button color="green" onClick={()=>{studenttoggle();handleStudents()}}>SUBMIT</Button>{' '}
-                                                                                            <Button color="red" onClick={()=>{studenttoggle();}}>Cancel</Button>
-                                                                                            </ModalFooter>
-                                                                                        </Modal>                            
-                                                                                    </InputGroupAddon>
-                                                                                </InputGroup>
-                                                                                <br />
-                                                                            {/* 3.4.6 (--QUESTIONS--) */}
-                                                                                <InputGroup className="box5">
-                                                                                    <Input  disabled/>
-                                                                                    <InputGroupAddon addonType="append">
-                                                                                        <div>
-                                                                                            <Button className="btn5"  onClick={()=>{toggle();}}>SET QUESTIONS</Button>
-                                                                                            <Modal isOpen={modal}   >
-                                                                                                <ModalHeader toggle={toggle}><strong>Q U E S T I O N S</strong></ModalHeader>
-                                                                                                <ModalBody>
-                                                                                                <InputGroup>
-                                                                                                    <Input placeholder="NUMBER OF QUESTIONS" type="text"/>
-                                                                                                </InputGroup>
-                                                                                                <br />
-                                                                                                <Button color="green" outline onClick={()=>{toggleNested();}}>SET QUESTIONS</Button>
-                                                                                                <Modal isOpen={nestedModal}  onClosed={closeAll ? toggle : undefined} size="lg">
-                                                                                                    <ModalHeader size="lg">Question Paper</ModalHeader>
-                                                                                                    <ModalBody size="lg">
-                                                                                                        {NEWQUESTION.map((m)=>{
-                                                                                                            let d1 = m.split(",");
-                                                                                                            return(
-                                                                                                                <div>
-                                                                                                                    <Jumbotron>
-                                                                                                                                    <Label>{count} Question</Label>
-                                                                                                                                <Input value={d1[1]}/>
-                                                                                                                                <Label>
-                                                                                                                                    Topic
-                                                                                                                                </Label>
-                                                                                                                                <Input value={d1[2]}/>
-                                                                                                                                <Label>
-                                                                                                                                    Options
-                                                                                                                                </Label>
-                                                                                                                                <Input value={d1[3]}/>
-                                                                                                                                <Input value={d1[4]}/>
-                                                                                                                                <Input value={d1[5]}/>
-                                                                                                                                <Input value={d1[6]}/>
-                                                                                                                                <Label>
-                                                                                                                                    Answer
-                                                                                                                                </Label>
-                                                                                                                                <Input value={d1[7]}/>
-                                                                                                                            </Jumbotron>
-                                                                                                                </div>
-                                                                                                            )
-                                                                                                        })}
-                                                                                                    </ModalBody>
-                                                                                                    <ModalFooter>
-                                                                                                    <Button color="green" onClick={()=>{toggleAll();}}>SUBMIT</Button>
-                                                                                                    <Button color="red" onClick={toggleAll}>CANCEL</Button>
-                                                                                                    </ModalFooter>
-                                                                                                </Modal>
+                                                                                    <br />
+                                                                                {/* 3.4.3 (--DATE--) */}
+                                                                                    <InputGroup className="box3">
+                                                                                        <Input placeholder={FROM.length>0 || TO.length >0 ? FROM+"      TO      "+TO : ""} disabled/>
+                                                                                        <InputGroupAddon addonType="append">
+                                                                                            <Button className="btn3" color={FROM.length>0 && TO.length>0 ? "green" : "red"} outline onClick={()=>{datetoggle();}} >SET DATE</Button>
+                                                                                            <Modal isOpen={datemodal}  >
+                                                                                                <ModalHeader ><strong>D A T E</strong></ModalHeader>
+                                                                                                <ModalBody  size="lg">
+                                                                                                <div>
+                                                                                                    <FormGroup>
+                                                                                                        <Label> START DATE</Label>
+                                                                                                        <Input
+                                                                                                        type="date"
+                                                                                                        value={FROM}
+                                                                                                        onChange={event=>{SETFROM(event.target.value)}}
+                                                                                                        placeholder="START DATE  DD-MM-YYYY"
+                                                                                                        />
+                                                                                                    </FormGroup>
+                                                                                                    <FormGroup>
+                                                                                                        <Label >END DATE</Label>
+                                                                                                        <Input
+                                                                                                        type="date"
+                                                                                                        value={TO}
+                                                                                                        onChange={event=>{SETTO(event.target.value)}}
+                                                                                                        placeholder="LAST DATE  DD-MM-YYYY"
+                                                                                                        />
+                                                                                                    </FormGroup>
+                                                                                                </div>
                                                                                                 </ModalBody>
                                                                                                 <ModalFooter>
-                                                                                                <Button color="red" onClick={toggle}>Cancel</Button>
+                                                                                                <Button color="primary" onClick={()=>{datetoggle();}}>SET DATE</Button>{' '}
+                                                                                                <Button color="secondary" onClick={datetoggle}>CANCEL</Button>
                                                                                                 </ModalFooter>
                                                                                             </Modal>
-                                                                                        </div>
-                                                                                    </InputGroupAddon>
-                                                                                </InputGroup>
-                                                                                <br />
-                                                                            {/* 3.4.7 (--TOTAL MARKS--) */}
-                                                                                <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
-                                                                                    <Input value={TOTALMARKS} onChange={event => SETTOTALMARKS(event.target.value)} type="number" />  
+                                                                                        </InputGroupAddon>
+                                                                                    </InputGroup>
+                                                                                    <br />
+                                                                                {/* 3.4.4 (--TIME--) */}
+                                                                                    <InputGroup className="box6">
+                                                                                        <Input placeholder={STARTTIME.length>0 || ENDTIME.length>0 ? STARTTIME+"     TO    "+ENDTIME : ""} disabled/>
                                                                                         <InputGroupAddon addonType="append">
-                                                                                        <Button className="btn6" color={TOTALMARKS > 0 ? "green" : "red"} outline  >SET TOTAL MARKS</Button>
-                                                                                    </InputGroupAddon>
-                                                                                </InputGroup>
-                                                                                <br />
-                                                                        </FormControl>
-                                                                    </Container>
-                                                                </Jumbotron>
-                                                            </div>
-                                                        </ModalBody>
-                                                        {/* 3.4.8 (--SUBMIT--) */}
-                                                    <ModalFooter>
-                                                        <Button onClick={()=>{FINALSUBMIT()}} color={assign == assign ? "red" : "green"}>{assign}</Button>
-                                                        <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });assignModelToggle();}}><strong>CANCEL</strong></Button>{' '}
-                                                    </ModalFooter>
-                                                </Modal>
-                        </div>
-                    </Segment>
-                </Sidebar.Pusher>
-            </Sidebar.Pushable>
+                                                                                            <Button className="btn3" color={STARTTIME.length>0 && ENDTIME.length>0 ? "green" : "red"} outline onClick={()=>{timetoggle();}} >SET TIME</Button>
+                                                                                            <Modal isOpen={timemodal} >
+                                                                                                <ModalHeader ><strong>D A T E</strong></ModalHeader>
+                                                                                                <ModalBody  size="lg">
+                                                                                                <div>
+                                                                                                    <FormGroup>
+                                                                                                        <Label> START TIME</Label>
+                                                                                                        <Input
+                                                                                                        type="time"
+                                                                                                        value={STARTTIME}
+                                                                                                        onChange={event=>{SETSTARTTIME(event.target.value)}}
+                                                                                                        />
+                                                                                                    </FormGroup>
+                                                                                                    <FormGroup>
+                                                                                                        <Label >END TIME</Label>
+                                                                                                        <Input
+                                                                                                        type="time"
+                                                                                                        value={ENDTIME}
+                                                                                                        onChange={event=>{SETENDTIME(event.target.value)}}
+                                                                                                        />
+                                                                                                    </FormGroup>
+                                                                                                </div>
+                                                                                                </ModalBody>
+                                                                                                <ModalFooter>
+                                                                                                <Button color="primary" onClick={()=>{timetoggle();}}>SET TIME</Button>{' '}
+                                                                                                <Button color="secondary" onClick={timetoggle}>CANCEL</Button>
+                                                                                                </ModalFooter>
+                                                                                            </Modal>
+                                                                                        </InputGroupAddon>
+                                                                                    </InputGroup>
+                                                                                    <br/>
+                                                                                {/* 3.4.5 (--STUDENTS--) */}
+                                                                                    <InputGroup className="box4">
+                                                                                        <Input placeholder={NEWSTUDENTS.length>0 ? NEWSTUDENTS.length : ""} disabled/>
+                                                                                        <InputGroupAddon addonType="append">
+                                                                                            <Button className="btn4" color={NEWSTUDENTS.length>0 ? "green" : "red"} outline onClick={()=>{studenttoggle();}}>SELECT STUDENTS</Button>
+                                                                                            <Modal isOpen={studentmodal}  >
+                                                                                                <ModalHeader ><strong>S T U D E N T S</strong></ModalHeader>
+                                                                                                <ModalBody>
+                                                                                                    {allStudentDetails.map((s)=>{  
+                                                                                                        return(
+                                                                                                            <div>
+                                                                                                                <Card>
+                                                                                                                    <FormGroup check>
+                                                                                                                    <Label>
+                                                                                                                    <Input type="checkbox"
+                                                                                                                        onClick={()=>{checked(s.id);}}
+                                                                                                                        value={s.id}
+                                                                                                                    />
+                                                                                                                    {s.id}{' '}{s.username}
+                                                                                                                    </Label>
+                                                                                                                    </FormGroup>
+                                                                                                                </Card>
+                                                                                                            </div>
+                                                                                                        )
+                                                                                                    })}
+                                                                                                </ModalBody>
+                                                                                                <ModalFooter>
+                                                                                                    <label>
+                                                                                                        <input type="checkbox"
+                                                                                                            onClick={()=>{selectAll(allStudentDetails)}}
+                                                                                                        />
+                                                                                                        SELECT ALL STUDENTS
+                                                                                                    </label>
+                                                                                                <Button color="green" onClick={()=>{studenttoggle();handleStudents()}}>SUBMIT</Button>{' '}
+                                                                                                <Button color="red" onClick={()=>{studenttoggle();}}>Cancel</Button>
+                                                                                                </ModalFooter>
+                                                                                            </Modal>                            
+                                                                                        </InputGroupAddon>
+                                                                                    </InputGroup>
+                                                                                    <br />
+                                                                                {/* 3.4.6 (--QUESTIONS--) */}
+                                                                                    <InputGroup className="box5">
+                                                                                        <Input  disabled/>
+                                                                                        <InputGroupAddon addonType="append">
+                                                                                            <div>
+                                                                                                <Button className="btn5"  onClick={()=>{toggle();}}>SET QUESTIONS</Button>
+                                                                                                <Modal isOpen={modal}   >
+                                                                                                    <ModalHeader toggle={toggle}><strong>Q U E S T I O N S</strong></ModalHeader>
+                                                                                                    <ModalBody>
+                                                                                                    <InputGroup>
+                                                                                                        <Input placeholder="NUMBER OF QUESTIONS" type="text"/>
+                                                                                                    </InputGroup>
+                                                                                                    <br />
+                                                                                                    <Button color="green" outline onClick={()=>{toggleNested();}}>SET QUESTIONS</Button>
+                                                                                                    <Modal isOpen={nestedModal}  onClosed={closeAll ? toggle : undefined} size="lg">
+                                                                                                        <ModalHeader size="lg">Question Paper</ModalHeader>
+                                                                                                        <ModalBody size="lg">
+                                                                                                            {NEWQUESTION.map((m)=>{
+                                                                                                                let d1 = m.split(",");
+                                                                                                                return(
+                                                                                                                    <div>
+                                                                                                                        <Jumbotron>
+                                                                                                                                        <Label>{count} Question</Label>
+                                                                                                                                    <Input value={d1[1]}/>
+                                                                                                                                    <Label>
+                                                                                                                                        Topic
+                                                                                                                                    </Label>
+                                                                                                                                    <Input value={d1[2]}/>
+                                                                                                                                    <Label>
+                                                                                                                                        Options
+                                                                                                                                    </Label>
+                                                                                                                                    <Input value={d1[3]}/>
+                                                                                                                                    <Input value={d1[4]}/>
+                                                                                                                                    <Input value={d1[5]}/>
+                                                                                                                                    <Input value={d1[6]}/>
+                                                                                                                                    <Label>
+                                                                                                                                        Answer
+                                                                                                                                    </Label>
+                                                                                                                                    <Input value={d1[7]}/>
+                                                                                                                                </Jumbotron>
+                                                                                                                    </div>
+                                                                                                                )
+                                                                                                            })}
+                                                                                                        </ModalBody>
+                                                                                                        <ModalFooter>
+                                                                                                        <Button color="green" onClick={()=>{toggleAll();}}>SUBMIT</Button>
+                                                                                                        <Button color="red" onClick={toggleAll}>CANCEL</Button>
+                                                                                                        </ModalFooter>
+                                                                                                    </Modal>
+                                                                                                    </ModalBody>
+                                                                                                    <ModalFooter>
+                                                                                                    <Button color="red" onClick={toggle}>Cancel</Button>
+                                                                                                    </ModalFooter>
+                                                                                                </Modal>
+                                                                                            </div>
+                                                                                        </InputGroupAddon>
+                                                                                    </InputGroup>
+                                                                                    <br />
+                                                                                {/* 3.4.7 (--TOTAL MARKS--) */}
+                                                                                    <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
+                                                                                        <Input value={TOTALMARKS} onChange={event => SETTOTALMARKS(event.target.value)} type="number" />  
+                                                                                            <InputGroupAddon addonType="append">
+                                                                                            <Button className="btn6" color={TOTALMARKS > 0 ? "green" : "red"} outline  >SET TOTAL MARKS</Button>
+                                                                                        </InputGroupAddon>
+                                                                                    </InputGroup>
+                                                                                    <br />
+                                                                            </FormControl>
+                                                                        </Container>
+                                                                    </Jumbotron>
+                                                                </div>
+                                                            </ModalBody>
+                                                            {/* 3.4.8 (--SUBMIT--) */}
+                                                        <ModalFooter>
+                                                            <Button onClick={()=>{FINALSUBMIT()}} color={assign == assign ? "red" : "green"}>{assign}</Button>
+                                                            <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });assignModelToggle();}}><strong>CANCEL</strong></Button>{' '}
+                                                        </ModalFooter>
+                                                    </Modal>
+                            </div>
+                        </Segment>
+                    </Sidebar.Pusher>
+                </Sidebar.Pushable>
         </div>
 )
 }
