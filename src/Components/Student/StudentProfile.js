@@ -11,6 +11,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { Card,Table, Collapse } from 'reactstrap';
 import axios from 'axios';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
+import '../../styles/StudentProfile.css'
 
 let ID = 0;
 
@@ -59,8 +60,8 @@ function StudentProfile() {
                         setContactNumber(i.contact);
                         setId(i.id);
                     })}
-                    // ID="12344778"
-                    ID = res.data[0].id;
+                    ID="12344778"
+                    // ID = res.data[0].id;
                 }
             }
         )
@@ -168,13 +169,13 @@ function StudentProfile() {
     </Sidebar>
 )
     return (
-        <div>
+        <div className="sideBar_pusher">
             <Button color="primary"
                 onClick={() =>
                 dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
                 <MenuIcon />
             </Button>
-        <Sidebar.Pushable as={Segment} style={{ overflow: 'hidden' ,height:800}} >
+        <Sidebar.Pushable  as={Segment} style={{ overflow: 'hidden' }} >
             {!vertical && (
                 <VerticalSidebar
                     animation={animation}
@@ -187,9 +188,9 @@ function StudentProfile() {
             <div>
             <div>
                 <div>
-                <Card className="admin_card" color="pink">
+                <Card className="student_card" color="pink">
                 <Placeholder fluid > 
-                    <Reveal animated='rotate' className="m-5">
+                    <Reveal animated='rotate' className="student_logo">
                             <Reveal.Content visible>
                             <Image circular size='small' src='https://react.semantic-ui.com/images/wireframe/square-image.png' centered/>
                             </Reveal.Content>
@@ -198,10 +199,10 @@ function StudentProfile() {
                             </Reveal.Content>
                         </Reveal>
                         <CardContent>
-                                <Header className="m-5" color="blue">Id : {id.toUpperCase()}</Header>
-                                <Header className="m-5" color="blue">Name : {adminName.toUpperCase()}</Header>
-                                <Header className="m-5" color="blue">E-Mail : {email.toUpperCase()}</Header>
-                                <Header className="m-5 " color="blue">Contact number : {contactNumber}</Header>
+                                <Header id="student_id" color="blue">Id : {id.toUpperCase()}</Header>
+                                <Header id="student_name" color="blue">Name : {adminName.toUpperCase()}</Header>
+                                <Header id="student_email" color="blue">E-Mail : {email.toUpperCase()}</Header>
+                                <Header id="student_contact" color="blue">Contact number : {contactNumber}</Header>
                         </CardContent>
                         </Placeholder>
                         </Card>
@@ -233,7 +234,7 @@ function StudentProfile() {
                                                             <td>{d1[1]}</td>
                                                             <td>{d1[2]}</td>
                                                             <td>{d1[3]}</td>
-                                                                <td><Button  color={d1[4] === "true" ? "green" : "red"}>{d1[4] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</Button></td>
+                                                            <td><Button  color={d1[4] === "true" ? "green" : "red"}>{d1[4] === "true" ? "SUBMITTED" : "NOT SUBMITTED"}</Button></td>
                                                         </tr>
                                                     </tbody>
                                                     )

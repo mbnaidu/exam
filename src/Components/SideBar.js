@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from 'reactstrap';
-import Example from "./Admin/AdminProfile";
+import Example from "./Student/StudentProfile";
 import pkg from 'semantic-ui-react/package.json'
 import { List } from '@material-ui/core';
 
