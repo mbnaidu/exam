@@ -74,7 +74,8 @@ function Login() {
                                 <InputGroupText style={{borderColor:" rgb(171, 96, 221)"}}><LockIcon style={{color:" rgb(171, 96, 221)"}} /></InputGroupText>
                                 </InputGroupAddon>
                                 <Input placeholder="Password" style={{borderColor:" rgb(171, 96, 221)"}} type={input} value={password} onChange={event=> setPassword(event.target.value)}/>
-                                    <InputGroupText style={{borderColor:" rgb(171, 96, 221)"}}>{Visibile ? <VisibilityOffOutlinedIcon style={{color:" rgb(171, 96, 221)"}} onClick={()=>{onclick();}} /> : <VisibilityIcon style={{color:" rgb(171, 96, 221)"}} onClick={()=>{onclick();}}/>}</InputGroupText>                            </InputGroup>
+                                    <InputGroupText style={{borderColor:" rgb(171, 96, 221)"}}>{Visibile ? <VisibilityOffOutlinedIcon style={{color:" rgb(171, 96, 221)"}} onClick={()=>{onclick();}} /> : <VisibilityIcon style={{color:" rgb(171, 96, 221)"}} onClick={()=>{onclick();}}/>}</InputGroupText>
+                            </InputGroup>
                             <NavLink to="/" className="login_forgotpassword ">Forgot Password ?</NavLink>
                             <InputGroup  >
                                 <Button className="login_Buttonb" size="md" block onClick={() => {handleInputChange();loginToApp(username);}}><strong>Login</strong></Button>

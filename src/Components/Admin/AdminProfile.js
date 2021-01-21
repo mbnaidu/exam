@@ -190,7 +190,6 @@ function AdminProfile() {
                 const [assign,setAssign] = useState("assign");
                 const FINALSUBMIT = () => {        
                     if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && NEWSTUDENTS!="" && NEWQUESTION!="" && TOTALMARKS>0 && STARTTIME!="" && ENDTIME!="" ){
-                        viewModalToggle();
                         setAssign("ASSIGNED")
                         const data = {
                             "subject":SUBJECT,
@@ -264,8 +263,10 @@ function AdminProfile() {
                     <h6>HOME</h6>
                 </Menu.Item>
             {/* PROFILE */}
-                <Menu.Item as='a' active onClick={() =>dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}><PersonIcon  fontSize="large" />
-                    <h6>PROFILE</h6>
+                <Menu.Item as='a' active onClick={() =>dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}>
+                    <h2 class="ui header">
+                        <Image circular size='small'  src='https://react.semantic-ui.com/images/avatar/large/stevie.jpg' />
+                        </h2>
                 </Menu.Item>
             {/* STUDENTS */}
                 <Menu.Item as='a' onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });mtoggle()}}><GroupIcon  fontSize="large" />
@@ -523,6 +524,7 @@ function AdminProfile() {
                                                                             {singleQuestion.map((m)=>{
                                                                                 count = count+1;
                                                                                 let d1 = m.split(",");
+                                                                                console.log(m)
                                                                                 return(
                                                                                 <div>
                                                                                     <Jumbotron>
@@ -560,30 +562,30 @@ function AdminProfile() {
                                                     </Modal>
                                     {/* 3.4 (--ASSIGN TEST--) */}
                                         <Modal isOpen={assignModel} size="lg"  >
-                                                        <ModalHeader ><strong>ASSIGNING TEST</strong></ModalHeader>
-                                                        <ModalBody>
-                                                                <div>
-                                                                    <Jumbotron >
-                                                                        <Container >
-                                                                            <FormControl >
-                                                                                {/* 3.4.1 (--SUBJECT--) */}
-                                                                                    <InputGroup className="box1">
+                                            <ModalHeader ><strong>ASSIGNING TEST</strong></ModalHeader>
+                                                <ModalBody>
+                                                    <div>
+                                                        <Jumbotron >
+                                                            <Container >
+                                                                <FormControl >
+                                                                    {/* 3.4.1 (--SUBJECT--) */}
+                                                                        <InputGroup className="box1">
                                                                                     <Input  value={SUBJECT} onChange={event=> SETSUBJECT(event.target.value)}/>
                                                                                     <InputGroupAddon addonType="append">
                                                                                             <Button className="btn1 "  color={SUBJECT.length>0 ? "green" : "red"} outline >SET SUBJECT</Button>
                                                                                     </InputGroupAddon>
                                                                                 </InputGroup>
-                                                                                    <br />
-                                                                                {/* 3.4.2 (--TOPIC--) */}
-                                                                                    <InputGroup className="box2">
+                                                                    <br />
+                                                                    {/* 3.4.2 (--TOPIC--) */}
+                                                                        <InputGroup className="box2">
                                                                                     <Input value={TOPIC} onChange={event=> SETTOPIC(event.target.value)}/>
                                                                                     <InputGroupAddon addonType="append">
                                                                                         <Button className="btn2" color={TOPIC.length>0 ? "green" : "red"} outline  >SET TOPIC </Button>
                                                                                     </InputGroupAddon>
                                                                                 </InputGroup>
-                                                                                    <br />
-                                                                                {/* 3.4.3 (--DATE--) */}
-                                                                                    <InputGroup className="box3">
+                                                                    <br />
+                                                                    {/* 3.4.3 (--DATE--) */}
+                                                                        <InputGroup className="box3">
                                                                                         <Input placeholder={FROM.length>0 || TO.length >0 ? FROM+"      TO      "+TO : ""} disabled/>
                                                                                         <InputGroupAddon addonType="append">
                                                                                             <Button className="btn3" color={FROM.length>0 && TO.length>0 ? "green" : "red"} outline onClick={()=>{datetoggle();}} >SET DATE</Button>
@@ -618,9 +620,9 @@ function AdminProfile() {
                                                                                             </Modal>
                                                                                         </InputGroupAddon>
                                                                                     </InputGroup>
-                                                                                    <br />
-                                                                                {/* 3.4.4 (--TIME--) */}
-                                                                                    <InputGroup className="box6">
+                                                                    <br />
+                                                                    {/* 3.4.4 (--TIME--) */}
+                                                                        <InputGroup className="box6">
                                                                                         <Input placeholder={STARTTIME.length>0 || ENDTIME.length>0 ? STARTTIME+"     TO    "+ENDTIME : ""} disabled/>
                                                                                         <InputGroupAddon addonType="append">
                                                                                             <Button className="btn3" color={STARTTIME.length>0 && ENDTIME.length>0 ? "green" : "red"} outline onClick={()=>{timetoggle();}} >SET TIME</Button>
@@ -653,9 +655,9 @@ function AdminProfile() {
                                                                                             </Modal>
                                                                                         </InputGroupAddon>
                                                                                     </InputGroup>
-                                                                                    <br/>
-                                                                                {/* 3.4.5 (--STUDENTS--) */}
-                                                                                    <InputGroup className="box4">
+                                                                    <br/>
+                                                                     {/* 3.4.5 (--STUDENTS--) */}
+                                                                        <InputGroup className="box4">
                                                                                         <Input placeholder={NEWSTUDENTS.length>0 ? NEWSTUDENTS.length : ""} disabled/>
                                                                                         <InputGroupAddon addonType="append">
                                                                                             <Button className="btn4" color={NEWSTUDENTS.length>0 ? "green" : "red"} outline onClick={()=>{studenttoggle();}}>SELECT STUDENTS</Button>
@@ -693,9 +695,9 @@ function AdminProfile() {
                                                                                             </Modal>                            
                                                                                         </InputGroupAddon>
                                                                                     </InputGroup>
-                                                                                    <br />
-                                                                                {/* 3.4.6 (--QUESTIONS--) */}
-                                                                                    <InputGroup className="box5">
+                                                                    <br />
+                                                                    {/* 3.4.6 (--QUESTIONS--) */}
+                                                                        <InputGroup className="box5">
                                                                                         <Input  disabled/>
                                                                                         <InputGroupAddon addonType="append">
                                                                                             <div>
@@ -751,26 +753,26 @@ function AdminProfile() {
                                                                                             </div>
                                                                                         </InputGroupAddon>
                                                                                     </InputGroup>
-                                                                                    <br />
-                                                                                {/* 3.4.7 (--TOTAL MARKS--) */}
-                                                                                    <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
+                                                                    <br />
+                                                                    {/* 3.4.7 (--TOTAL MARKS--) */}
+                                                                        <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
                                                                                         <Input value={TOTALMARKS} onChange={event => SETTOTALMARKS(event.target.value)} type="number" />  
                                                                                             <InputGroupAddon addonType="append">
                                                                                             <Button className="btn6" color={TOTALMARKS > 0 ? "green" : "red"} outline  >SET TOTAL MARKS</Button>
                                                                                         </InputGroupAddon>
                                                                                     </InputGroup>
-                                                                                    <br />
-                                                                            </FormControl>
-                                                                        </Container>
-                                                                    </Jumbotron>
-                                                                </div>
-                                                            </ModalBody>
-                                                            {/* 3.4.8 (--SUBMIT--) */}
-                                                        <ModalFooter>
-                                                            <Button onClick={()=>{FINALSUBMIT()}} color={assign == assign ? "red" : "green"}>{assign}</Button>
-                                                            <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });assignModelToggle();}}><strong>CANCEL</strong></Button>{' '}
-                                                        </ModalFooter>
-                                                    </Modal>
+                                                                    <br />
+                                                                </FormControl>
+                                                            </Container>
+                                                        </Jumbotron>
+                                                    </div>
+                                                </ModalBody>
+                                                {/* 3.4.8 (--SUBMIT--) */}
+                                                <ModalFooter>
+                                                    <Button onClick={()=>{FINALSUBMIT()}} color={assign == assign ? "red" : "green"}>{assign}</Button>
+                                                    <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });assignModelToggle();}}><strong>CANCEL</strong></Button>{' '}
+                                                </ModalFooter>
+                                        </Modal>
                             </div>
                         </Segment>
                     </Sidebar.Pusher>
