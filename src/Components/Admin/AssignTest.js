@@ -48,19 +48,17 @@ function AssignTest(props) {
     const [TOTALQUESTIONS,SETTOTALQUESTIONS]=useState(10);
     
     const FINALSUBMIT = () => {
-        // console.log(SUBJECT);
-        // console.log(TOPIC);
-        let submittedDate = currentDay+"-"+currentMonth+"-"+currentYear;
-        
-        // console.log(TO);
-        // console.log(STARTTIME);
-        // console.log(ENDTIME);
-        // console.log(STUDENTS);
-        console.log(QUESTIONS);
-        // console.log(TOTALMARKS);
-        
         if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && STUDENTS!="" && QUESTIONS!="" && TOTALMARKS!="" && STARTTIME!="" && ENDTIME!="" ){
             setAssign("ASSIGNED");
+            console.log(SUBJECT);
+            console.log(TOPIC); 
+            console.log(FROM);       
+            console.log(TO);
+            console.log(STARTTIME);
+            console.log(ENDTIME);
+            console.log(STUDENTS);
+            console.log(QUESTIONS);
+            console.log(TOTALMARKS);
             viewModalToggle();
             const data = {
                 "subject":SUBJECT,
@@ -371,7 +369,7 @@ function AssignTest(props) {
                         </div>
                         <br />
                         <InputGroup className="box5">
-                            <Input placeholder={QUESTIONS.length>0 ? "TOTAL QUESTIONS  " + QUESTIONS.length/6 : ""} disabled/>
+                            <Input placeholder={QUESTIONS.length>0 ? "TOTAL QUESTIONS  " + QUESTIONS.length/7 : ""} disabled/>
                             <InputGroupAddon addonType="append">
                                 <div>
                                     <Button className="btn5" color={QUESTIONS.length>0 ? "success" : "danger"} outline onClick={()=>{toggle();}}>SET QUESTIONS</Button>

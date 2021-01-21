@@ -40,7 +40,7 @@ function Online() {
               alert(res.data.msg);
           } else {
               setUsername(res.data[0].id)
-              // setUsername(12344778)
+              // setUsername("18pa1a01")
           }
       }
   )
@@ -49,13 +49,7 @@ function Online() {
   }
   setQuestionsArray(dataList.questionslist);
   {dataList.questionslist.map((a)=>{
-    let d = a.question.split(",");
-    if(a.answer>0){
-      answers.push(d[7]);
-      }
-    if(a.answer>0){
       answers.push(a.answer);
-    }
     setTestId(a.testId);
   })}
 },[]);
@@ -65,7 +59,7 @@ function Online() {
     const [submit,setSubmit] = useState(false);
     const [array,setArray] = useState([]);
     const [finalArray,setFinalArray] = useState([]);
-  const handleChange = (option,answer) => {
+  const handleChange = (option) => {
       array.push(option);
   };
   const Save = () => {
@@ -143,10 +137,10 @@ function Online() {
                           <CardBody>
                             <FormControl>
                               <RadioGroup>
-                                <label><BlueRadio onChange={()=>{handleChange(1,d1[7],q.answer)}} value="1" size="small" />{d1[3]}{q.option1}</label>
-                                <label><BlueRadio onChange={()=>{handleChange(2,d1[7],q.answer)}}  value="2" size="small"/>{d1[4]}{q.option2}</label>
-                                <label><BlueRadio onChange={()=>{handleChange(3,d1[7],q.answer)}}  value="3" size="small"/>{d1[5]}{q.option3}</label>
-                                <label><BlueRadio onChange={()=>{handleChange(4,d1[7],q.answer)}}  value="4" size="small"/>{d1[6]}{q.option4}</label>
+                                <label><BlueRadio onChange={()=>{handleChange(1)}} value="1" size="small" />{d1[3]}{q.option1}</label>
+                                <label><BlueRadio onChange={()=>{handleChange(2)}}  value="2" size="small"/>{d1[4]}{q.option2}</label>
+                                <label><BlueRadio onChange={()=>{handleChange(3)}}  value="3" size="small"/>{d1[5]}{q.option3}</label>
+                                <label><BlueRadio onChange={()=>{handleChange(4)}}  value="4" size="small"/>{d1[6]}{q.option4}</label>
                               </RadioGroup>
                             </FormControl>
                           </CardBody>
