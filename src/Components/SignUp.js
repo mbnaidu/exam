@@ -51,7 +51,7 @@ function SignUp() {
             if(username.length<4){setUN(true);setUND(false)};
         }
         const password_change = (a,b) =>{
-            if(b === a){setPB(false);setPBD(true)};
+            if(b === a && b != "" && a!=""){setPB(false);setPBD(true)};
             if(b !== a){setPB(true);setPBD(false)};
         }
         const contactNumber_change = (c) => {
@@ -63,7 +63,7 @@ const [viewModal, setViewModal] = useState(false);
 const viewModalToggle = () => setViewModal(true);
     // checking input 
         function onSignupclickHandler() {
-            if(id!="" && username!="" && password1 == password2  && email!="" && contactNumber!=""){
+            if(id!="" && username!="" && password1 == password2  && email!="" && contactNumber!="" && password1 != ""){
                 viewModalToggle();
                 const data = {
                     "id":id,
