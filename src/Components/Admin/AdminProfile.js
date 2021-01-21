@@ -63,7 +63,6 @@ function AdminProfile() {
                     axios.post('http://localhost:3001/getQuestions', {data}).then(
                         function(res) {
                             if(res.data){
-                                console.log(res.data);
                                 {res.data.map((m)=>{
                                     allQuestions[m.testId] = res.data
                                 })}
@@ -211,29 +210,9 @@ function AdminProfile() {
                         )
                     }
                 }
-<<<<<<< HEAD
     // USEEFFECT
         useEffect(() => {
             axios.post('http://localhost:3001/allTests').then(
-=======
-            }
-            const FINALSUBMIT = () => {        
-            if(SUBJECT!="" && TOPIC!="" && FROM!="" && TO!="" && NEWSTUDENTS!="" && NEWQUESTION!="" && TOTALMARKS!="" && STARTTIME!="" && ENDTIME!="" ){
-            viewModalToggle();
-            setAssign("ASSIGNED")
-            const data = {
-                "subject":SUBJECT,
-                "topic":TOPIC,
-                "from":FROM,
-                "to":TO,
-                "starttime":STARTTIME,
-                "endtime":ENDTIME,
-                "students": NEWSTUDENTS,
-                "questions":NEWQUESTION,
-                "total":TOTALMARKS,
-            }
-            axios.post('http://localhost:3001/addTest', {data}).then(
->>>>>>> parent of 383f723... all completed
                 function(res) {
                     if(res.data.msg) {
                         alert(res.data.msg);
@@ -247,7 +226,6 @@ function AdminProfile() {
             const data = {
                 "username":user.username,
             }
-<<<<<<< HEAD
             axios.post('http://localhost:3001/studentDetails',{data}).then(
                 function(res) {
                     if(res.data.msg) {
@@ -258,23 +236,6 @@ function AdminProfile() {
                             setEmail(i.email);
                             setContactNumber(i.contact);
                         })}
-=======
-        }
-    // ALL TEST DETAILS AND GETTING REPORT CARD FOR EVERY STUDENT
-        const show = () => {
-    for(var i=1;i<=students.length;i++){
-    const data = {
-        "id" : i,
-    }
-        axios.post('http://localhost:3001/getQuestions', {data}).then(
-                    function(res) {
-                        if(res.data){
-                            console.log(res.data)
-                            {res.data.map((m)=>{
-                                allQuestions[m.testId] = res.data
-                            })}
-                        }
->>>>>>> parent of 383f723... all completed
                     }
                 }
             )
@@ -486,7 +447,6 @@ function AdminProfile() {
                                                             <Button color="green" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });stoggle();}}><strong>CANCEL</strong></Button>{' '}
                                                 </ModalFooter>
                                             </Modal>
-<<<<<<< HEAD
                                     {/* 3.2 (--ALL TESTS DETAILS--) */}
                                         <Modal isOpen={bmodal} size="lg" toggle={btoggle} >
                                                     <ModalHeader ><strong>All Tests</strong></ModalHeader>
@@ -495,84 +455,6 @@ function AdminProfile() {
                                                                     <Card>
                                                                         <Table  hover bordered responsive>
                                                                             {students.map((s)=>{
-=======
-                                    </div>
-                            {/* CHECK TESTS */}
-                                {/* ASSIGNED TESTS */}
-                                <div>
-                                    <Modal isOpen={smodal} size="lg" toggle={stoggle}>
-                                            <Header color="green" className="pt-3 pl-3" ><strong>Assigned Tests</strong></Header>
-                                                <ModalBody>
-                                                        <Message color="green">
-                                                            <Card>
-                                                                <Table  hover bordered responsive>
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>TEST ID</th>
-                                                                            <th>START DATE</th>
-                                                                            <th>LAST DATE</th>
-                                                                            <th>SUBJECT</th>
-                                                                            <th>TOPIC</th>
-                                                                            <th>STUDENTS</th>
-                                                                            <th>TOTAL MARKS</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    {students.map((s)=>{
-                                                                        var FROM = s.from;
-                                                                        var TO = s.to;
-                                                                        var d1 = FROM.split("-");
-                                                                        var d2 = TO.split("-");
-                                                                        return(
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>{s.id}</td>
-                                                                                <td>{d1[2]+"/"+d1[1]+"/"+d1[0]}</td>
-                                                                                <td>{d2[2]+"/"+d2[1]+"/"+d2[0]}</td>
-                                                                                <td>{s.subject}</td>
-                                                                                <td>{s.topic}</td>
-                                                                                <td>
-                                                                                    <Button color="success" outline onClick={()=>{btoggle();show()}}>
-                                                                                        STUDENTS <Badge color="success" >{s.students.length}</Badge>
-                                                                                    </Button></td>
-                                                                                <td>{s.total}</td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                        )
-                                                                    })}
-                                                                </Table>
-                                                            </Card>
-                                                        </Message>
-                                                    </ModalBody>
-                                            <ModalFooter>
-                                                        <Button color="green" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });stoggle();}}><strong>CANCEL</strong></Button>{' '}
-                                            </ModalFooter>
-                                        </Modal>
-                                </div>
-                                {/* ALL TESTS DETAILS */}
-                                <div>
-                                    <Modal isOpen={bmodal} size="lg" toggle={btoggle} >
-                                            <ModalHeader ><strong>All Tests</strong></ModalHeader>
-                                                <ModalBody>
-                                                        <div>
-                                                            <Card>
-                                                                <Table  hover bordered responsive>
-                                                                    {students.map((s)=>{
-                                                                        return(
-                                                                            <div>
-                                                                                <Button fluid color="blue" onClick={()=>{setQuestionId(s.id);singleQuestionToggle();ques(s.id)}}>
-                                                                                    TEST ID : {s.id}
-                                                                                </Button>
-                                                                                <Jumbotron>
-                                                                                    <Table hover bordered responsive>
-                                                                                        <thead>
-                                                                                            <tr>
-                                                                                                <th>DEATILS</th>
-                                                                                            </tr>
-                                                                                        </thead>
-                                                                                        <tbody>
-                                                                            {s.students.map((j)=>{
-                                                                                var babu = 0;
->>>>>>> parent of 383f723... all completed
                                                                                 return(
                                                                                     <div>
                                                                                         <Button fluid color="blue" onClick={()=>{setQuestionId(s.id);singleQuestionToggle();ques(s.id)}}>
@@ -682,111 +564,6 @@ function AdminProfile() {
                                         <Modal isOpen={assignModel} size="lg"  >
                                             <ModalHeader ><strong>ASSIGNING TEST</strong></ModalHeader>
                                                 <ModalBody>
-<<<<<<< HEAD
-=======
-                                                        <div>
-                                                            <Jumbotron >
-                <Container >
-                    <FormControl >
-                        <InputGroup className="box1">
-                            <Input  value={SUBJECT} onChange={event=> SETSUBJECT(event.target.value)}/>
-                            <InputGroupAddon addonType="append">
-                                    <Button className="btn1 "  color={SUBJECT.length>0 ? "success" : "danger"} outline >SET SUBJECT</Button>
-                            </InputGroupAddon>
-                        </InputGroup>
-                        <br />
-                        <InputGroup className="box2">
-                            <Input value={TOPIC} onChange={event=> SETTOPIC(event.target.value)}/>
-                            <InputGroupAddon addonType="append">
-                                <Button className="btn2" color={TOPIC.length>0 ? "success" : "danger"} outline  >SET TOPIC </Button>
-                            </InputGroupAddon>
-                        </InputGroup>
-                        <br />
-                        <div>
-                            <InputGroup className="box3">
-                                <Input placeholder={FROM.length>0 || TO.length >0 ? FROM+"      TO      "+TO : ""} disabled/>
-                                <InputGroupAddon addonType="append">
-                                    <Button className="btn3" color={FROM.length>0 && TO.length>0 ? "success" : "danger"} outline onClick={()=>{datetoggle();}} >SET DATE</Button>
-                                    <Modal isOpen={datemodal}  >
-                                        <ModalHeader ><strong>D A T E</strong></ModalHeader>
-                                        <ModalBody  size="lg">
-                                        <div>
-                                            <FormGroup>
-                                                <Label> START DATE</Label>
-                                                <Input
-                                                type="date"
-                                                value={FROM}
-                                                onChange={event=>{SETFROM(event.target.value)}}
-                                                placeholder="START DATE  DD-MM-YYYY"
-                                                />
-                                            </FormGroup>
-                                            <FormGroup>
-                                                <Label >END DATE</Label>
-                                                <Input
-                                                type="date"
-                                                value={TO}
-                                                onChange={event=>{SETTO(event.target.value)}}
-                                                placeholder="LAST DATE  DD-MM-YYYY"
-                                                />
-                                            </FormGroup>
-                                        </div>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                        <Button color="primary" onClick={()=>{datetoggle();}}>SET DATE</Button>{' '}
-                                        <Button color="secondary" onClick={datetoggle}>CANCEL</Button>
-                                        </ModalFooter>
-                                    </Modal>
-                                </InputGroupAddon>
-                            </InputGroup>
-                        </div>
-                        <br />
-                        <div>
-                            <InputGroup className="box6">
-                                <Input placeholder={STARTTIME.length>0 || ENDTIME.length>0 ? STARTTIME+"     TO    "+ENDTIME : ""} disabled/>
-                                <InputGroupAddon addonType="append">
-                                    <Button className="btn3" color={STARTTIME.length>0 && ENDTIME.length>0 ? "success" : "danger"} outline onClick={()=>{timetoggle();}} >SET TIME</Button>
-                                    <Modal isOpen={timemodal} >
-                                        <ModalHeader ><strong>D A T E</strong></ModalHeader>
-                                        <ModalBody  size="lg">
-                                        <div>
-                                            <FormGroup>
-                                                <Label> START TIME</Label>
-                                                <Input
-                                                type="time"
-                                                value={STARTTIME}
-                                                onChange={event=>{SETSTARTTIME(event.target.value)}}
-                                                />
-                                            </FormGroup>
-                                            <FormGroup>
-                                                <Label >END TIME</Label>
-                                                <Input
-                                                type="time"
-                                                value={ENDTIME}
-                                                onChange={event=>{SETENDTIME(event.target.value)}}
-                                                />
-                                            </FormGroup>
-                                        </div>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                        <Button color="primary" onClick={()=>{timetoggle();}}>SET TIME</Button>{' '}
-                                        <Button color="secondary" onClick={timetoggle}>CANCEL</Button>
-                                        </ModalFooter>
-                                    </Modal>
-                                </InputGroupAddon>
-                            </InputGroup>
-                        </div>
-                        <br/>
-                        <div>
-                            <InputGroup className="box4">
-                                <Input placeholder={NEWSTUDENTS.length>0 ? NEWSTUDENTS.length : ""} disabled/>
-                                <InputGroupAddon addonType="append">
-                                    <Button className="btn4" color={NEWSTUDENTS.length>0 ? "success" : "danger"} outline onClick={()=>{studenttoggle();}}>SELECT STUDENTS</Button>
-                                    <Modal isOpen={studentmodal}  >
-                                        <ModalHeader ><strong>S T U D E N T S</strong></ModalHeader>
-                                        <ModalBody>
-                                            {allStudentDetails.map((s)=>{  
-                                                return(
->>>>>>> parent of 383f723... all completed
                                                     <div>
                                                         <Jumbotron >
                                                             <Container >
@@ -989,101 +766,9 @@ function AdminProfile() {
                                                             </Container>
                                                         </Jumbotron>
                                                     </div>
-<<<<<<< HEAD
                                                 </ModalBody>
                                                 {/* 3.4.8 (--SUBMIT--) */}
                                                 <ModalFooter>
-=======
-                                                )
-                                            })}
-                                        </ModalBody>
-                                        <ModalFooter>
-                                            <label>
-                                                <input type="checkbox"
-                                                    onClick={()=>{selectAll(allStudentDetails)}}
-                                                />
-                                                SELECT ALL STUDENTS
-                                            </label>
-                                        <Button color="success" onClick={()=>{studenttoggle();handleStudents()}}>SUBMIT</Button>{' '}
-                                        <Button color="danger" onClick={()=>{studenttoggle();}}>Cancel</Button>
-                                        </ModalFooter>
-                                    </Modal>                            
-                                </InputGroupAddon>
-                            </InputGroup>
-                        </div>
-                        <br />
-                        <InputGroup className="box5">
-                            <Input  disabled/>
-                            <InputGroupAddon addonType="append">
-                                <div>
-                                    <Button className="btn5"  onClick={()=>{toggle();}}>SET QUESTIONS</Button>
-                                    <Modal isOpen={modal}   >
-                                        <ModalHeader toggle={toggle}><strong>Q U E S T I O N S</strong></ModalHeader>
-                                        <ModalBody>
-                                        <InputGroup>
-                                            <Input placeholder="NUMBER OF QUESTIONS" type="text"/>
-                                        </InputGroup>
-                                        <br />
-                                        <Button color="success" outline onClick={()=>{toggleNested();}}>SET QUESTIONS</Button>
-                                        <Modal isOpen={nestedModal}  onClosed={closeAll ? toggle : undefined} size="lg">
-                                            <ModalHeader size="lg">Question Paper</ModalHeader>
-                                            <ModalBody size="lg">
-                                                {NEWQUESTION.map((m)=>{
-                                                    let d1 = m.split(",");
-                                                    return(
-                                                        <div>
-                                                            <Jumbotron>
-                                                                            <Label>{count} Question</Label>
-                                                                        <Input value={d1[1]}/>
-                                                                        <Label>
-                                                                            Topic
-                                                                        </Label>
-                                                                        <Input value={d1[2]}/>
-                                                                        <Label>
-                                                                            Options
-                                                                        </Label>
-                                                                        <Input value={d1[3]}/>
-                                                                        <Input value={d1[4]}/>
-                                                                        <Input value={d1[5]}/>
-                                                                        <Input value={d1[6]}/>
-                                                                        <Label>
-                                                                            Answer
-                                                                        </Label>
-                                                                        <Input value={d1[7]}/>
-                                                                    </Jumbotron>
-                                                        </div>
-                                                    )
-                                                })}
-                                            </ModalBody>
-                                            <ModalFooter>
-                                            <Button color="success" onClick={()=>{toggleAll();}}>SUBMIT</Button>
-                                            <Button color="danger" onClick={toggleAll}>CANCEL</Button>
-                                            </ModalFooter>
-                                        </Modal>
-                                        </ModalBody>
-                                        <ModalFooter>
-                                        <Button color="danger" onClick={toggle}>Cancel</Button>
-                                        </ModalFooter>
-                                    </Modal>
-                                </div>
-                            </InputGroupAddon>
-                        </InputGroup>
-                        <br />
-                        <InputGroup className="box6" placeholder={TOTALMARKS>0 ? TOTALMARKS : ""}>
-                            <Input value={TOTALMARKS} onChange={event => SETTOTALMARKS(event.target.value)} type="number" />  
-                                <InputGroupAddon addonType="append">
-                                <Button className="btn6" color={TOTALMARKS > 0 ? "success" : "danger"} outline  >SET TOTAL MARKS</Button>
-                            </InputGroupAddon>
-                        </InputGroup>
-                        <br />
-                        <Button className="btn7"  ><strong>ASSIGN</strong></Button>
-                    </FormControl>
-                </Container>
-            </Jumbotron>
-                                                        </div>
-                                                    </ModalBody>
-                                            <ModalFooter>
->>>>>>> parent of 383f723... all completed
                                                     <Button onClick={()=>{FINALSUBMIT()}} color={assign == assign ? "red" : "green"}>{assign}</Button>
                                                     <Button color="blue" onClick={() => { dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' });assignModelToggle();}}><strong>CANCEL</strong></Button>{' '}
                                                 </ModalFooter>

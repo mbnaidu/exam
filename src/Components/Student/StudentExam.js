@@ -90,8 +90,8 @@ function StudentExam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    // id = res.data[0].id;
-                    id="18pa1a20"
+                    id = res.data[0].id;
+                    // id="18pa1a20"
                 }
             }
         )
