@@ -39,8 +39,8 @@ function Online() {
           if(res.data.msg) {
               alert(res.data.msg);
           } else {
-              setUsername(res.data[0].id)
-              // setUsername(12344778)
+              // setUsername(res.data[0].id)
+              setUsername("18pa1a20")
           }
       }
   )

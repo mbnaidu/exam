@@ -63,6 +63,7 @@ function AdminProfile() {
                     axios.post('http://localhost:3001/getQuestions', {data}).then(
                         function(res) {
                             if(res.data){
+                                console.log(res.data);
                                 {res.data.map((m)=>{
                                     allQuestions[m.testId] = res.data
                                 })}

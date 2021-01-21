@@ -90,8 +90,8 @@ function StudentExam() {
                 if(res.data.msg) {
                     alert(res.data.msg);
                 } else {
-                    id = res.data[0].id;
-                    // id="12344778"
+                    // id = res.data[0].id;
+                    id="18pa1a20"
                 }
             }
         )
@@ -179,6 +179,7 @@ function StudentExam() {
                 axios.post('http://localhost:3001/getQuestions', {data}).then(
                     function(res) {
                         if(res.data){
+                            console.log(res.data)
                                 history.push({
                                     pathname: '/online',
                                     state: res.data
@@ -272,122 +273,122 @@ function StudentExam() {
             <Sidebar.Pusher >
                 <Segment basic>
                 <div >
-            <div>
-                    <Collapse isOpen={isOpen}>
-                        <Card>
-                        <Menu compact>
-                            <MenuItem as='a'>
-                                                <Button color="green" onClick={() => { onToggle(); dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}}><Header>TODAY EXAMS</Header></Button>
-                            <Label color='green' floating>
-                                {present.length}
-                            </Label>
-                            </MenuItem>
-                        </Menu>
-                            <Table celled color="green">
-                                <TableHeader>
-                                <TableRow>
-                                    <TableHeaderCell>SUBJECT</TableHeaderCell>
-                                    <TableHeaderCell>TOPIC</TableHeaderCell>
-                                    <TableHeaderCell>START DATE</TableHeaderCell>
-                                    <TableHeaderCell>LAST DATE</TableHeaderCell>
-                                    <TableHeaderCell>TIMINIGS</TableHeaderCell>
-                                    <TableHeaderCell>TOTAL MARKS</TableHeaderCell>
-                                    <TableHeaderCell>STATUS</TableHeaderCell>
-                                </TableRow>
-                                </TableHeader>
-                                {present.map((u)=>{
-                                    var FROM = u.from;
-                                    var TO = u.to;
-                                    var d2 = TO.split("-");
-                                    var d1 = FROM.split("-");
-                                    var f = false;
-                                    {subarray.map((s)=>{
-                                        if(s.testId == u.id){
-                                            if(s.isSubmitted){
-                                                f = true;
-                                            }
-                                        }
-                                    })}
-                                        return(
-                                            <TableBody>
+                    <div>
+                            <Collapse isOpen={isOpen}>
+                                <Card>
+                                <Menu compact>
+                                    <MenuItem as='a'>
+                                                        <Button color="green" onClick={() => { onToggle(); dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}}><Header>TODAY EXAMS</Header></Button>
+                                    <Label color='green' floating>
+                                        {present.length}
+                                    </Label>
+                                    </MenuItem>
+                                </Menu>
+                                    <Table celled color="green">
+                                        <TableHeader>
                                         <TableRow>
-                                            <TableCell>
-                                            <Label ribbon color="green">{u.subject}</Label>
-                                            </TableCell>
-                                            <TableCell>{u.topic}</TableCell>
-                                            <TableCell>{d1[2]+"-"+d1[1]+"-"+d1[0]}</TableCell>
-                                            <TableCell>{d2[2]+"-"+d2[1]+"-"+d2[0]}</TableCell>
-                                            <TableCell>{u.starttime }{" to "}{ u.endtime}</TableCell>
-                                            <TableCell>{u.total}</TableCell>
-                                            <TableCell>
-                                            <Button animated="vertical" inverted color={f ? "red" : "green"} onClick={()=>{startTest(u.id,u.starttime,u.endtime,f);}}>
-                                                        { f ? (<div>
-                                                            <ButtonContent visible>SUBMITTED</ButtonContent>
-                                                            <ButtonContent hidden>0 Attempts left</ButtonContent>
-                                                        </div>) : (
-                                                            <div>
-                                                                <ButtonContent visible >START</ButtonContent>
-                                                                <ButtonContent hidden>{u.starttime}</ButtonContent>
-                                                            </div>
-                                                        )}
-                                                        </Button>
-                                            </TableCell>
+                                            <TableHeaderCell>SUBJECT</TableHeaderCell>
+                                            <TableHeaderCell>TOPIC</TableHeaderCell>
+                                            <TableHeaderCell>START DATE</TableHeaderCell>
+                                            <TableHeaderCell>LAST DATE</TableHeaderCell>
+                                            <TableHeaderCell>TIMINIGS</TableHeaderCell>
+                                            <TableHeaderCell>TOTAL MARKS</TableHeaderCell>
+                                            <TableHeaderCell>STATUS</TableHeaderCell>
                                         </TableRow>
-                                        </TableBody>
-                                        )
-                                })}
-                            </Table>
-                        </Card>
-                    </Collapse>
-            </div>
-            <div>
-                    <Collapse isOpen={coOpen}>
-                        <Card>
-                        <Menu compact>
-                            <MenuItem as='a'>
-                                                <Button color="orange" onClick={() => { coToggle(); dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}}><Header>UPCOMING EXAMS</Header></Button>
-                            <Label color='orange' floating>
-                                {upcoming.length}
-                            </Label>
-                            </MenuItem>
-                        </Menu>
-                        <Table celled color="orange">
-                            <TableHeader>
-                            <TableRow>
-                                <TableHeaderCell>SUBJECT</TableHeaderCell>
-                                <TableHeaderCell>TOPIC</TableHeaderCell>
-                                <TableHeaderCell>START DATE</TableHeaderCell>
-                                <TableHeaderCell>LAST DATE</TableHeaderCell>
-                                <TableHeaderCell>TIMINIGS</TableHeaderCell>
-                                <TableHeaderCell>TOTAL MARKS</TableHeaderCell>
-                            </TableRow>
-                            </TableHeader>
-                                {upcoming.map((u)=>{
-                                    var FROM = u.from;
-                                    var TO = u.to;
-                                    var d2 = TO.split("-");
-                                    var d1 = FROM.split("-");
-                                    var f = false;
-                                    return (
-                                        <TableBody>
-                                        <TableRow>
-                                            <TableCell>
-                                            <Label ribbon color="orange">{u.subject}</Label>
-                                            </TableCell>
-                                            <TableCell>{u.topic}</TableCell>
-                                            <TableCell>{d1[2]+"-"+d1[1]+"-"+d1[0]}</TableCell>
-                                            <TableCell>{d2[2]+"-"+d2[1]+"-"+d2[0]}</TableCell>
-                                            <TableCell>{u.starttime }{" to "}{ u.endtime}</TableCell>
-                                            <TableCell>{u.total}</TableCell>
-                                        </TableRow>
-                                        </TableBody>
-                                    )
-                                })}
-                            </Table>
-                        </Card>
-                    </Collapse>
-            </div>
-            <div>
+                                        </TableHeader>
+                                        {present.map((u)=>{
+                                            var FROM = u.from;
+                                            var TO = u.to;
+                                            var d2 = TO.split("-");
+                                            var d1 = FROM.split("-");
+                                            var f = false;
+                                            {subarray.map((s)=>{
+                                                if(s.testId == u.id){
+                                                    if(s.isSubmitted){
+                                                        f = true;
+                                                    }
+                                                }
+                                            })}
+                                                return(
+                                                    <TableBody>
+                                                <TableRow>
+                                                    <TableCell>
+                                                    <Label ribbon color="green">{u.subject}</Label>
+                                                    </TableCell>
+                                                    <TableCell>{u.topic}</TableCell>
+                                                    <TableCell>{d1[2]+"-"+d1[1]+"-"+d1[0]}</TableCell>
+                                                    <TableCell>{d2[2]+"-"+d2[1]+"-"+d2[0]}</TableCell>
+                                                    <TableCell>{u.starttime }{" to "}{ u.endtime}</TableCell>
+                                                    <TableCell>{u.total}</TableCell>
+                                                    <TableCell>
+                                                    <Button animated="vertical" inverted color={f ? "red" : "green"} onClick={()=>{startTest(u.id,u.starttime,u.endtime,f);}}>
+                                                                { f ? (<div>
+                                                                    <ButtonContent visible>SUBMITTED</ButtonContent>
+                                                                    <ButtonContent hidden>0 Attempts left</ButtonContent>
+                                                                </div>) : (
+                                                                    <div>
+                                                                        <ButtonContent visible >START</ButtonContent>
+                                                                        <ButtonContent hidden>{u.starttime}</ButtonContent>
+                                                                    </div>
+                                                                )}
+                                                                </Button>
+                                                    </TableCell>
+                                                </TableRow>
+                                                </TableBody>
+                                                )
+                                        })}
+                                    </Table>
+                                </Card>
+                            </Collapse>
+                    </div>
+                    <div>
+                            <Collapse isOpen={coOpen}>
+                                <Card>
+                                <Menu compact>
+                                    <MenuItem as='a'>
+                                                        <Button color="orange" onClick={() => { coToggle(); dispatch({ type: 'CHANGE_ANIMATION', animation: 'scale down' })}}><Header>UPCOMING EXAMS</Header></Button>
+                                    <Label color='orange' floating>
+                                        {upcoming.length}
+                                    </Label>
+                                    </MenuItem>
+                                </Menu>
+                                <Table celled color="orange">
+                                    <TableHeader>
+                                    <TableRow>
+                                        <TableHeaderCell>SUBJECT</TableHeaderCell>
+                                        <TableHeaderCell>TOPIC</TableHeaderCell>
+                                        <TableHeaderCell>START DATE</TableHeaderCell>
+                                        <TableHeaderCell>LAST DATE</TableHeaderCell>
+                                        <TableHeaderCell>TIMINIGS</TableHeaderCell>
+                                        <TableHeaderCell>TOTAL MARKS</TableHeaderCell>
+                                    </TableRow>
+                                    </TableHeader>
+                                        {upcoming.map((u)=>{
+                                            var FROM = u.from;
+                                            var TO = u.to;
+                                            var d2 = TO.split("-");
+                                            var d1 = FROM.split("-");
+                                            var f = false;
+                                            return (
+                                                <TableBody>
+                                                <TableRow>
+                                                    <TableCell>
+                                                    <Label ribbon color="orange">{u.subject}</Label>
+                                                    </TableCell>
+                                                    <TableCell>{u.topic}</TableCell>
+                                                    <TableCell>{d1[2]+"-"+d1[1]+"-"+d1[0]}</TableCell>
+                                                    <TableCell>{d2[2]+"-"+d2[1]+"-"+d2[0]}</TableCell>
+                                                    <TableCell>{u.starttime }{" to "}{ u.endtime}</TableCell>
+                                                    <TableCell>{u.total}</TableCell>
+                                                </TableRow>
+                                                </TableBody>
+                                            )
+                                        })}
+                                    </Table>
+                                </Card>
+                            </Collapse>
+                    </div>
+                    <div>
                     <Collapse isOpen={upOpen}>
                         <Card>
                         <Menu compact>
@@ -433,7 +434,7 @@ function StudentExam() {
                         </Card>
                     </Collapse>
             </div>
-        </div>
+                </div>
                 </Segment>
             </Sidebar.Pusher>
             </Sidebar.Pushable>
